@@ -380,7 +380,7 @@ export default function WorkoutsPage() {
                           )}
                         </>
                       ) : (
-                        <p className="text-primary-foreground/60 text-sm">Complete treinos com cargas registradas para ver a progressão.</p>
+                        <p className="text-primary-foreground/60 text-sm">{t("workouts.completeWorkoutsToSeeProgression", { defaultValue: "Complete treinos com cargas registradas para ver a progressão." })}</p>
                       )}
                     </div>
                   </motion.div>
