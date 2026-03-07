@@ -281,10 +281,10 @@ export default function SocialFeedPage() {
             >
               <BookmarkBold size={32} color="hsl(var(--muted-foreground))" />
               <p className="text-foreground font-bold text-base">
-                {feedMode === "salvos" ? "Nenhum post salvo" : "Sem posts"}
+                {feedMode === "salvos" ? t("social.noSavedPosts") : t("social.noPosts")}
               </p>
               <p className="text-muted-foreground text-sm">
-                {feedMode === "salvos" ? "Toque no ícone de bookmark para salvar posts." : "Tente novamente."}
+                {feedMode === "salvos" ? t("social.savedPostsDesc") : t("social.tryAgain")}
               </p>
             </motion.div>
           ) : (
