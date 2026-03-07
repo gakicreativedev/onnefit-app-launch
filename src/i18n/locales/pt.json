@@ -471,5 +471,63 @@
     "workouts": "Treinos",
     "recipes": "Receitas",
     "updates": "Atualizações"
+  },
+  "landing": {
+    "nav": { "login": "Entrar" },
+    "hero": {
+      "tagline": "Um lugar para sua evolução.",
+      "headline": "Toda sua vida fitness. Em um só lugar.",
+      "subheadline": "O Onne Fit reúne seus treinos, hábitos, progresso e metas em uma única plataforma criada para ajudar você a evoluir com clareza e consistência.",
+      "cta": "Começar minha evolução"
+    },
+    "problem": {
+      "title": "Hoje a jornada fitness é fragmentada.",
+      "p1": "As pessoas usam vários aplicativos para treinos, hábitos, progresso e metas.",
+      "p2": "Isso gera confusão, perda de motivação e resultados inconsistentes.",
+      "p3": "Sua evolução merece algo mais simples.",
+      "conclusion": "Sua evolução merece algo mais simples."
+    },
+    "solution": {
+      "title": "Conheça o Onne Fit.",
+      "p1": "Uma plataforma criada para unificar toda a sua jornada fitness.",
+      "p2": "Em vez de usar vários aplicativos, tudo o que você precisa está em um só lugar.",
+      "pillars": "Planeje. Acompanhe. Evolua."
+    },
+    "features": {
+      "title": "Tudo o que você precisa",
+      "f0": { "title": "Planejamento de Treinos", "desc": "Crie, personalize e siga programas de treino estruturados para seus objetivos." },
+      "f1": { "title": "Acompanhamento de Progresso", "desc": "Visualize sua evolução com gráficos detalhados, medidas e comparação de fotos." },
+      "f2": { "title": "Construção de Hábitos", "desc": "Construa consistência com sequências diárias, recompensas de XP e conquistas." },
+      "f3": { "title": "Gestão de Metas", "desc": "Defina metas claras e acompanhe seu progresso com insights inteligentes." }
+    },
+    "benefits": {
+      "title": "Criado para evolução real",
+      "subtitle": "Mantenha a consistência e o foco com ferramentas que se adaptam ao seu estilo de vida.",
+      "b0": { "title": "Consistência Diária", "desc": "Sequências e lembretes mantêm você presente todos os dias." },
+      "b1": { "title": "Progresso Visível", "desc": "Veja exatamente o quanto você evoluiu com relatórios visuais." },
+      "b2": { "title": "Comunidade", "desc": "Treine com amigos, compartilhe resultados e mantenha a motivação." }
+    },
+    "product": {
+      "title": "Veja em ação",
+      "s0": "Painel de Progresso",
+      "s1": "Rastreador de Treinos",
+      "s2": "Gráficos de Evolução"
+    },
+    "philosophy": {
+      "headline1": "Evolução não é um momento.",
+      "headline2": "É um estilo de vida.",
+      "body": "O Onne Fit foi criado para pessoas que querem melhorar todos os dias."
+    },
+    "social": {
+      "title": "O que as pessoas estão dizendo",
+      "t0": { "quote": "Finalmente um app que substitui quatro. Meu treino nunca foi tão organizado.", "name": "Alex R.", "role": "Usuário pioneiro" },
+      "t1": { "quote": "O acompanhamento de progresso é incrível. Consigo ver minha evolução semana a semana.", "name": "Maria S.", "role": "Entusiasta fitness" },
+      "t2": { "quote": "Simples, bonito e eficaz. Exatamente o que eu precisava para manter a consistência.", "name": "Carlos M.", "role": "Membro da comunidade" }
+    },
+    "cta": {
+      "headline": "Comece sua evolução hoje.",
+      "button": "Começar agora"
+    },
+    "footer": { "rights": "Todos os direitos reservados." }
   }
 }
