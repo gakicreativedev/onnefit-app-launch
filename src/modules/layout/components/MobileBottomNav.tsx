@@ -14,30 +14,31 @@ import {
   RulerAngularBold,
 } from "solar-icon-set";
 import { AnimatePresence, motion } from "framer-motion";
-
-const bottomNav = [
-  { title: "Home", url: "/", icon: HomeBold },
-  { title: "Treino", url: "/workouts", icon: DumbbellBold },
-  { title: "Feed", url: "/social", icon: UsersGroupTwoRoundedBold },
-  { title: "Dieta", url: "/diet", icon: ChefHatBold },
-];
-
-const moreLinks = [
-  { title: "TreinAI", url: "/ai-trainer", icon: BoltCircleBold },
-  { title: "DietAI", url: "/ai-chef", icon: ChefHatHeartBold },
-  { title: "Grupos", url: "/groups", icon: CupBold },
-  { title: "Progresso", url: "/progress", icon: RulerAngularBold },
-];
+import { useTranslation } from "react-i18next";
 
 export function MobileBottomNav() {
   const [moreOpen, setMoreOpen] = useState(false);
   const location = useLocation();
+  const { t } = useTranslation();
+
+  const bottomNav = [
+    { title: t("nav.home"), url: "/", icon: HomeBold },
+    { title: t("nav.workout"), url: "/workouts", icon: DumbbellBold },
+    { title: t("nav.feed"), url: "/social", icon: UsersGroupTwoRoundedBold },
+    { title: t("nav.diet"), url: "/diet", icon: ChefHatBold },
+  ];
+
+  const moreLinks = [
+    { title: t("nav.treinai"), url: "/ai-trainer", icon: BoltCircleBold },
+    { title: t("nav.dietai"), url: "/ai-chef", icon: ChefHatHeartBold },
+    { title: t("nav.groups"), url: "/groups", icon: CupBold },
+    { title: t("nav.progress"), url: "/progress", icon: RulerAngularBold },
+  ];
 
   const isMoreActive = moreLinks.some((l) => location.pathname.startsWith(l.url));
 
   return (
     <>
-      {/* More menu overlay */}
       <AnimatePresence>
         {moreOpen && (
           <>
@@ -76,7 +77,6 @@ export function MobileBottomNav() {
         )}
       </AnimatePresence>
 
-      {/* Bottom navigation bar */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden items-center justify-around border-t border-border/50 bg-card/90 backdrop-blur-xl px-2 pb-[env(safe-area-inset-bottom)] h-[68px] shadow-[0_-4px_20px_rgba(0,0,0,0.15)]">
         {bottomNav.map((item) => {
           const isActive = item.url === "/" ? location.pathname === "/" : location.pathname.startsWith(item.url);
@@ -96,7 +96,6 @@ export function MobileBottomNav() {
                 <item.icon size={22} color="currentColor" />
               </motion.div>
               <span className="text-[10px] font-bold leading-none">{item.title}</span>
-              {/* Active indicator dot */}
               {isActive && (
                 <motion.div
                   layoutId="nav-indicator"
@@ -108,7 +107,6 @@ export function MobileBottomNav() {
           );
         })}
 
-        {/* More button */}
         <button
           onClick={() => setMoreOpen((prev) => !prev)}
           className={`relative flex flex-col items-center justify-center gap-0.5 px-3 py-2 rounded-xl transition-all min-w-[56px] ${moreOpen || isMoreActive ? "text-primary" : "text-muted-foreground"
@@ -121,7 +119,7 @@ export function MobileBottomNav() {
               <HamburgerMenuBold size={22} color="currentColor" />
             )}
           </motion.div>
-          <span className="text-[10px] font-bold leading-none">Mais</span>
+          <span className="text-[10px] font-bold leading-none">{t("nav.more")}</span>
           {isMoreActive && !moreOpen && (
             <motion.div
               className="absolute -bottom-0.5 h-1 w-4 rounded-full bg-primary glow-primary-sm"

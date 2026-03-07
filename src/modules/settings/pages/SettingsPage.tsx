@@ -4,10 +4,12 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { toast } from "sonner";
 import type { AppRole } from "@/modules/auth/hooks/useUserRole";
 import { useTheme, THEMES } from "@/hooks/useTheme";
+import { useTranslation } from "react-i18next";
 import {
   PaletteBold,
   BellBold,
@@ -18,6 +20,7 @@ import {
   TransferHorizontalBold,
   AltArrowDownBold,
   AltArrowUpBold,
+  GlobalBold,
 } from "solar-icon-set";
 
 interface SettingsPageProps {
@@ -29,6 +32,7 @@ interface SettingsPageProps {
 export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: SettingsPageProps) {
   const { signOut } = useAuth();
   const { activeThemeId, setTheme, mode, setMode } = useTheme();
+  const { t, i18n } = useTranslation();
   const isLight = mode === "light";
   const [pushNotifications, setPushNotifications] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(false);
@@ -37,7 +41,7 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
   const [themeOpen, setThemeOpen] = useState(false);
 
   const handleDeleteAccount = () => {
-    toast.error("Entre em contato com o suporte para excluir sua conta.");
+    toast.error(t("settings.deleteAccountMsg"));
   };
 
   const isAdmin = dbRole === "admin";
@@ -46,11 +50,15 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
 
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) ?? THEMES[0];
 
+  const handleLanguageChange = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <div className="flex flex-col gap-6 max-w-2xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Configurações</h1>
-        <p className="text-sm text-muted-foreground mt-1">Gerencie suas preferências do app</p>
+        <h1 className="text-2xl font-bold text-foreground">{t("settings.title")}</h1>
+        <p className="text-sm text-muted-foreground mt-1">{t("settings.subtitle")}</p>
       </div>
 
       {/* Modo de Acesso */}
@@ -58,7 +66,7 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
         <Card className="border-0 bg-card rounded-2xl">
           <CardHeader className="flex flex-row items-center gap-3 pb-2">
             <TransferHorizontalBold size={20} className="text-primary" />
-            <CardTitle className="text-base">Modo de Acesso</CardTitle>
+            <CardTitle className="text-base">{t("settings.accessMode")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {isAdmin && (
@@ -71,11 +79,11 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
                 }`}
               >
                 <div className="text-left">
-                  <span className="block">Painel Admin</span>
-                  <span className="text-xs font-normal opacity-70">Gerenciamento completo do app</span>
+                  <span className="block">{t("settings.adminPanel")}</span>
+                  <span className="text-xs font-normal opacity-70">{t("settings.adminPanelDesc")}</span>
                 </div>
                 {activeRole === "admin" && (
-                  <span className="text-[10px] font-bold bg-destructive text-destructive-foreground px-2 py-0.5 rounded-full">ATIVO</span>
+                  <span className="text-[10px] font-bold bg-destructive text-destructive-foreground px-2 py-0.5 rounded-full">{t("common.active")}</span>
                 )}
               </button>
             )}
@@ -89,11 +97,11 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
               }`}
             >
               <div className="text-left">
-                <span className="block">Modo Personal</span>
-                <span className="text-xs font-normal opacity-70">Painel de personal trainer</span>
+                <span className="block">{t("settings.trainerMode")}</span>
+                <span className="text-xs font-normal opacity-70">{t("settings.trainerModeDesc")}</span>
               </div>
               {activeRole === "professional" && (
-                <span className="text-[10px] font-bold bg-primary text-primary-foreground px-2 py-0.5 rounded-full">ATIVO</span>
+                <span className="text-[10px] font-bold bg-primary text-primary-foreground px-2 py-0.5 rounded-full">{t("common.active")}</span>
               )}
             </button>
 
@@ -106,26 +114,46 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
               }`}
             >
               <div className="text-left">
-                <span className="block">Modo Atleta</span>
-                <span className="text-xs font-normal opacity-70">Acessar como usuário comum</span>
+                <span className="block">{t("settings.athleteMode")}</span>
+                <span className="text-xs font-normal opacity-70">{t("settings.athleteModeDesc")}</span>
               </div>
               {activeRole === "athlete" && (
-                <span className="text-[10px] font-bold bg-primary text-primary-foreground px-2 py-0.5 rounded-full">ATIVO</span>
+                <span className="text-[10px] font-bold bg-primary text-primary-foreground px-2 py-0.5 rounded-full">{t("common.active")}</span>
               )}
             </button>
           </CardContent>
         </Card>
       )}
 
+      {/* Idioma */}
+      <Card className="border-0 bg-card rounded-2xl">
+        <CardHeader className="flex flex-row items-center gap-3 pb-2">
+          <GlobalBold size={20} className="text-primary" />
+          <CardTitle className="text-base">{t("settings.language")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Select value={i18n.language} onValueChange={handleLanguageChange}>
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="pt">{t("common.portuguese")}</SelectItem>
+              <SelectItem value="en">{t("common.english")}</SelectItem>
+              <SelectItem value="es">{t("common.spanish")}</SelectItem>
+            </SelectContent>
+          </Select>
+        </CardContent>
+      </Card>
+
       {/* Aparência */}
       <Card className="border-0 bg-card rounded-2xl overflow-hidden">
         <CardHeader className="flex flex-row items-center gap-3 pb-2">
           <PaletteBold size={20} className="text-primary" />
-          <CardTitle className="text-base">Aparência</CardTitle>
+          <CardTitle className="text-base">{t("settings.appearance")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <Label htmlFor="dark-mode" className="text-sm font-medium">Modo Escuro</Label>
+            <Label htmlFor="dark-mode" className="text-sm font-medium">{t("settings.darkMode")}</Label>
             <Switch
               id="dark-mode"
               checked={!isLight}
@@ -142,8 +170,7 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
               className="flex items-center justify-between w-full"
             >
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium">Cor do Tema</span>
-                {/* Preview da cor ativa */}
+                <span className="text-sm font-medium">{t("settings.themeColor")}</span>
                 <span
                   className="inline-block h-5 w-5 rounded-full ring-2 ring-offset-2 ring-offset-card"
                   style={{ background: `hsl(${activeTheme.primary})` }}
@@ -195,24 +222,24 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
       <Card className="border-0 bg-card rounded-2xl">
         <CardHeader className="flex flex-row items-center gap-3 pb-2">
           <BellBold size={20} className="text-primary" />
-          <CardTitle className="text-base">Notificações</CardTitle>
+          <CardTitle className="text-base">{t("settings.notifications")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <Label htmlFor="push" className="text-sm font-medium">Push Notifications</Label>
+            <Label htmlFor="push" className="text-sm font-medium">{t("settings.pushNotifications")}</Label>
             <Switch id="push" checked={pushNotifications} onCheckedChange={setPushNotifications} />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="email" className="text-sm font-medium">E-mail Notifications</Label>
+            <Label htmlFor="email" className="text-sm font-medium">{t("settings.emailNotifications")}</Label>
             <Switch id="email" checked={emailNotifications} onCheckedChange={setEmailNotifications} />
           </div>
           <Separator />
           <div className="flex items-center justify-between">
-            <Label htmlFor="workout-reminder" className="text-sm font-medium">Lembrete de Treino</Label>
+            <Label htmlFor="workout-reminder" className="text-sm font-medium">{t("settings.workoutReminder")}</Label>
             <Switch id="workout-reminder" checked={workoutReminder} onCheckedChange={setWorkoutReminder} />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="water-reminder" className="text-sm font-medium">Lembrete de Água</Label>
+            <Label htmlFor="water-reminder" className="text-sm font-medium">{t("settings.waterReminder")}</Label>
             <Switch id="water-reminder" checked={waterReminder} onCheckedChange={setWaterReminder} />
           </div>
         </CardContent>
@@ -222,12 +249,10 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
       <Card className="border-0 bg-card rounded-2xl">
         <CardHeader className="flex flex-row items-center gap-3 pb-2">
           <ShieldKeyholeBold size={20} className="text-primary" />
-          <CardTitle className="text-base">Privacidade & Segurança</CardTitle>
+          <CardTitle className="text-base">{t("settings.privacy")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          <p className="text-sm text-muted-foreground">
-            Seus dados são protegidos e criptografados. Nenhuma informação é compartilhada com terceiros.
-          </p>
+          <p className="text-sm text-muted-foreground">{t("settings.privacyDesc")}</p>
         </CardContent>
       </Card>
 
@@ -235,15 +260,15 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
       <Card className="border-0 bg-card rounded-2xl">
         <CardHeader className="flex flex-row items-center gap-3 pb-2">
           <InfoCircleBold size={20} className="text-primary" />
-          <CardTitle className="text-base">Sobre</CardTitle>
+          <CardTitle className="text-base">{t("settings.about")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Versão</span>
+            <span className="text-muted-foreground">{t("common.version")}</span>
             <span className="text-foreground font-medium">1.0.0</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Desenvolvido por</span>
+            <span className="text-muted-foreground">{t("common.developedBy")}</span>
             <span className="text-foreground font-medium">FitSoul</span>
           </div>
         </CardContent>
@@ -257,7 +282,7 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
           onClick={signOut}
         >
           <Logout3Bold size={18} color="currentColor" />
-          Sair da conta
+          {t("settings.signOut")}
         </Button>
         <Button
           variant="outline"
@@ -265,7 +290,7 @@ export default function SettingsPage({ dbRole, activeRole, onSwitchRole }: Setti
           onClick={handleDeleteAccount}
         >
           <TrashBin2Bold size={18} color="currentColor" />
-          Excluir minha conta
+          {t("settings.deleteAccount")}
         </Button>
       </div>
     </div>
