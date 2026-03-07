@@ -198,10 +198,10 @@ export default function SocialFeedPage() {
             onClick={() => setWomenOnlyPostOpen(true)}
             whileTap={{ scale: 0.95 }}
             className="flex items-center justify-center gap-2 rounded-xl bg-destructive py-2.5 px-4 text-destructive-foreground text-sm font-bold hover:brightness-110 transition-all"
-            title="Post apenas para mulheres"
+            title={t("social.feminine")}
           >
             <WomenBold size={18} color="currentColor" />
-            Feminino
+            {t("social.feminine")}
           </motion.button>
         )}
       </div>
