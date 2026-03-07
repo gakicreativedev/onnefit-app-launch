@@ -293,18 +293,29 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                  <div className="space-y-2"><Label>{t("profile.weightKg")}</Label><Input type="number" value={pd.form.weight_kg} onChange={(e) => pd.setForm({ ...pd.form, weight_kg: Number(e.target.value) })} /></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>Objetivo</Label>
-                  <Select value={pd.form.goal} onValueChange={(v) => pd.setForm({ ...pd.form, goal: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="lose_weight">Perder Peso</SelectItem><SelectItem value="gain_muscle">Ganhar Músculo</SelectItem><SelectItem value="recomposition">Recomposição Corporal</SelectItem><SelectItem value="maintain">Manter</SelectItem></SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2"><Label>Nível de Atividade</Label>
-                  <Select value={pd.form.activity_level} onValueChange={(v) => pd.setForm({ ...pd.form, activity_level: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="sedentary">Sedentário</SelectItem><SelectItem value="light">Leve</SelectItem><SelectItem value="moderate">Moderado</SelectItem><SelectItem value="active">Ativo</SelectItem><SelectItem value="very_active">Muito Ativo</SelectItem></SelectContent>
-                  </Select>
-                </div>
+                 <div className="space-y-2"><Label>{t("profile.goal")}</Label>
+                   <Select value={pd.form.goal} onValueChange={(v) => pd.setForm({ ...pd.form, goal: v })}>
+                     <SelectTrigger><SelectValue /></SelectTrigger>
+                     <SelectContent>
+                       <SelectItem value="lose_weight">{t("gamification.goalLabels.lose_weight")}</SelectItem>
+                       <SelectItem value="gain_muscle">{t("gamification.goalLabels.gain_muscle")}</SelectItem>
+                       <SelectItem value="recomposition">{t("gamification.goalLabels.recomposition")}</SelectItem>
+                       <SelectItem value="maintain">{t("gamification.goalLabels.maintain")}</SelectItem>
+                     </SelectContent>
+                   </Select>
+                 </div>
+                 <div className="space-y-2"><Label>{t("profile.activityLevel")}</Label>
+                   <Select value={pd.form.activity_level} onValueChange={(v) => pd.setForm({ ...pd.form, activity_level: v })}>
+                     <SelectTrigger><SelectValue /></SelectTrigger>
+                     <SelectContent>
+                       <SelectItem value="sedentary">{t("onboarding.activityLevels.sedentary")}</SelectItem>
+                       <SelectItem value="light">{t("onboarding.activityLevels.light")}</SelectItem>
+                       <SelectItem value="moderate">{t("onboarding.activityLevels.moderate")}</SelectItem>
+                       <SelectItem value="active">{t("onboarding.activityLevels.active")}</SelectItem>
+                       <SelectItem value="very_active">{t("onboarding.activityLevels.very_active")}</SelectItem>
+                     </SelectContent>
+                   </Select>
+                 </div>
               </div>
               <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? "Salvando..." : "Salvar Alterações"}</Button>
             </CardContent>
