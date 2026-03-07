@@ -1,6 +1,7 @@
 import { DumbbellBold, CheckCircleBold, PlayBold } from "solar-icon-set";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface DailyWorkoutCardProps {
   workoutName: string;
@@ -10,10 +11,10 @@ interface DailyWorkoutCardProps {
 
 export function DailyWorkoutCard({ workoutName, workoutCompleted, onStartWorkout }: DailyWorkoutCardProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <section className="relative flex flex-col justify-between gap-4 sm:gap-6 rounded-[20px] sm:rounded-[28px] bg-primary p-5 sm:p-8 overflow-hidden min-h-[220px] sm:min-h-[260px] h-full">
-      {/* Decorative icon */}
       <DumbbellBold
         size={180}
         color="currentColor"
@@ -23,7 +24,7 @@ export function DailyWorkoutCard({ workoutName, workoutCompleted, onStartWorkout
       <div className="relative z-10 flex flex-col gap-4">
         <span className="inline-flex items-center self-start gap-1.5 rounded-full bg-primary-foreground/15 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-primary-foreground uppercase tracking-wider">
           <PlayBold size={10} color="currentColor" />
-          Treino do Dia
+          {t("dashboard.workoutOfTheDay")}
         </span>
 
         <h2
@@ -38,14 +39,14 @@ export function DailyWorkoutCard({ workoutName, workoutCompleted, onStartWorkout
         {workoutCompleted ? (
           <div className="flex items-center gap-2 rounded-2xl bg-primary-foreground/15 backdrop-blur-sm px-5 py-2.5">
             <CheckCircleBold size={18} color="currentColor" className="text-primary-foreground" />
-            <span className="font-bold text-primary-foreground text-sm">Concluído!</span>
+            <span className="font-bold text-primary-foreground text-sm">{t("dashboard.completed")}</span>
           </div>
         ) : (
           <Button
             onClick={() => navigate("/workouts")}
             className="rounded-2xl bg-card text-primary px-6 py-2.5 font-bold hover:bg-card/90 transition-all border-0 shadow-lg shadow-card/20"
           >
-            Começar Treino
+            {t("dashboard.startWorkout")}
           </Button>
         )}
         <Button
@@ -53,7 +54,7 @@ export function DailyWorkoutCard({ workoutName, workoutCompleted, onStartWorkout
           onClick={() => navigate("/workouts")}
           className="rounded-2xl px-5 py-2.5 font-bold text-primary-foreground hover:bg-primary-foreground/10 border-0"
         >
-          Ver Treinos →
+          {t("dashboard.viewWorkouts")}
         </Button>
       </div>
     </section>

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { StepIndicator } from "../components/StepIndicator";
 import { PersonalInfoStep } from "../components/steps/PersonalInfoStep";
 import { GoalStep } from "../components/steps/GoalStep";
@@ -18,33 +19,14 @@ interface OnboardingPageProps {
 const STEP_COMPONENTS = [PersonalInfoStep, GoalStep, ActivityLevelStep, HealthRestrictionsStep];
 
 const stepVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 80 : -80,
-    opacity: 0,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -80 : 80,
-    opacity: 0,
-  }),
+  enter: (direction: number) => ({ x: direction > 0 ? 80 : -80, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({ x: direction > 0 ? -80 : 80, opacity: 0 }),
 };
 
 export default function OnboardingPage({ onComplete }: OnboardingPageProps) {
-  const {
-    step,
-    direction,
-    data,
-    loading,
-    update,
-    handleNext,
-    handleBack,
-    handleFinish,
-    isLastStep,
-    isFirstStep,
-  } = useOnboarding(onComplete);
+  const { step, direction, data, loading, update, handleNext, handleBack, handleFinish, isLastStep, isFirstStep } = useOnboarding(onComplete);
+  const { t } = useTranslation();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -61,15 +43,7 @@ export default function OnboardingPage({ onComplete }: OnboardingPageProps) {
         </CardHeader>
         <CardContent className="space-y-6">
           <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={step}
-              custom={direction}
-              variants={stepVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-            >
+            <motion.div key={step} custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25, ease: "easeInOut" }}>
               <StepComponent data={data} onUpdate={update} />
             </motion.div>
           </AnimatePresence>
@@ -77,28 +51,25 @@ export default function OnboardingPage({ onComplete }: OnboardingPageProps) {
           <div className="flex gap-3">
             {!isFirstStep && (
               <Button variant="outline" onClick={handleBack} className="flex-1">
-                <ArrowLeft className="mr-2 h-4 w-4" /> Voltar
+                <ArrowLeft className="mr-2 h-4 w-4" /> {t("common.back")}
               </Button>
             )}
             {!isLastStep ? (
               <Button onClick={handleNext} className="flex-1">
-                Próximo <ArrowRight className="ml-2 h-4 w-4" />
+                {t("common.next")} <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             ) : (
               <Button onClick={handleFinish} disabled={loading} className="flex-1">
-                {loading ? "Salvando..." : "Começar Sua Jornada"}
+                {loading ? t("common.saving") : t("onboarding.startJourney")}
               </Button>
             )}
           </div>
         </CardContent>
       </Card>
 
-      <button
-        onClick={handleSignOut}
-        className="mt-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
+      <button onClick={handleSignOut} className="mt-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
         <LogOut className="h-4 w-4" />
-        Sair e voltar ao login
+        {t("onboarding.signOutAndBack")}
       </button>
     </div>
   );

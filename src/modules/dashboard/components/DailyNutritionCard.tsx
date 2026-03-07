@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import type { Profile } from "@/modules/auth/hooks/useProfile";
 import { calculateProteinTarget, calculateWaterTargetL } from "@/lib/nutrition";
 
@@ -45,14 +46,8 @@ interface FatSecretFood {
   fat: number;
 }
 
-const MEAL_LABELS: Record<string, string> = {
-  breakfast: "Café da Manhã",
-  lunch: "Almoço",
-  snack: "Lanche",
-  dinner: "Jantar",
-};
-
 export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWater, onAddFood, onDeleteFood }: DailyNutritionCardProps) {
+  const { t } = useTranslation();
   const [expandedMeal, setExpandedMeal] = useState<string | null>(null);
   const [addDialog, setAddDialog] = useState<{ open: boolean; mealTime: string }>({ open: false, mealTime: "" });
 
@@ -123,7 +118,7 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
 
   const handleSubmitFood = () => {
     if (manualMode) {
-      if (!manualForm.name.trim()) { toast.error("Informe o nome do alimento"); return; }
+      if (!manualForm.name.trim()) { toast.error(t("nutrition.informFoodName")); return; }
       onAddFood(addDialog.mealTime, manualForm);
     } else if (selectedFood) {
       onAddFood(addDialog.mealTime, {
@@ -135,11 +130,15 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
         fat: selectedFood.fat,
       });
     } else {
-      toast.error("Selecione um alimento");
+      toast.error(t("nutrition.selectFood"));
       return;
     }
     setAddDialog({ open: false, mealTime: "" });
-    toast.success("Alimento adicionado!");
+    toast.success(t("nutrition.foodAdded"));
+  };
+
+  const getMealLabel = (mealTime: string) => {
+    return t(`dashboard.mealLabels.${mealTime}`, { defaultValue: mealTime });
   };
 
   return (
@@ -151,17 +150,16 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
               <ChefHatBold size={18} color="hsl(var(--primary))" />
             </div>
             <h2 className="text-lg sm:text-xl font-black uppercase text-card-foreground tracking-tight" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-              DIETA
+              {t("dashboard.diet")}
             </h2>
           </div>
         </header>
 
-        {/* Compact macros row */}
         <div className="grid grid-cols-3 gap-2">
           {[
-            { label: "Calorias", current: totalCalories, target: calorieTarget, unit: "", percent: caloriePercent },
-            { label: "Proteína", current: totalProtein, target: proteinTarget, unit: "g", percent: proteinPercent },
-            { label: "Água", current: waterLiters.toFixed(1), target: waterTargetL, unit: "L", percent: waterPercent },
+            { label: t("dashboard.calories"), current: totalCalories, target: calorieTarget, unit: "", percent: caloriePercent },
+            { label: t("dashboard.protein"), current: totalProtein, target: proteinTarget, unit: "g", percent: proteinPercent },
+            { label: t("dashboard.water"), current: waterLiters.toFixed(1), target: waterTargetL, unit: "L", percent: waterPercent },
           ].map((m) => (
             <div key={m.label} className="flex flex-col gap-1.5 rounded-2xl bg-background p-3">
               <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{m.label}</span>
@@ -176,7 +174,6 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
           ))}
         </div>
 
-        {/* Water buttons */}
         <div className="flex items-center gap-2">
           {[250, 500].map((ml) => (
             <button key={ml} onClick={() => onAddWater(ml)} className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-background px-3 py-2 hover:bg-sidebar-accent transition-colors">
@@ -186,7 +183,6 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
           ))}
         </div>
 
-        {/* Meal slots */}
         <div className="flex flex-col gap-1.5">
           {mealSlots.map((slot) => {
             const slotCalories = slot.items.reduce((s, i) => s + i.calories, 0);
@@ -196,7 +192,7 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
                 <button onClick={() => setExpandedMeal(isExpanded ? null : slot.key)} className="flex items-center justify-between w-full px-3 py-3 hover:bg-sidebar-accent/50 transition-colors">
                   <div className="flex items-center gap-2">
                     <h3 className="text-sm font-bold text-card-foreground">{slot.label}</h3>
-                    <span className="text-[10px] text-muted-foreground">{slot.items.length} {slot.items.length === 1 ? "item" : "itens"}</span>
+                    <span className="text-[10px] text-muted-foreground">{slot.items.length} {slot.items.length === 1 ? t("common.item") : t("common.items")}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-primary">{slotCalories} kcal</span>
@@ -205,7 +201,7 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
                 </button>
                 {isExpanded && (
                   <div className="px-3 pb-3 space-y-1.5">
-                    {slot.items.length === 0 && <p className="text-xs text-muted-foreground py-1.5">Nenhum alimento registrado</p>}
+                    {slot.items.length === 0 && <p className="text-xs text-muted-foreground py-1.5">{t("nutrition.noFoodRegistered")}</p>}
                     {slot.items.map((item) => (
                       <div key={item.id} className="flex items-center justify-between rounded-lg bg-card px-2.5 py-2">
                         <div className="flex flex-col min-w-0">
@@ -224,7 +220,7 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
                     ))}
                     <button onClick={() => openAddDialog(slot.key)} className="flex items-center gap-1.5 w-full rounded-lg border border-dashed border-muted-foreground/30 px-2.5 py-2 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary transition-colors">
                       <AddCircleBold size={12} color="currentColor" />
-                      <span>Adicionar alimento</span>
+                      <span>{t("nutrition.addFood")}</span>
                     </button>
                   </div>
                 )}
@@ -234,11 +230,10 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
         </div>
       </section>
 
-      {/* Add food dialog */}
       <Dialog open={addDialog.open} onOpenChange={(open) => !open && setAddDialog({ open: false, mealTime: "" })}>
         <DialogContent className="max-w-md max-h-[85vh] flex flex-col">
           <DialogHeader>
-            <DialogTitle>Adicionar em {MEAL_LABELS[addDialog.mealTime] || ""}</DialogTitle>
+            <DialogTitle>{t("nutrition.addTo", { meal: getMealLabel(addDialog.mealTime) })}</DialogTitle>
           </DialogHeader>
 
           {!manualMode ? (
@@ -248,7 +243,7 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
                 <Input
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setSelectedFood(null); }}
-                  placeholder="Buscar alimento... (ex: arroz, frango)"
+                  placeholder={t("nutrition.searchFood")}
                   className="pl-10"
                   maxLength={100}
                 />
@@ -284,14 +279,14 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
                       <p className="text-sm font-bold text-card-foreground">{selectedFood.name}</p>
                       {selectedFood.brand && <p className="text-xs text-muted-foreground">{selectedFood.brand}</p>}
                     </div>
-                    <button onClick={() => setSelectedFood(null)} className="text-xs text-muted-foreground hover:text-foreground">Trocar</button>
+                    <button onClick={() => setSelectedFood(null)} className="text-xs text-muted-foreground hover:text-foreground">{t("common.change")}</button>
                   </div>
                   <div className="grid grid-cols-4 gap-2 text-center">
                     {[
                       { v: selectedFood.calories, l: "kcal", primary: true },
-                      { v: `${selectedFood.protein}g`, l: "Prot" },
-                      { v: `${selectedFood.carbs}g`, l: "Carb" },
-                      { v: `${selectedFood.fat}g`, l: "Gord" },
+                      { v: `${selectedFood.protein}g`, l: t("nutrition.prot") },
+                      { v: `${selectedFood.carbs}g`, l: t("nutrition.carb") },
+                      { v: `${selectedFood.fat}g`, l: t("nutrition.fat") },
                     ].map((x) => (
                       <div key={x.l} className="rounded-lg bg-background p-2">
                         <p className={`text-lg font-bold ${x.primary ? "text-primary" : "text-card-foreground"}`}>{x.v}</p>
@@ -300,53 +295,53 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
                     ))}
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-xs">Quantidade</Label>
-                    <Input value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Ex: 150g, 1 porção" maxLength={50} />
+                    <Label className="text-xs">{t("nutrition.quantity")}</Label>
+                    <Input value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder={t("nutrition.quantityPlaceholder")} maxLength={50} />
                   </div>
                 </div>
               )}
 
               <button onClick={() => setManualMode(true)} className="text-xs text-muted-foreground hover:text-primary transition-colors self-center mt-1">
-                Não encontrou? Adicionar manualmente
+                {t("nutrition.notFound")}
               </button>
             </div>
           ) : (
             <div className="space-y-3 py-2">
               <div className="space-y-1">
-                <Label>Alimento</Label>
-                <Input value={manualForm.name} onChange={(e) => setManualForm({ ...manualForm, name: e.target.value })} placeholder="Ex: Arroz integral" maxLength={100} />
+                <Label>{t("nutrition.foodName")}</Label>
+                <Input value={manualForm.name} onChange={(e) => setManualForm({ ...manualForm, name: e.target.value })} placeholder={t("nutrition.foodNamePlaceholder")} maxLength={100} />
               </div>
               <div className="space-y-1">
-                <Label>Quantidade</Label>
-                <Input value={manualForm.quantity} onChange={(e) => setManualForm({ ...manualForm, quantity: e.target.value })} placeholder="Ex: 150g, 1 xícara" maxLength={50} />
+                <Label>{t("nutrition.quantity")}</Label>
+                <Input value={manualForm.quantity} onChange={(e) => setManualForm({ ...manualForm, quantity: e.target.value })} placeholder={t("nutrition.quantityPlaceholder")} maxLength={50} />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <Label>Calorias (kcal)</Label>
+                  <Label>{t("nutrition.caloriesKcal")}</Label>
                   <Input type="number" value={manualForm.calories || ""} onChange={(e) => setManualForm({ ...manualForm, calories: Number(e.target.value) })} />
                 </div>
                 <div className="space-y-1">
-                  <Label>Proteína (g)</Label>
+                  <Label>{t("nutrition.proteinG")}</Label>
                   <Input type="number" value={manualForm.protein || ""} onChange={(e) => setManualForm({ ...manualForm, protein: Number(e.target.value) })} />
                 </div>
                 <div className="space-y-1">
-                  <Label>Carboidrato (g)</Label>
+                  <Label>{t("nutrition.carbG")}</Label>
                   <Input type="number" value={manualForm.carbs || ""} onChange={(e) => setManualForm({ ...manualForm, carbs: Number(e.target.value) })} />
                 </div>
                 <div className="space-y-1">
-                  <Label>Gordura (g)</Label>
+                  <Label>{t("nutrition.fatG")}</Label>
                   <Input type="number" value={manualForm.fat || ""} onChange={(e) => setManualForm({ ...manualForm, fat: Number(e.target.value) })} />
                 </div>
               </div>
               <button onClick={() => setManualMode(false)} className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                ← Voltar para busca
+                {t("nutrition.backToSearch")}
               </button>
             </div>
           )}
 
           <DialogFooter>
-            <Button variant="secondary" onClick={() => setAddDialog({ open: false, mealTime: "" })}>Cancelar</Button>
-            <Button onClick={handleSubmitFood} disabled={!manualMode && !selectedFood}>Salvar</Button>
+            <Button variant="secondary" onClick={() => setAddDialog({ open: false, mealTime: "" })}>{t("common.cancel")}</Button>
+            <Button onClick={handleSubmitFood} disabled={!manualMode && !selectedFood}>{t("common.save")}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

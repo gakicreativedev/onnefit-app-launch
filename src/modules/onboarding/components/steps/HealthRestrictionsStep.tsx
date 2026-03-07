@@ -1,5 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { TagInput } from "../TagInput";
+import { useTranslation } from "react-i18next";
 import type { OnboardingData } from "../../types";
 
 interface HealthRestrictionsStepProps {
@@ -8,38 +9,26 @@ interface HealthRestrictionsStepProps {
 }
 
 export function HealthRestrictionsStep({ data, onUpdate }: HealthRestrictionsStepProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <Label>Lesões ou Limitações Físicas</Label>
-        <p className="text-xs text-muted-foreground">Ex: hérnia de disco, tendinite no ombro</p>
-        <TagInput
-          tags={data.injuries}
-          onChange={(t) => onUpdate("injuries", t)}
-          placeholder="Adicionar lesão..."
-        />
+        <Label>{t("onboarding.injuries")}</Label>
+        <p className="text-xs text-muted-foreground">{t("onboarding.injuriesDesc")}</p>
+        <TagInput tags={data.injuries} onChange={(tags) => onUpdate("injuries", tags)} placeholder={t("onboarding.injuriesPlaceholder")} />
       </div>
       <div className="space-y-2">
-        <Label>Alergias Alimentares</Label>
-        <p className="text-xs text-muted-foreground">Ex: lactose, glúten, amendoim</p>
-        <TagInput
-          tags={data.allergies}
-          onChange={(t) => onUpdate("allergies", t)}
-          placeholder="Adicionar alergia..."
-        />
+        <Label>{t("onboarding.allergies")}</Label>
+        <p className="text-xs text-muted-foreground">{t("onboarding.allergiesDesc")}</p>
+        <TagInput tags={data.allergies} onChange={(tags) => onUpdate("allergies", tags)} placeholder={t("onboarding.allergiesPlaceholder")} />
       </div>
       <div className="space-y-2">
-        <Label>Restrições Alimentares</Label>
-        <p className="text-xs text-muted-foreground">Ex: vegetariano, vegano, sem açúcar</p>
-        <TagInput
-          tags={data.dietary_restrictions}
-          onChange={(t) => onUpdate("dietary_restrictions", t)}
-          placeholder="Adicionar restrição..."
-        />
+        <Label>{t("onboarding.dietaryRestrictions")}</Label>
+        <p className="text-xs text-muted-foreground">{t("onboarding.dietaryRestrictionsDesc")}</p>
+        <TagInput tags={data.dietary_restrictions} onChange={(tags) => onUpdate("dietary_restrictions", tags)} placeholder={t("onboarding.dietaryRestrictionsPlaceholder")} />
       </div>
-      <p className="text-xs text-muted-foreground text-center">
-        Essas informações são privadas e serão usadas pela IA para personalizar seus treinos e dietas.
-      </p>
+      <p className="text-xs text-muted-foreground text-center">{t("onboarding.privacyNote")}</p>
     </div>
   );
 }

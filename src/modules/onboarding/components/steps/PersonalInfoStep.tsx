@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatDateInput, isValidDate, calculateAge } from "../../utils";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import type { OnboardingData } from "../../types";
 
 interface PersonalInfoStepProps {
@@ -19,104 +20,63 @@ function sanitizeUsername(value: string) {
 
 export function PersonalInfoStep({ data, onUpdate }: PersonalInfoStepProps) {
   const [usernameStatus, setUsernameStatus] = useState<"idle" | "checking" | "available" | "taken">("idle");
+  const { t } = useTranslation();
 
   const handleUsernameChange = async (raw: string) => {
     const clean = sanitizeUsername(raw);
     onUpdate("username", clean);
-
-    if (!USERNAME_REGEX.test(clean)) {
-      setUsernameStatus("idle");
-      return;
-    }
-
+    if (!USERNAME_REGEX.test(clean)) { setUsernameStatus("idle"); return; }
     setUsernameStatus("checking");
-    const { data: existing } = await supabase
-      .from("profiles")
-      .select("id")
-      .eq("username", clean)
-      .maybeSingle();
-
+    const { data: existing } = await supabase.from("profiles").select("id").eq("username", clean).maybeSingle();
     setUsernameStatus(existing ? "taken" : "available");
   };
 
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <Label>Nome</Label>
-        <Input
-          value={data.name}
-          onChange={(e) => onUpdate("name", e.target.value)}
-          placeholder="Seu nome"
-          maxLength={60}
-        />
+        <Label>{t("onboarding.name")}</Label>
+        <Input value={data.name} onChange={(e) => onUpdate("name", e.target.value)} placeholder={t("onboarding.namePlaceholder")} maxLength={60} />
       </div>
       <div className="space-y-2">
-        <Label>Nome de usuário</Label>
+        <Label>{t("onboarding.username")}</Label>
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">@</span>
-          <Input
-            value={data.username}
-            onChange={(e) => handleUsernameChange(e.target.value)}
-            placeholder="seu.usuario"
-            maxLength={20}
-            className="pl-8"
-          />
+          <Input value={data.username} onChange={(e) => handleUsernameChange(e.target.value)} placeholder={t("onboarding.usernamePlaceholder")} maxLength={20} className="pl-8" />
         </div>
         {data.username.length > 0 && (
-          <p className={`text-xs ${
-            usernameStatus === "checking" ? "text-muted-foreground" :
-            usernameStatus === "available" ? "text-green-500" :
-            usernameStatus === "taken" ? "text-destructive" :
-            !USERNAME_REGEX.test(data.username) ? "text-destructive" :
-            "text-muted-foreground"
-          }`}>
-            {usernameStatus === "checking" ? "Verificando..." :
-             usernameStatus === "available" ? "Disponível ✓" :
-             usernameStatus === "taken" ? "Já está em uso" :
-             !USERNAME_REGEX.test(data.username) ? "3-20 caracteres (letras, números, . e _)" :
-             ""}
+          <p className={`text-xs ${usernameStatus === "checking" ? "text-muted-foreground" : usernameStatus === "available" ? "text-green-500" : usernameStatus === "taken" ? "text-destructive" : !USERNAME_REGEX.test(data.username) ? "text-destructive" : "text-muted-foreground"}`}>
+            {usernameStatus === "checking" ? t("onboarding.checking") :
+             usernameStatus === "available" ? t("onboarding.available") :
+             usernameStatus === "taken" ? t("onboarding.taken") :
+             !USERNAME_REGEX.test(data.username) ? t("onboarding.usernameRules") : ""}
           </p>
         )}
       </div>
       <div className="space-y-2">
-        <Label>Data de Nascimento</Label>
-        <Input
-          value={data.date_of_birth}
-          onChange={(e) => onUpdate("date_of_birth", formatDateInput(e.target.value))}
-          placeholder="DD/MM/AAAA"
-          maxLength={10}
-          inputMode="numeric"
-        />
+        <Label>{t("onboarding.dateOfBirth")}</Label>
+        <Input value={data.date_of_birth} onChange={(e) => onUpdate("date_of_birth", formatDateInput(e.target.value))} placeholder={t("onboarding.dateFormat")} maxLength={10} inputMode="numeric" />
         {data.date_of_birth.length === 10 && isValidDate(data.date_of_birth) && (
-          <p className="text-xs text-muted-foreground">{calculateAge(data.date_of_birth)} anos</p>
+          <p className="text-xs text-muted-foreground">{t("onboarding.yearsOld", { age: calculateAge(data.date_of_birth) })}</p>
         )}
       </div>
       <div className="space-y-2">
-        <Label>Sexo Biológico</Label>
+        <Label>{t("onboarding.biologicalSex")}</Label>
         <Select value={data.gender} onValueChange={(v) => onUpdate("gender", v)}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="male">Masculino</SelectItem>
-            <SelectItem value="female">Feminino</SelectItem>
+            <SelectItem value="male">{t("onboarding.male")}</SelectItem>
+            <SelectItem value="female">{t("onboarding.female")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label>Altura (cm)</Label>
-          <Input
-            type="number"
-            value={data.height_cm}
-            onChange={(e) => onUpdate("height_cm", Number(e.target.value))}
-          />
+          <Label>{t("onboarding.heightCm")}</Label>
+          <Input type="number" value={data.height_cm} onChange={(e) => onUpdate("height_cm", Number(e.target.value))} />
         </div>
         <div className="space-y-2">
-          <Label>Peso (kg)</Label>
-          <Input
-            type="number"
-            value={data.weight_kg}
-            onChange={(e) => onUpdate("weight_kg", Number(e.target.value))}
-          />
+          <Label>{t("onboarding.weightKg")}</Label>
+          <Input type="number" value={data.weight_kg} onChange={(e) => onUpdate("weight_kg", Number(e.target.value))} />
         </div>
       </div>
     </div>

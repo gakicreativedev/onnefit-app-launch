@@ -1,20 +1,22 @@
 import { UsersGroupTwoRoundedBold, BookBold, DumbbellBold } from "solar-icon-set";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface HighlightItem {
   id: number;
-  title: string;
+  titleKey: string;
   icon: typeof BookBold;
   url: string;
 }
 
 const highlights: HighlightItem[] = [
-  { id: 1, title: "RECEITAS\nEM ALTA", icon: BookBold, url: "/diet" },
-  { id: 2, title: "TREINOS\nEM ALTA", icon: DumbbellBold, url: "/workouts" },
+  { id: 1, titleKey: "dashboard.trendingRecipes", icon: BookBold, url: "/diet" },
+  { id: 2, titleKey: "dashboard.trendingWorkouts", icon: DumbbellBold, url: "/workouts" },
 ];
 
 export function CommunityHighlightsCard() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <section className="rounded-[20px] sm:rounded-[28px] bg-card p-4 sm:p-7">
@@ -26,7 +28,7 @@ export function CommunityHighlightsCard() {
           className="text-lg sm:text-xl font-black uppercase text-card-foreground tracking-tight"
           style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}
         >
-          COMUNIDADE
+          {t("dashboard.community")}
         </h2>
       </header>
 
@@ -42,7 +44,7 @@ export function CommunityHighlightsCard() {
               className="text-sm sm:text-base font-black text-primary-foreground text-center leading-tight whitespace-pre-line"
               style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}
             >
-              {item.title}
+              {t(item.titleKey)}
             </span>
           </button>
         ))}
