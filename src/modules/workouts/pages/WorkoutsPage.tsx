@@ -460,7 +460,7 @@ export default function WorkoutsPage() {
                               {expandedId === entry.id && entry.exercise_logs && entry.exercise_logs.length > 0 && (
                                 <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                                   <div className="grid grid-cols-4 gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-muted-foreground mb-2 px-1 sm:px-2">
-                                    <span className="truncate">Exercício</span><span className="text-center">Série</span><span className="text-center">Reps</span><span className="text-center">Carga</span>
+                                    <span className="truncate">{t("workouts.exercise", { defaultValue: "Exercício" })}</span><span className="text-center">{t("workouts.set")}</span><span className="text-center">{t("workouts.reps")}</span><span className="text-center">{t("workouts.weight")}</span>
                                   </div>
                                   {entry.exercise_logs.map((log) => (
                                     <div key={log.id} className="grid grid-cols-4 gap-1 sm:gap-2 text-xs sm:text-sm py-1.5 px-1 sm:px-2 rounded-lg hover:bg-background/50">
