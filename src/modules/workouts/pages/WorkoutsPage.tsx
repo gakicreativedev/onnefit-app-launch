@@ -339,7 +339,7 @@ export default function WorkoutsPage() {
                 <div className="flex items-center gap-3">
                   <GraphUpBold size={28} color="currentColor" className="text-primary-foreground" />
                   <h2 className="text-xl sm:text-2xl lg:text-4xl font-black uppercase text-primary-foreground tracking-tight leading-tight break-words" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                    Progressão de Carga
+                    {t("workouts.progression")}
                   </h2>
                 </div>
                 <div className="shrink-0 ml-2 text-primary-foreground/60">
