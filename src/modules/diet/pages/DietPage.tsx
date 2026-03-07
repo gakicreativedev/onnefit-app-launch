@@ -234,7 +234,7 @@ export default function DietPage({ profile }: DietPageProps) {
                   <Input
                     value={recipeSearch}
                     onChange={(e) => setRecipeSearch(e.target.value)}
-                    placeholder="Buscar por nome ou ingrediente..."
+                    placeholder={t("nutrition.searchByNameOrIngredient")}
                     className="pl-10 rounded-2xl bg-muted/50 border-0"
                   />
                 </div>
