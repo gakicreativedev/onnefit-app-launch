@@ -183,7 +183,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {activeTab === "posts" && (
         <div className="grid grid-cols-3 gap-0.5">
           {pd.userPosts.length === 0 ? (
-            <div className="col-span-3 py-16 text-center"><p className="text-sm text-muted-foreground">Nenhuma publicação ainda</p></div>
+            <div className="col-span-3 py-16 text-center"><p className="text-sm text-muted-foreground">{t("profile.noPosts")}</p></div>
           ) : pd.userPosts.map((post) => (
             <div key={post.id} onClick={() => pd.openPostDetail(post)} className={`aspect-square flex items-center justify-center p-1 cursor-pointer hover:opacity-80 transition-opacity relative group overflow-hidden ${post.image_url ? "" : "bg-muted"}`}>
               {post.image_url ? <img src={post.image_url} alt="" className="w-full h-full object-cover" /> : <p className="text-xs text-foreground text-center line-clamp-3 font-medium px-2">{post.content}</p>}
