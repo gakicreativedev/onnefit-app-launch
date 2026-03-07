@@ -356,14 +356,14 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             );
           })()}
 
-          <Card className="border-0 bg-card rounded-2xl">
-            <CardHeader><CardTitle className="text-card-foreground">Saúde & Restrições</CardTitle></CardHeader>
-            <CardContent className="space-y-5">
-              <ProfileTagField label="Lesões ou Limitações Físicas" hint="Ex: hérnia de disco, tendinite no ombro" tags={pd.form.injuries} onChange={(t) => pd.setForm({ ...pd.form, injuries: t })} placeholder="Adicionar lesão..." />
-              <ProfileTagField label="Alergias Alimentares" hint="Ex: lactose, glúten, amendoim" tags={pd.form.allergies} onChange={(t) => pd.setForm({ ...pd.form, allergies: t })} placeholder="Adicionar alergia..." />
-              <ProfileTagField label="Restrições Alimentares" hint="Ex: vegetariano, vegano, sem açúcar" tags={pd.form.dietary_restrictions} onChange={(t) => pd.setForm({ ...pd.form, dietary_restrictions: t })} placeholder="Adicionar restrição..." />
-              <p className="text-xs text-muted-foreground text-center">Dados privados usados pela IA para personalizar treinos e dietas.</p>
-              <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? "Salvando..." : "Salvar Alterações"}</Button>
+           <Card className="border-0 bg-card rounded-2xl">
+             <CardHeader><CardTitle className="text-card-foreground">{t("profile.healthRestrictions")}</CardTitle></CardHeader>
+             <CardContent className="space-y-5">
+               <ProfileTagField label={t("onboarding.injuries")} hint={t("onboarding.injuriesDesc")} tags={pd.form.injuries} onChange={(tags) => pd.setForm({ ...pd.form, injuries: tags })} placeholder={t("onboarding.injuriesPlaceholder")} />
+               <ProfileTagField label={t("onboarding.allergies")} hint={t("onboarding.allergiesDesc")} tags={pd.form.allergies} onChange={(tags) => pd.setForm({ ...pd.form, allergies: tags })} placeholder={t("onboarding.allergiesPlaceholder")} />
+               <ProfileTagField label={t("onboarding.dietaryRestrictions")} hint={t("onboarding.dietaryRestrictionsDesc")} tags={pd.form.dietary_restrictions} onChange={(tags) => pd.setForm({ ...pd.form, dietary_restrictions: tags })} placeholder={t("onboarding.dietaryRestrictionsPlaceholder")} />
+               <p className="text-xs text-muted-foreground text-center">{t("profile.privateDataNote")}</p>
+               <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? t("common.saving") : t("profile.saveChanges")}</Button>
             </CardContent>
           </Card>
 
