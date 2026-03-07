@@ -203,7 +203,7 @@ export function useGroups() {
 
   const inviteUser = async (groupId: string, username: string) => {
     if (!user) return;
-    const { data: profile } = await supabase.from("profiles").select("user_id").eq("username", username.replace("@", "")).single();
+    const { data: profile } = await supabase.from("public_profiles").select("user_id").eq("username", username.replace("@", "")).single();
     if (!profile) { toast.error("Usuário não encontrado"); return; }
     const { error } = await supabase.from("group_invites").insert({
       group_id: groupId,
@@ -269,7 +269,7 @@ export function useGroupDetail(groupId: string | undefined) {
     const { data: mems } = await supabase.from("group_members").select("*").eq("group_id", groupId);
     if (mems?.length) {
       const userIds = mems.map((m: any) => m.user_id);
-      const { data: profiles } = await supabase.from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
+      const { data: profiles } = await supabase.from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
       const profileMap = new Map((profiles || []).map((p: any) => [p.user_id, p]));
       setMembers(mems.map((m: any) => ({ ...m, profile: profileMap.get(m.user_id) })));
     }
@@ -317,7 +317,7 @@ export function useGroupDetail(groupId: string | undefined) {
 
     if (ranks?.length) {
       const userIds = ranks.map((r: any) => r.user_id);
-      const { data: profiles } = await supabase.from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
+      const { data: profiles } = await supabase.from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
       const profileMap = new Map((profiles || []).map((p: any) => [p.user_id, p]));
       setRankings(ranks.map((r: any) => ({ ...r, profile: profileMap.get(r.user_id) })));
     } else {

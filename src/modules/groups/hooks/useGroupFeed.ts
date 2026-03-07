@@ -95,7 +95,7 @@ export function useGroupFeed(groupId: string | undefined) {
 
         const [profilesRes, reactionsRes, myReactionsRes, commentsCountRes] = await Promise.all([
             // @ts-ignore
-            (supabase as any).from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds),
+            (supabase as any).from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds),
             // @ts-ignore
             (supabase as any).from("activity_reactions").select("activity_id, emoji, user_id").in("activity_id", activityIds),
             // @ts-ignore
@@ -111,7 +111,7 @@ export function useGroupFeed(groupId: string | undefined) {
         // @ts-ignore
         const { data: reactorProfiles } = reactorIds.length > 0
             // @ts-ignore
-            ? await (supabase as any).from("profiles").select("user_id, name").in("user_id", reactorIds)
+            ? await (supabase as any).from("public_profiles").select("user_id, name").in("user_id", reactorIds)
             : { data: [] };
         const reactorNameMap = new Map((reactorProfiles || []).map((p: any) => [p.user_id, p.name || "Usuário"]));
 
@@ -342,7 +342,7 @@ export function useGroupFeed(groupId: string | undefined) {
 
         const userIds = [...new Set(raw.map((c: any) => c.user_id))];
         // @ts-ignore
-        const { data: profiles } = await (supabase as any).from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
+        const { data: profiles } = await (supabase as any).from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
         const profileMap = new Map<string, any>((profiles || []).map((p: any) => [p.user_id, p]));
 
         return raw.map((c: any) => {
