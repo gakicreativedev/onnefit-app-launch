@@ -191,7 +191,7 @@ export default function SocialFeedPage() {
           className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-primary py-2.5 text-primary-foreground text-sm font-bold hover:brightness-110 transition-all"
         >
           <AddCircleBold size={18} color="currentColor" />
-          Novo Post
+          {t("social.newPost")}
         </motion.button>
         {isFemale && (
           <motion.button
