@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_updates: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          title: string
+          version: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          title: string
+          version?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          title?: string
+          version?: string | null
+        }
+        Relationships: []
+      }
       body_measurements: {
         Row: {
           arm_left_cm: number | null
@@ -65,6 +92,128 @@ export type Database = {
           user_id?: string
           waist_cm?: number | null
           weight_kg?: number | null
+        }
+        Relationships: []
+      }
+      community_foods: {
+        Row: {
+          calories: number | null
+          carbs: number | null
+          created_at: string | null
+          created_by: string | null
+          fat: number | null
+          id: string
+          name: string
+          protein: number | null
+          serving_size: string | null
+        }
+        Insert: {
+          calories?: number | null
+          carbs?: number | null
+          created_at?: string | null
+          created_by?: string | null
+          fat?: number | null
+          id?: string
+          name: string
+          protein?: number | null
+          serving_size?: string | null
+        }
+        Update: {
+          calories?: number | null
+          carbs?: number | null
+          created_at?: string | null
+          created_by?: string | null
+          fat?: number | null
+          id?: string
+          name?: string
+          protein?: number | null
+          serving_size?: string | null
+        }
+        Relationships: []
+      }
+      direct_messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          read: boolean | null
+          receiver_id: string
+          sender_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          read?: boolean | null
+          receiver_id: string
+          sender_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          read?: boolean | null
+          receiver_id?: string
+          sender_id?: string
+        }
+        Relationships: []
+      }
+      exercise_logs: {
+        Row: {
+          exercise_name: string
+          history_id: string
+          id: string
+          reps: number
+          set_number: number
+          weight_kg: number | null
+        }
+        Insert: {
+          exercise_name: string
+          history_id: string
+          id?: string
+          reps: number
+          set_number: number
+          weight_kg?: number | null
+        }
+        Update: {
+          exercise_name?: string
+          history_id?: string
+          id?: string
+          reps?: number
+          set_number?: number
+          weight_kg?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exercise_logs_history_id_fkey"
+            columns: ["history_id"]
+            isOneToOne: false
+            referencedRelation: "workout_history"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      follows: {
+        Row: {
+          created_at: string | null
+          follower_id: string
+          following_id: string
+          id: string
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          follower_id: string
+          following_id: string
+          id?: string
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          follower_id?: string
+          following_id?: string
+          id?: string
+          status?: string | null
         }
         Relationships: []
       }
@@ -476,6 +625,260 @@ export type Database = {
         }
         Relationships: []
       }
+      meal_plans: {
+        Row: {
+          created_at: string | null
+          date: string
+          id: string
+          is_shared: boolean | null
+          total_calories: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          date: string
+          id?: string
+          is_shared?: boolean | null
+          total_calories?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          date?: string
+          id?: string
+          is_shared?: boolean | null
+          total_calories?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      meals: {
+        Row: {
+          calories: number | null
+          carbs: number | null
+          fat: number | null
+          id: string
+          meal_plan_id: string
+          meal_time: string | null
+          name: string
+          protein: number | null
+        }
+        Insert: {
+          calories?: number | null
+          carbs?: number | null
+          fat?: number | null
+          id?: string
+          meal_plan_id: string
+          meal_time?: string | null
+          name: string
+          protein?: number | null
+        }
+        Update: {
+          calories?: number | null
+          carbs?: number | null
+          fat?: number | null
+          id?: string
+          meal_plan_id?: string
+          meal_time?: string | null
+          name?: string
+          protein?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meals_meal_plan_id_fkey"
+            columns: ["meal_plan_id"]
+            isOneToOne: false
+            referencedRelation: "meal_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          actor_id: string
+          content: string | null
+          created_at: string | null
+          id: string
+          post_id: string | null
+          read: boolean | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          actor_id: string
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          read?: boolean | null
+          type: string
+          user_id: string
+        }
+        Update: {
+          actor_id?: string
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          post_id?: string | null
+          read?: boolean | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      post_bookmarks: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_bookmarks_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_comments: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_likes: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          id: string
+          image_url: string | null
+          location: string | null
+          tags: string[] | null
+          user_id: string
+          women_only: boolean | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          tags?: string[] | null
+          user_id: string
+          women_only?: boolean | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          tags?: string[] | null
+          user_id?: string
+          women_only?: boolean | null
+        }
+        Relationships: []
+      }
+      profile_highlights: {
+        Row: {
+          created_at: string | null
+          icon: string | null
+          id: string
+          label: string
+          sort_order: number | null
+          story_ids: string[] | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          icon?: string | null
+          id?: string
+          label: string
+          sort_order?: number | null
+          story_ids?: string[] | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          icon?: string | null
+          id?: string
+          label?: string
+          sort_order?: number | null
+          story_ids?: string[] | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           activity_level: string | null
@@ -590,6 +993,260 @@ export type Database = {
         }
         Relationships: []
       }
+      recipe_comments: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          recipe_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          recipe_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          recipe_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_comments_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipe_ratings: {
+        Row: {
+          id: string
+          rating: number
+          recipe_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          rating: number
+          recipe_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          rating?: number
+          recipe_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_ratings_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipes: {
+        Row: {
+          calories: number | null
+          carbs: number | null
+          category: string | null
+          created_at: string | null
+          created_by: string
+          description: string | null
+          fat: number | null
+          id: string
+          image_url: string | null
+          ingredients: Json | null
+          is_shared: boolean | null
+          prep_time_min: number | null
+          protein: number | null
+          steps: Json | null
+          title: string
+        }
+        Insert: {
+          calories?: number | null
+          carbs?: number | null
+          category?: string | null
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          fat?: number | null
+          id?: string
+          image_url?: string | null
+          ingredients?: Json | null
+          is_shared?: boolean | null
+          prep_time_min?: number | null
+          protein?: number | null
+          steps?: Json | null
+          title: string
+        }
+        Update: {
+          calories?: number | null
+          carbs?: number | null
+          category?: string | null
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          fat?: number | null
+          id?: string
+          image_url?: string | null
+          ingredients?: Json | null
+          is_shared?: boolean | null
+          prep_time_min?: number | null
+          protein?: number | null
+          steps?: Json | null
+          title?: string
+        }
+        Relationships: []
+      }
+      stories: {
+        Row: {
+          created_at: string | null
+          id: string
+          image_url: string
+          user_id: string
+          women_only: boolean | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          image_url: string
+          user_id: string
+          women_only?: boolean | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          image_url?: string
+          user_id?: string
+          women_only?: boolean | null
+        }
+        Relationships: []
+      }
+      story_reactions: {
+        Row: {
+          created_at: string | null
+          emoji: string
+          id: string
+          story_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          emoji: string
+          id?: string
+          story_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          emoji?: string
+          id?: string
+          story_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_reactions_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      story_views: {
+        Row: {
+          created_at: string | null
+          id: string
+          story_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          story_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          story_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_views_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_activity: {
+        Row: {
+          date: string
+          id: string
+          user_id: string
+          water_intake_ml: number | null
+          workout_completed: boolean | null
+        }
+        Insert: {
+          date?: string
+          id?: string
+          user_id: string
+          water_intake_ml?: number | null
+          workout_completed?: boolean | null
+        }
+        Update: {
+          date?: string
+          id?: string
+          user_id?: string
+          water_intake_ml?: number | null
+          workout_completed?: boolean | null
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          badge_icon: string | null
+          badge_name: string
+          badge_type: string
+          created_at: string | null
+          id: string
+          metadata: Json | null
+          user_id: string
+        }
+        Insert: {
+          badge_icon?: string | null
+          badge_name: string
+          badge_type: string
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          user_id: string
+        }
+        Update: {
+          badge_icon?: string | null
+          badge_name?: string
+          badge_type?: string
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -605,6 +1262,207 @@ export type Database = {
           id?: string
           role?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_streaks: {
+        Row: {
+          current_streak: number | null
+          id: string
+          last_activity_date: string | null
+          longest_streak: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          current_streak?: number | null
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          current_streak?: number | null
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_xp: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string | null
+          id: string
+          source: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          source: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          source?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      workout_bookmarks: {
+        Row: {
+          created_at: string | null
+          id: string
+          user_id: string
+          workout_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          user_id: string
+          workout_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          user_id?: string
+          workout_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_bookmarks_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "workouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workout_exercises: {
+        Row: {
+          exercise_name: string
+          id: string
+          media_url: string | null
+          reps: number | null
+          rest_seconds: number | null
+          sets: number | null
+          sort_order: number | null
+          workout_id: string
+        }
+        Insert: {
+          exercise_name: string
+          id?: string
+          media_url?: string | null
+          reps?: number | null
+          rest_seconds?: number | null
+          sets?: number | null
+          sort_order?: number | null
+          workout_id: string
+        }
+        Update: {
+          exercise_name?: string
+          id?: string
+          media_url?: string | null
+          reps?: number | null
+          rest_seconds?: number | null
+          sets?: number | null
+          sort_order?: number | null
+          workout_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_exercises_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "workouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workout_history: {
+        Row: {
+          completed_at: string | null
+          duration_minutes: number | null
+          id: string
+          notes: string | null
+          user_id: string
+          workout_id: string | null
+          workout_name: string
+        }
+        Insert: {
+          completed_at?: string | null
+          duration_minutes?: number | null
+          id?: string
+          notes?: string | null
+          user_id: string
+          workout_id?: string | null
+          workout_name: string
+        }
+        Update: {
+          completed_at?: string | null
+          duration_minutes?: number | null
+          id?: string
+          notes?: string | null
+          user_id?: string
+          workout_id?: string | null
+          workout_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_history_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "workouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workouts: {
+        Row: {
+          created_at: string | null
+          day_of_week: number | null
+          description: string | null
+          difficulty: string | null
+          duration_minutes: number | null
+          id: string
+          is_shared: boolean | null
+          muscle_groups: string[] | null
+          name: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          day_of_week?: number | null
+          description?: string | null
+          difficulty?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_shared?: boolean | null
+          muscle_groups?: string[] | null
+          name: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          day_of_week?: number | null
+          description?: string | null
+          difficulty?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_shared?: boolean | null
+          muscle_groups?: string[] | null
+          name?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -642,6 +1500,10 @@ export type Database = {
       }
     }
     Functions: {
+      are_mutual_followers: {
+        Args: { user_a: string; user_b: string }
+        Returns: boolean
+      }
       has_role: { Args: { _role: string; _user_id: string }; Returns: boolean }
       is_group_member: {
         Args: { _group_id: string; _user_id: string }
