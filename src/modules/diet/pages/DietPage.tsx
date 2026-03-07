@@ -313,7 +313,7 @@ export default function DietPage({ profile }: DietPageProps) {
             ) : filteredRecipes.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
                 <ChefHatHeartBold size={48} color="currentColor" className="text-muted-foreground" />
-                <p className="text-muted-foreground">Nenhuma receita encontrada</p>
+                <p className="text-muted-foreground">{t("nutrition.noRecipeFound")}</p>
                 <Button variant="outline" onClick={() => setShowCreateRecipe(true)} className="rounded-2xl gap-2">
                   <AddCircleBold size={16} color="currentColor" />
                   Criar primeira receita
