@@ -81,7 +81,7 @@ export default function WorkoutsPage() {
           onClick={() => setActiveTab("treinos")}
         >
           <DumbbellBold size={14} color="currentColor" className="mr-1.5" />
-          Meus Treinos
+          {t("workouts.myWorkouts")}
         </Badge>
         <Badge
           className={`cursor-pointer rounded-full px-5 py-2 text-sm font-bold transition-colors border ${activeTab === "biblioteca"
