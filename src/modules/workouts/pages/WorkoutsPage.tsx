@@ -145,7 +145,7 @@ export default function WorkoutsPage() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-primary-foreground leading-tight line-clamp-2">{ex.exercise_name}</p>
-                        <p className="text-xs text-primary-foreground/70 mt-1">{ex.reps} Reps · {ex.sets}x</p>
+                        <p className="text-xs text-primary-foreground/70 mt-1">{ex.reps} {t("workouts.reps")} · {ex.sets}x</p>
                       </div>
                     </div>
                   ))}
