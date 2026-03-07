@@ -317,7 +317,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                    </Select>
                  </div>
               </div>
-              <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? "Salvando..." : "Salvar Alterações"}</Button>
+               <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? t("common.saving") : t("profile.saveChanges")}</Button>
             </CardContent>
           </Card>
 
