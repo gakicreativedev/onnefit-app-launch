@@ -68,6 +68,414 @@ export type Database = {
         }
         Relationships: []
       }
+      group_activities: {
+        Row: {
+          calories: number | null
+          created_at: string | null
+          custom_rule_label: string | null
+          description: string | null
+          distance_km: number | null
+          duration_min: number | null
+          group_id: string
+          id: string
+          image_url: string | null
+          photo_url: string | null
+          points_awarded: number | null
+          steps: number | null
+          title: string | null
+          user_id: string
+        }
+        Insert: {
+          calories?: number | null
+          created_at?: string | null
+          custom_rule_label?: string | null
+          description?: string | null
+          distance_km?: number | null
+          duration_min?: number | null
+          group_id: string
+          id?: string
+          image_url?: string | null
+          photo_url?: string | null
+          points_awarded?: number | null
+          steps?: number | null
+          title?: string | null
+          user_id: string
+        }
+        Update: {
+          calories?: number | null
+          created_at?: string | null
+          custom_rule_label?: string | null
+          description?: string | null
+          distance_km?: number | null
+          duration_min?: number | null
+          group_id?: string
+          id?: string
+          image_url?: string | null
+          photo_url?: string | null
+          points_awarded?: number | null
+          steps?: number | null
+          title?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_activities_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_activity_comments: {
+        Row: {
+          activity_id: string
+          content: string
+          created_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          activity_id: string
+          content: string
+          created_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          activity_id?: string
+          content?: string
+          created_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_activity_comments_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "group_activities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_activity_reactions: {
+        Row: {
+          activity_id: string
+          created_at: string | null
+          emoji: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          activity_id: string
+          created_at?: string | null
+          emoji: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          activity_id?: string
+          created_at?: string | null
+          emoji?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_activity_reactions_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "group_activities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_goals: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          deadline: string | null
+          group_id: string
+          id: string
+          metric_type: string
+          target_value: number
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by: string
+          deadline?: string | null
+          group_id: string
+          id?: string
+          metric_type: string
+          target_value: number
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          deadline?: string | null
+          group_id?: string
+          id?: string
+          metric_type?: string
+          target_value?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_goals_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_invites: {
+        Row: {
+          created_at: string | null
+          group_id: string
+          id: string
+          invited_by: string
+          invited_user_id: string
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          group_id: string
+          id?: string
+          invited_by: string
+          invited_user_id: string
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          group_id?: string
+          id?: string
+          invited_by?: string
+          invited_user_id?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_invites_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_members: {
+        Row: {
+          group_id: string
+          id: string
+          joined_at: string | null
+          role: string | null
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          id?: string
+          joined_at?: string | null
+          role?: string | null
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          id?: string
+          joined_at?: string | null
+          role?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          group_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          group_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          group_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_messages_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_rankings: {
+        Row: {
+          calculated_at: string | null
+          days_diet_logged: number | null
+          days_trained: number | null
+          group_id: string
+          id: string
+          period_end: string
+          period_start: string
+          period_type: string
+          rank_position: number | null
+          streak_best: number | null
+          total_score: number | null
+          user_id: string
+          water_goal_days: number | null
+        }
+        Insert: {
+          calculated_at?: string | null
+          days_diet_logged?: number | null
+          days_trained?: number | null
+          group_id: string
+          id?: string
+          period_end: string
+          period_start: string
+          period_type: string
+          rank_position?: number | null
+          streak_best?: number | null
+          total_score?: number | null
+          user_id: string
+          water_goal_days?: number | null
+        }
+        Update: {
+          calculated_at?: string | null
+          days_diet_logged?: number | null
+          days_trained?: number | null
+          group_id?: string
+          id?: string
+          period_end?: string
+          period_start?: string
+          period_type?: string
+          rank_position?: number | null
+          streak_best?: number | null
+          total_score?: number | null
+          user_id?: string
+          water_goal_days?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_rankings_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_resources: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          description: string | null
+          group_id: string
+          id: string
+          title: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          group_id: string
+          id?: string
+          title: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          group_id?: string
+          id?: string
+          title?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_resources_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groups: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          description: string | null
+          end_date: string | null
+          group_type: string | null
+          id: string
+          image_url: string | null
+          invite_code: string | null
+          is_public: boolean | null
+          max_members: number | null
+          name: string
+          score_rules: Json | null
+          start_date: string | null
+          start_of_week: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          end_date?: string | null
+          group_type?: string | null
+          id?: string
+          image_url?: string | null
+          invite_code?: string | null
+          is_public?: boolean | null
+          max_members?: number | null
+          name: string
+          score_rules?: Json | null
+          start_date?: string | null
+          start_of_week?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          end_date?: string | null
+          group_type?: string | null
+          id?: string
+          image_url?: string | null
+          invite_code?: string | null
+          is_public?: boolean | null
+          max_members?: number | null
+          name?: string
+          score_rules?: Json | null
+          start_date?: string | null
+          start_of_week?: number | null
+        }
+        Relationships: []
+      }
       progress_photos: {
         Row: {
           category: string
@@ -103,7 +511,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_group_member: {
+        Args: { _group_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
