@@ -266,7 +266,7 @@ export default function SocialFeedPage() {
                 className="flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-primary-foreground text-sm font-bold hover:brightness-110 transition-all mt-1"
               >
                 <UserPlusBold size={16} color="currentColor" />
-                Descobrir Pessoas
+                {t("social.discoverPeople")}
               </motion.button>
             )}
           </motion.div>
