@@ -106,7 +106,7 @@ export default function WorkoutsPage() {
             <section className="relative flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-primary p-4 sm:p-8 lg:p-10 overflow-hidden">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <Badge className="bg-primary-foreground text-primary border-0 rounded-full px-4 py-1.5 text-xs font-bold">
-                  Treino do Dia
+                  {t("workouts.workoutOfTheDay")}
                 </Badge>
                 <Button
                   variant="outline"
@@ -115,7 +115,7 @@ export default function WorkoutsPage() {
                   disabled={!wt.todayWorkout || wt.todayExercises.length === 0}
                 >
                   <PlayBold size={14} color="currentColor" className="mr-2" />
-                  Começar Treino
+                  {t("workouts.startWorkout")}
                 </Button>
               </div>
 
