@@ -156,10 +156,10 @@ export default function WorkoutsPage() {
                 <div className="flex items-center gap-3">
                   <p className="text-xs text-primary-foreground/70">
                     <ClockCircleBold size={12} color="currentColor" className="inline mr-1" />
-                    Tempo estimado: {Math.round(wt.todayExercises.reduce((sum, ex) => sum + (ex.sets * 45) + ((ex.sets - 1) * (ex.rest_seconds || 60)), 0) / 60)} min
+                    {t("dashboard.estimatedTime", { time: Math.round(wt.todayExercises.reduce((sum, ex) => sum + (ex.sets * 45) + ((ex.sets - 1) * (ex.rest_seconds || 60)), 0) / 60).toString() })}
                   </p>
                   <p className="text-xs text-primary-foreground/60">
-                    Clique em "Começar Treino" para registrar suas cargas.
+                    {t("dashboard.clickToStart")}
                   </p>
                 </div>
               )}
