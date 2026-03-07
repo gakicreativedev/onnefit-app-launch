@@ -385,7 +385,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           <section className="relative flex flex-col gap-4 rounded-[24px] bg-primary p-6 overflow-hidden">
             <div className="flex items-end justify-between">
               <div>
-                <p className="text-primary-foreground/70 text-xs font-bold uppercase tracking-wider">Seu Nível</p>
+                <p className="text-primary-foreground/70 text-xs font-bold uppercase tracking-wider">{t("gamification.yourLevel")}</p>
                 <h2 className="text-4xl font-black text-primary-foreground">Level {String(pd.level.level).padStart(2, "0")}</h2>
               </div>
               <div className="flex items-center gap-2">
