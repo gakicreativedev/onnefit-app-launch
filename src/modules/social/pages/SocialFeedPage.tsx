@@ -19,8 +19,10 @@ import { NotificationsDrawer } from "../components/NotificationsDrawer";
 import { FeedSearchBar } from "../components/FeedSearchBar";
 import { AddCircleBold, UserPlusBold, BellBold, RefreshBold, PlainBold, WomenBold, ConfettiBold, BookmarkBold } from "solar-icon-set";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function SocialFeedPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { profile } = useProfile(user);
   const isFemale = profile?.gender === "female";
