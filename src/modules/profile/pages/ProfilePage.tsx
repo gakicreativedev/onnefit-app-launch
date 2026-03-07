@@ -131,7 +131,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             <h1 className="text-lg font-bold text-foreground leading-tight">{displayName}</h1>
             {profile.is_verified && <VerifiedCheckBold size={16} color="hsl(var(--primary))" />}
           </div>
-          {profile.goal && <span className="inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[11px] font-semibold text-primary">{goalLabels[profile.goal] || profile.goal}</span>}
+          {profile.goal && <span className="inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[11px] font-semibold text-primary">{t(`gamification.goalLabels.${profile.goal}`, { defaultValue: profile.goal })}</span>}
           {profile.bio && <p className="text-sm text-muted-foreground max-w-[260px] mx-auto leading-snug">{profile.bio}</p>}
           <p className="flex items-center justify-center gap-1 text-xs text-primary/70"><LinkBold size={11} color="currentColor" /><span>onnefit.lovable.app</span></p>
         </div>
