@@ -430,8 +430,8 @@ export default function WorkoutsPage() {
                       {wt.history.length === 0 ? (
                         <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
                           <DumbbellBold size={48} color="currentColor" className="text-muted-foreground" />
-                          <p className="text-muted-foreground">Nenhum treino registrado ainda</p>
-                          <p className="text-muted-foreground text-sm">Complete treinos para vê-los aqui</p>
+                          <p className="text-muted-foreground">{t("workouts.noHistoryYet")}</p>
+                          <p className="text-muted-foreground text-sm">{t("workouts.completeWorkoutsToSeeThemHere", { defaultValue: "Complete treinos para vê-los aqui" })}</p>
                         </div>
                       ) : (
                         <div className="flex flex-col gap-3">
