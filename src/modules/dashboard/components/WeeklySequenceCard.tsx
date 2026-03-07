@@ -1,4 +1,5 @@
 import { FireBold } from "solar-icon-set";
+import { useTranslation } from "react-i18next";
 
 interface DayData {
   label: string;
@@ -11,6 +12,7 @@ interface WeeklySequenceCardProps {
 
 export function WeeklySequenceCard({ days }: WeeklySequenceCardProps) {
   const trainedCount = days.filter((d) => d.trained).length;
+  const { t } = useTranslation();
 
   return (
     <section className="rounded-[20px] sm:rounded-[28px] bg-card p-4 sm:p-7">
@@ -24,10 +26,10 @@ export function WeeklySequenceCard({ days }: WeeklySequenceCardProps) {
               className="text-lg sm:text-xl font-black uppercase text-card-foreground tracking-tight leading-none"
               style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}
             >
-              SEQUÊNCIA
+              {t("dashboard.sequence")}
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
-              {trainedCount}/7 dias esta semana
+              {t("dashboard.daysThisWeek", { count: trainedCount })}
             </p>
           </div>
         </div>
