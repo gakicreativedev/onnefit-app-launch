@@ -486,7 +486,7 @@ export function useLeaderboard(groupId: string | undefined) {
         const sorted: LeaderboardEntry[] = userIds
             .map(uid => {
                 const stats = userMap.get(uid)!;
-                const profile = profileMap.get(uid);
+                const profile = profileMap.get(uid) as any;
                 return {
                     user_id: uid,
                     name: profile?.name || "Usuário",

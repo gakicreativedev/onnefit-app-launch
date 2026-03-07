@@ -31,8 +31,8 @@ interface PostDetailDialogProps {
   onOpenChange: (open: boolean) => void;
   onLike: (postId: string) => void;
   onBookmark: (postId: string) => void;
-  onEdit?: (postId: string, content: string) => Promise<void>;
-  onDelete?: (postId: string) => Promise<void>;
+  onEdit?: (postId: string, content: string, tags?: string[]) => Promise<any>;
+  onDelete?: (postId: string) => Promise<any>;
   onCommentCountChange?: (postId: string, delta: number) => void;
 }
 
