@@ -18,6 +18,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FitSoulLogo } from "@/components/FitSoulLogo";
+import screenshotDashboard from "@/assets/screenshot-dashboard.png";
+import screenshotWorkouts from "@/assets/screenshot-workouts.png";
+import screenshotProgress from "@/assets/screenshot-progress.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -356,6 +359,7 @@ function BenefitsSection() {
 
 function ProductSection() {
   const { t } = useTranslation();
+  const screenshots = [screenshotDashboard, screenshotWorkouts, screenshotProgress];
   return (
     <section className="py-24 md:py-32 px-5">
       <div className="max-w-5xl mx-auto">
@@ -369,27 +373,29 @@ function ProductSection() {
           {t("landing.product.title")}
         </motion.h2>
         <motion.div
-          variants={fadeUp}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          custom={1}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 items-end"
         >
           {[0, 1, 2].map((i) => (
-            <div
+            <motion.div
               key={i}
-              className="aspect-[9/16] md:aspect-[3/4] rounded-2xl border border-border/40 bg-card/40 backdrop-blur-sm flex items-center justify-center"
+              variants={fadeUp}
+              custom={i}
+              className={`relative rounded-2xl border border-border/30 bg-card/30 overflow-hidden ${i === 1 ? "md:-mt-8" : ""}`}
             >
-              <div className="text-center px-6">
-                <div className="h-12 w-12 rounded-xl bg-muted/50 flex items-center justify-center mx-auto mb-4">
-                  {i === 0 && <BarChart3 className="w-6 h-6 text-muted-foreground/60" />}
-                  {i === 1 && <Dumbbell className="w-6 h-6 text-muted-foreground/60" />}
-                  {i === 2 && <TrendingUp className="w-6 h-6 text-muted-foreground/60" />}
-                </div>
-                <p className="text-sm text-muted-foreground/60">{t(`landing.product.s${i}`)}</p>
+              <img
+                src={screenshots[i]}
+                alt={t(`landing.product.s${i}`)}
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 to-transparent p-5 pt-12">
+                <p className="text-sm font-medium text-foreground">{t(`landing.product.s${i}`)}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
