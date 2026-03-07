@@ -159,7 +159,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           <div className="flex h-[60px] w-[60px] items-center justify-center rounded-full border-2 border-dashed border-muted-foreground/30 bg-card text-muted-foreground hover:border-primary hover:text-primary transition-colors">
             <AddCircleBold size={20} color="currentColor" />
           </div>
-          <span className="text-[10px] text-muted-foreground font-medium">Novo</span>
+          <span className="text-[10px] text-muted-foreground font-medium">{t("profile.new")}</span>
         </div>
       </div>
 
