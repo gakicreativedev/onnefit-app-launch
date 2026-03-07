@@ -199,9 +199,9 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {/* Recipes tab */}
       {activeTab === "recipes" && (
         <div className="p-4 space-y-4">
-          <div className="flex gap-2 mb-3">
-            <button onClick={() => setRecipeSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>Minhas ({pd.myRecipes.length})</button>
-            <button onClick={() => setRecipeSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />Salvas ({pd.savedRecipes.length})</button>
+           <div className="flex gap-2 mb-3">
+             <button onClick={() => setRecipeSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>{t("profile.mineCount", { count: pd.myRecipes.length })}</button>
+             <button onClick={() => setRecipeSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />{t("profile.savedCount", { count: pd.savedRecipes.length })}</button>
           </div>
           {(() => {
             const list = recipeSubTab === "mine" ? pd.myRecipes : pd.savedRecipes;
