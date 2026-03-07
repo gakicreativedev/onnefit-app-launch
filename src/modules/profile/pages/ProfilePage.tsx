@@ -105,7 +105,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
         <div className="flex items-center justify-center gap-6 w-full max-w-[280px]">
           <div className="text-center min-w-[60px]">
             <p className="text-lg font-black text-foreground leading-none">{pd.followersCount}</p>
-            <p className="text-[10px] text-muted-foreground font-medium mt-1">Seguidores</p>
+            <p className="text-[10px] text-muted-foreground font-medium mt-1">{t("profile.followers")}</p>
           </div>
           <div className="relative flex-shrink-0">
             <button
