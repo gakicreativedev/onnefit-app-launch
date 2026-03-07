@@ -476,6 +476,90 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          activity_level: string | null
+          age: number | null
+          allergies: string[] | null
+          avatar_url: string | null
+          bio: string | null
+          bmr: number | null
+          calorie_target: number | null
+          created_at: string | null
+          date_of_birth: string | null
+          dietary_restrictions: string[] | null
+          gender: string | null
+          goal: string | null
+          height_cm: number | null
+          id: string
+          injuries: string[] | null
+          is_private: boolean | null
+          is_verified: boolean | null
+          name: string | null
+          onboarding_completed: boolean | null
+          theme_color: string | null
+          updated_at: string | null
+          user_id: string
+          username: string | null
+          username_changed_at: Json | null
+          weight_kg: number | null
+        }
+        Insert: {
+          activity_level?: string | null
+          age?: number | null
+          allergies?: string[] | null
+          avatar_url?: string | null
+          bio?: string | null
+          bmr?: number | null
+          calorie_target?: number | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          dietary_restrictions?: string[] | null
+          gender?: string | null
+          goal?: string | null
+          height_cm?: number | null
+          id?: string
+          injuries?: string[] | null
+          is_private?: boolean | null
+          is_verified?: boolean | null
+          name?: string | null
+          onboarding_completed?: boolean | null
+          theme_color?: string | null
+          updated_at?: string | null
+          user_id: string
+          username?: string | null
+          username_changed_at?: Json | null
+          weight_kg?: number | null
+        }
+        Update: {
+          activity_level?: string | null
+          age?: number | null
+          allergies?: string[] | null
+          avatar_url?: string | null
+          bio?: string | null
+          bmr?: number | null
+          calorie_target?: number | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          dietary_restrictions?: string[] | null
+          gender?: string | null
+          goal?: string | null
+          height_cm?: number | null
+          id?: string
+          injuries?: string[] | null
+          is_private?: boolean | null
+          is_verified?: boolean | null
+          name?: string | null
+          onboarding_completed?: boolean | null
+          theme_color?: string | null
+          updated_at?: string | null
+          user_id?: string
+          username?: string | null
+          username_changed_at?: Json | null
+          weight_kg?: number | null
+        }
+        Relationships: []
+      }
       progress_photos: {
         Row: {
           category: string
@@ -506,11 +590,59 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      public_profiles: {
+        Row: {
+          avatar_url: string | null
+          goal: string | null
+          is_private: boolean | null
+          is_verified: boolean | null
+          name: string | null
+          user_id: string | null
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          goal?: string | null
+          is_private?: boolean | null
+          is_verified?: boolean | null
+          name?: string | null
+          user_id?: string | null
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          goal?: string | null
+          is_private?: boolean | null
+          is_verified?: boolean | null
+          name?: string | null
+          user_id?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      has_role: { Args: { _role: string; _user_id: string }; Returns: boolean }
       is_group_member: {
         Args: { _group_id: string; _user_id: string }
         Returns: boolean
