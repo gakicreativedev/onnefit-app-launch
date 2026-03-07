@@ -344,7 +344,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                     <p className="text-xs text-muted-foreground">TMB ({Math.round(bmr)} kcal) × atividade × objetivo</p>
                   </div>
                   <div className="rounded-xl bg-background p-4 space-y-1">
-                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><DumbbellBold size={14} color="currentColor" className="text-primary" />Meta de Proteína</span><span className="text-lg font-bold text-primary">{protTarget}g/dia</span></div>
+                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><DumbbellBold size={14} color="currentColor" className="text-primary" />{t("profile.proteinTarget")}</span><span className="text-lg font-bold text-primary">{protTarget}g/{t("common.days").replace("dias","dia").replace("days","day")}</span></div>
                     <p className="text-xs text-muted-foreground">{w}kg × {protMult}g/kg — {goalLabel[goalKey] || goalLabel.maintain}</p>
                   </div>
                   <div className="rounded-xl bg-background p-4 space-y-1">
