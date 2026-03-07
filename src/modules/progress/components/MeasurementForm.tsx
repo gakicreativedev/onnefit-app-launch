@@ -97,4 +97,6 @@ export const MeasurementForm = forwardRef<HTMLFormElement, MeasurementFormProps>
             </div>
         </form>
     );
-}
+});
+
+MeasurementForm.displayName = "MeasurementForm";
