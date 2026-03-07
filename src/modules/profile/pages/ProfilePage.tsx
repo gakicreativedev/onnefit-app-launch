@@ -289,8 +289,8 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                  </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>Altura (cm)</Label><Input type="number" value={pd.form.height_cm} onChange={(e) => pd.setForm({ ...pd.form, height_cm: Number(e.target.value) })} /></div>
-                <div className="space-y-2"><Label>Peso (kg)</Label><Input type="number" value={pd.form.weight_kg} onChange={(e) => pd.setForm({ ...pd.form, weight_kg: Number(e.target.value) })} /></div>
+                 <div className="space-y-2"><Label>{t("profile.heightCm")}</Label><Input type="number" value={pd.form.height_cm} onChange={(e) => pd.setForm({ ...pd.form, height_cm: Number(e.target.value) })} /></div>
+                 <div className="space-y-2"><Label>{t("profile.weightKg")}</Label><Input type="number" value={pd.form.weight_kg} onChange={(e) => pd.setForm({ ...pd.form, weight_kg: Number(e.target.value) })} /></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2"><Label>Objetivo</Label>
