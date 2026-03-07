@@ -349,7 +349,7 @@ export function useFeed() {
       content: content.trim() || null,
       image_url: imageUrl,
       location,
-      tags,
+      tags: tags || [],
       women_only: isWomenOnly
     });
 
