@@ -224,7 +224,7 @@ export default function DietPage({ profile }: DietPageProps) {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
               <div className="flex items-center gap-3">
                 <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                  Receitas
+                  {t("nutrition.recipes")}
                 </h3>
                 <ChefHatHeartBold size={28} color="currentColor" className="text-primary" />
               </div>
