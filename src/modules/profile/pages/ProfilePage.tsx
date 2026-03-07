@@ -137,8 +137,8 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
         </div>
 
         <div className="flex gap-2.5 w-full max-w-[280px]">
-          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => setEditOpen(true)}>Editar perfil</Button>
-          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => navigate("/settings")}>Configurações</Button>
+          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => setEditOpen(true)}>{t("profile.editProfile")}</Button>
+          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => navigate("/settings")}>{t("profile.settings")}</Button>
         </div>
       </div>
 
