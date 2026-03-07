@@ -91,7 +91,7 @@ export default function WorkoutsPage() {
           onClick={() => setActiveTab("biblioteca")}
         >
           <Search size={14} className="mr-1.5" />
-          Biblioteca de Exercícios
+          {t("workouts.exerciseLibrary")}
         </Badge>
       </div>
 
