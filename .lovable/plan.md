@@ -1,66 +1,57 @@
+# Diagnóstico do OnneFit - Erros Identificados
 
+## Situacao Atual
 
-# FitSoul MVP — Fitness App with AI Foundation
+O codigo do OnneFit esta sincronizado corretamente no Lovable. No entanto, o app esta conectado a **dois projetos Supabase diferentes**:
 
-## Overview
-A modern fitness application with dark mode UI (deep navy/black background with vibrant blue accents), modular architecture, real-time backend via Lovable Cloud, and authentication — ready for future AI expansion.
+- **Projeto antigo** (`cjqpetgzfctagftuomaj`): Usado pelo app em runtime (hardcoded no config.toml e nos requests). Tem dados e tabelas, mas com problemas.
+- **Projeto novo** (`vfegxeoihucdjdnilzdo`): Conectado ao Lovable via .env. Esta completamente vazio (zero tabelas).
 
----
+## Erros Identificados
 
-## 1. Authentication & Onboarding
-- **Sign Up / Sign In** page with email+password and Google OAuth
-- **Onboarding flow** (3 steps after first login):
-  1. Basic info: name, age, gender, height, weight
-  2. Fitness goal selection (lose weight, gain muscle, maintain)
-  3. Activity level selection
-- Auto-calculate **BMR (Basal Metabolic Rate)** and estimated daily calorie target
-- Save profile to database
+### 1. Tabelas inexistentes (HTTP 404)
 
-## 2. Layout & Navigation
-- **Fixed sidebar** on the left (collapsible on mobile) with:
-  - User avatar, name, level badge
-  - Nav items: Dashboard, Workouts, Diet, Profile
-  - Settings & Logout at bottom
-- **Main content area** with responsive grid layout
-- Dark mode theme with deep navy background (#0a0e1a) and vibrant blue (#2563eb) accents
+As seguintes tabelas nao existem no banco:
 
-## 3. Dashboard (Home)
-Based on the reference image, the dashboard will include:
-- **Workout of the Day** — featured card with today's workout name and "Start Workout" button
-- **Daily Calories** — progress bar showing consumed vs. target calories
-- **Daily Protein** — progress bar showing protein intake vs. goal
-- **Weekly Frequency** — visual display of which days the user trained
-- **Daily Meals** — list of meals (breakfast, lunch, snack, dinner) with calorie counts
-- **Daily Highlights** — horizontal scroll of featured workouts/recipes
+- `**body_measurements**` - usada em `/progress` para registrar medidas corporais
+- `**progress_photos**` - usada em `/progress` para fotos de progresso
 
-## 4. Workouts Module
-- Pre-defined simple workout plans (push/pull/legs or full body)
-- Workout detail view showing exercises, sets, reps
-- Static data initially, ready for AI-generated plans later
+### 2. Recursao infinita em RLS Policies (HTTP 500)
 
-## 5. Diet / Nutrition Module
-- Basic meal plan based on calculated calorie target
-- List of daily meals with macro breakdown
-- Water intake tracker
-- Static data initially, ready for AI-generated nutrition plans later
+- `**group_members**` e `**groups**` - as politicas de Row Level Security tem recursao infinita (`42P17`), impedindo qualquer operacao de leitura/escrita nos grupos
 
-## 6. Profile Module
-- View and edit personal data (weight, height, goals)
-- Recalculate BMR/calorie target on changes
-- Display current stats summary
+### 3. Coluna inexistente (HTTP 400)
 
-## 7. Database Schema (Lovable Cloud)
-- **profiles** — user_id, name, age, gender, height, weight, activity_level, goal, bmr, calorie_target
-- **workouts** — id, name, description, muscle_groups, difficulty
-- **workout_exercises** — workout_id, exercise_name, sets, reps, rest_seconds
-- **meal_plans** — id, user_id, date, total_calories
-- **meals** — id, meal_plan_id, name, time, calories, protein, carbs, fat
-- **user_activity** — user_id, date, workout_completed, water_intake_ml
+- Tabela `groups` nao tem a coluna `**end_date**` - o codigo tenta inserir com esse campo mas ele nao existe no schema
 
-## 8. What's NOT in MVP (Future Expansion)
-- AI-powered adaptive workout/diet generation
-- Social features, challenges, achievements
-- Paid plans & subscriptions
-- Progress photos & body measurements tracking
-- AI Trainer & AI Chef chatbots
+### 4. Warning de React
 
+- `MeasurementForm` esta recebendo `ref` mas nao usa `forwardRef` (warning, nao erro critico)
+
+### 5. Conflito de projeto Supabase
+
+- O `.env` aponta para o projeto novo (vazio), mas o app esta usando o projeto antigo que tem os dados. Isso precisa ser resolvido.
+
+## Plano de Correcao
+
+### Fase 1: Resolver o conflito de Supabase
+
+Decidir qual projeto usar. Como o projeto antigo ja tem dados e tabelas, a opcao mais pratica e:
+
+- Migrar todas as tabelas para o projeto novo (`vfegxeoihucdjdnilzdo`)
+
+### Fase 2: Criar tabelas faltantes
+
+Criar via SQL migration:
+
+- `body_measurements` com colunas: weight_kg, body_fat_pct, waist_cm, hip_cm, chest_cm, arm_left_cm, arm_right_cm, thigh_left_cm, thigh_right_cm, neck_cm, notes, date
+- `progress_photos` com colunas: photo_url, category, notes, date
+- Adicionar coluna `end_date` na tabela `groups` (se nao existir)
+
+### Fase 3: Corrigir RLS Policies
+
+- Reescrever as policies de `group_members` e `groups` para eliminar a recursao infinita, usando funcoes `SECURITY DEFINER` para verificar membership sem recursao
+
+### Fase 4: Fix menor no React
+
+- Adicionar `forwardRef` ao componente `MeasurementForm`
