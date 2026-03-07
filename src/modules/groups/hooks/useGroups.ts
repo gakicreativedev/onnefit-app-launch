@@ -269,7 +269,7 @@ export function useGroupDetail(groupId: string | undefined) {
     const { data: mems } = await supabase.from("group_members").select("*").eq("group_id", groupId);
     if (mems?.length) {
       const userIds = mems.map((m: any) => m.user_id);
-      const { data: profiles } = await supabase.from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
+      const { data: profiles } = await supabase.from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
       const profileMap = new Map((profiles || []).map((p: any) => [p.user_id, p]));
       setMembers(mems.map((m: any) => ({ ...m, profile: profileMap.get(m.user_id) })));
     }
