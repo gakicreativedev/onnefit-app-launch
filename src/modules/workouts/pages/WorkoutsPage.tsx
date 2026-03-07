@@ -30,11 +30,13 @@ import ActiveWorkoutView from "@/modules/workouts/components/ActiveWorkoutView";
 import { useWorkoutTracker } from "@/modules/workouts/hooks/useWorkoutTracker";
 import { toast } from "sonner";
 import { DAY_LABELS_FULL, type Exercise } from "@/lib/types";
+import { useTranslation } from "react-i18next";
 
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } } };
 
 export default function WorkoutsPage() {
+  const { t } = useTranslation();
   const wt = useWorkoutTracker();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingWorkout, setEditingWorkout] = useState<LocalWorkout | null>(null);
@@ -79,7 +81,7 @@ export default function WorkoutsPage() {
           onClick={() => setActiveTab("treinos")}
         >
           <DumbbellBold size={14} color="currentColor" className="mr-1.5" />
-          Meus Treinos
+          {t("workouts.myWorkouts")}
         </Badge>
         <Badge
           className={`cursor-pointer rounded-full px-5 py-2 text-sm font-bold transition-colors border ${activeTab === "biblioteca"
@@ -89,7 +91,7 @@ export default function WorkoutsPage() {
           onClick={() => setActiveTab("biblioteca")}
         >
           <Search size={14} className="mr-1.5" />
-          Biblioteca de Exercícios
+          {t("workouts.exerciseLibrary")}
         </Badge>
       </div>
 
@@ -104,7 +106,7 @@ export default function WorkoutsPage() {
             <section className="relative flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-primary p-4 sm:p-8 lg:p-10 overflow-hidden">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <Badge className="bg-primary-foreground text-primary border-0 rounded-full px-4 py-1.5 text-xs font-bold">
-                  Treino do Dia
+                  {t("workouts.workoutOfTheDay")}
                 </Badge>
                 <Button
                   variant="outline"
@@ -113,7 +115,7 @@ export default function WorkoutsPage() {
                   disabled={!wt.todayWorkout || wt.todayExercises.length === 0}
                 >
                   <PlayBold size={14} color="currentColor" className="mr-2" />
-                  Começar Treino
+                  {t("workouts.startWorkout")}
                 </Button>
               </div>
 
@@ -121,7 +123,7 @@ export default function WorkoutsPage() {
                 className="text-xl sm:text-3xl lg:text-5xl uppercase leading-tight tracking-tight text-primary-foreground font-black break-words"
                 style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}
               >
-                {wt.todayWorkout?.name || "Sem treino hoje"}
+                {wt.todayWorkout?.name || t("workouts.noWorkoutToday")}
               </h2>
 
               {wt.todayExercises.length > 0 && (
@@ -143,7 +145,7 @@ export default function WorkoutsPage() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-primary-foreground leading-tight line-clamp-2">{ex.exercise_name}</p>
-                        <p className="text-xs text-primary-foreground/70 mt-1">{ex.reps} Reps · {ex.sets}x</p>
+                        <p className="text-xs text-primary-foreground/70 mt-1">{ex.reps} {t("workouts.reps")} · {ex.sets}x</p>
                       </div>
                     </div>
                   ))}
@@ -154,10 +156,10 @@ export default function WorkoutsPage() {
                 <div className="flex items-center gap-3">
                   <p className="text-xs text-primary-foreground/70">
                     <ClockCircleBold size={12} color="currentColor" className="inline mr-1" />
-                    Tempo estimado: {Math.round(wt.todayExercises.reduce((sum, ex) => sum + (ex.sets * 45) + ((ex.sets - 1) * (ex.rest_seconds || 60)), 0) / 60)} min
+                    {t("dashboard.estimatedTime", { time: Math.round(wt.todayExercises.reduce((sum, ex) => sum + (ex.sets * 45) + ((ex.sets - 1) * (ex.rest_seconds || 60)), 0) / 60).toString() })}
                   </p>
                   <p className="text-xs text-primary-foreground/60">
-                    Clique em "Começar Treino" para registrar suas cargas.
+                    {t("dashboard.clickToStart")}
                   </p>
                 </div>
               )}
@@ -170,7 +172,7 @@ export default function WorkoutsPage() {
               <section className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
                 <div className="flex items-center justify-between">
                   <h3 className="text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                    Meus treinos
+                    {t("workouts.myWorkouts")}
                   </h3>
                   <div className="flex items-center gap-2">
                     <Button
@@ -179,7 +181,7 @@ export default function WorkoutsPage() {
                       onClick={() => { setEditingWorkout(null); setDialogOpen(true); }}
                     >
                       <AddCircleBold size={16} color="currentColor" className="mr-1" />
-                      Criar
+                      {t("common.create")}
                     </Button>
                     <DumbbellBold size={28} color="currentColor" className="text-primary" />
                   </div>
@@ -188,13 +190,13 @@ export default function WorkoutsPage() {
                 {wt.workouts.length === 0 ? (
                   <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
                     <DumbbellBold size={48} color="currentColor" className="text-muted-foreground" />
-                    <p className="text-muted-foreground">Nenhum treino cadastrado ainda</p>
+                    <p className="text-muted-foreground">{t("workouts.noWorkoutsYet")}</p>
                     <Button
                       className="rounded-full px-6 font-bold"
                       onClick={() => { setEditingWorkout(null); setDialogOpen(true); }}
                     >
                       <AddCircleBold size={16} color="currentColor" className="mr-1" />
-                      Criar meu primeiro treino
+                      {t("workouts.createFirstWorkout")}
                     </Button>
                   </div>
                 ) : (() => {
@@ -232,9 +234,9 @@ export default function WorkoutsPage() {
                                     .select("*")
                                     .eq("workout_id", w.id)
                                     .order("sort_order");
-                                  if (data && data.length > 0) wt.startWorkout(w, data as Exercise[]);
-                                  else toast.error("Este treino não tem exercícios cadastrados");
-                                }
+                                    if (data && data.length > 0) wt.startWorkout(w, data as Exercise[]);
+                                    else toast.error(t("workouts.noExercisesRegistered"));
+                                  }
                               }}
                             >
                               <div className="flex items-center justify-between">
@@ -244,8 +246,8 @@ export default function WorkoutsPage() {
                                 <div className="flex items-center gap-1">
                                   {w._isLocal ? (
                                     <>
-                                      <button onClick={(e) => { e.stopPropagation(); const local = wt.handleEditLocal(w); if (local) { setEditingWorkout(local); setDialogOpen(true); } }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Editar"><PenBold size={12} color="currentColor" /></button>
-                                      <button onClick={(e) => { e.stopPropagation(); wt.handleDeleteLocal(w); }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-destructive transition-colors" title="Excluir"><TrashBinTrashBold size={12} color="currentColor" /></button>
+                                      <button onClick={(e) => { e.stopPropagation(); const local = wt.handleEditLocal(w); if (local) { setEditingWorkout(local); setDialogOpen(true); } }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-foreground transition-colors" title={t("common.edit")}><PenBold size={12} color="currentColor" /></button>
+                                      <button onClick={(e) => { e.stopPropagation(); wt.handleDeleteLocal(w); }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-destructive transition-colors" title={t("common.delete")}><TrashBinTrashBold size={12} color="currentColor" /></button>
                                     </>
                                   ) : w.user_id === wt.user?.id ? (
                                     <>
@@ -255,25 +257,25 @@ export default function WorkoutsPage() {
                                           const newVal = !w.is_shared;
                                           await supabase.from("workouts").update({ is_shared: newVal }).eq("id", w.id);
                                           wt.setWorkouts((prev) => prev.map((wk) => wk.id === w.id ? { ...wk, is_shared: newVal } : wk));
-                                          toast.success(newVal ? "Treino compartilhado!" : "Treino tornado privado");
+                                          toast.success(newVal ? t("workouts.sharedWorkout") : t("workouts.madePrivate"));
                                         }}
                                         className={`h-7 w-7 rounded-full flex items-center justify-center transition-colors ${w.is_shared ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
-                                        title={w.is_shared ? "Compartilhado" : "Compartilhar"}
+                                        title={w.is_shared ? t("common.shared") : t("common.share")}
                                       >
                                         <ShareBold size={12} color="currentColor" />
                                       </button>
                                       <button
                                         onClick={async (e) => {
                                           e.stopPropagation();
-                                          if (!window.confirm("Excluir este treino?")) return;
+                                          if (!window.confirm(t("workouts.deleteWorkout"))) return;
                                           await supabase.from("workout_exercises").delete().eq("workout_id", w.id);
                                           await supabase.from("workout_bookmarks").delete().eq("workout_id", w.id);
                                           await supabase.from("workouts").delete().eq("id", w.id);
                                           wt.setWorkouts((prev) => prev.filter((wk) => wk.id !== w.id));
-                                          toast.success("Treino excluído!");
+                                          toast.success(t("workouts.workoutDeleted"));
                                         }}
                                         className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-destructive transition-colors"
-                                        title="Excluir"
+                                        title={t("common.delete")}
                                       >
                                         <TrashBinTrashBold size={12} color="currentColor" />
                                       </button>
@@ -285,12 +287,12 @@ export default function WorkoutsPage() {
                                 <p className="text-base font-bold text-card-foreground leading-tight line-clamp-2">{w.name}</p>
                                 <p className="text-xs text-muted-foreground mt-0.5">
                                   {w.day_of_week != null ? DAY_LABELS_FULL[w.day_of_week] : DAY_LABELS_FULL[i % 7]}
-                                  {w._isLocal && <span className="ml-1 text-primary">(local)</span>}
+                                  {w._isLocal && <span className="ml-1 text-primary">({t("common.local")})</span>}
                                 </p>
                                 {estMinutes && (
                                   <p className="text-[10px] text-primary mt-1 font-bold">
                                     <ClockCircleBold size={10} color="currentColor" className="inline mr-0.5" />
-                                    {estMinutes} min
+                                    {estMinutes} {t("common.min")}
                                   </p>
                                 )}
                               </div>
@@ -314,17 +316,17 @@ export default function WorkoutsPage() {
               <section className="lg:col-span-2 flex flex-col gap-4 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                    TreinAI
+                    {t("ai.treinAI")}
                   </h3>
                   <BoltCircleBold size={24} color="currentColor" className="text-primary" />
                 </div>
-                <p className="text-sm text-muted-foreground">Gere treinos personalizados com inteligência artificial</p>
+                <p className="text-sm text-muted-foreground">{t("workouts.generateWithAI")}</p>
                 <Button
                   className="rounded-2xl py-5 text-base font-black w-full"
                   onClick={() => window.location.href = '/ai-trainer'}
                 >
                   <BoltCircleBold size={18} color="currentColor" className="mr-2" />
-                  Abrir TreinAI
+                  {t("workouts.goToTreinAI")}
                 </Button>
               </section>
             </div>
@@ -337,7 +339,7 @@ export default function WorkoutsPage() {
                 <div className="flex items-center gap-3">
                   <GraphUpBold size={28} color="currentColor" className="text-primary-foreground" />
                   <h2 className="text-xl sm:text-2xl lg:text-4xl font-black uppercase text-primary-foreground tracking-tight leading-tight break-words" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                    Progressão de Carga
+                    {t("workouts.progression")}
                   </h2>
                 </div>
                 <div className="shrink-0 ml-2 text-primary-foreground/60">
@@ -372,13 +374,13 @@ export default function WorkoutsPage() {
                               </ResponsiveContainer>
                             </div>
                           ) : selectedExercise ? (
-                            <p className="text-primary-foreground/60 text-sm mt-4">Nenhum dado de progressão para este exercício ainda.</p>
+                            <p className="text-primary-foreground/60 text-sm mt-4">{t("workouts.noProgressionData", { defaultValue: "Nenhum dado de progressão para este exercício ainda." })}</p>
                           ) : (
-                            <p className="text-primary-foreground/60 text-sm mt-4">Selecione um exercício acima para ver a progressão.</p>
+                            <p className="text-primary-foreground/60 text-sm mt-4">{t("workouts.selectExercise")}</p>
                           )}
                         </>
                       ) : (
-                        <p className="text-primary-foreground/60 text-sm">Complete treinos com cargas registradas para ver a progressão.</p>
+                        <p className="text-primary-foreground/60 text-sm">{t("workouts.completeWorkoutsToSeeProgression", { defaultValue: "Complete treinos com cargas registradas para ver a progressão." })}</p>
                       )}
                     </div>
                   </motion.div>
@@ -393,7 +395,7 @@ export default function WorkoutsPage() {
               <button className="flex items-center justify-between w-full p-4 sm:p-8 text-left" onClick={() => toggleSection("cardio")}>
                 <div className="flex items-center gap-3">
                   <RunningBold size={28} color="currentColor" className="text-primary" />
-                  <h2 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>Cardio</h2>
+                  <h2 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>{t("workouts.cardio")}</h2>
                 </div>
                 <div className="shrink-0 ml-2 text-muted-foreground">
                   {sectionsOpen["cardio"] ? <AltArrowUpBold size={20} color="currentColor" /> : <AltArrowDownBold size={20} color="currentColor" />}
@@ -415,7 +417,7 @@ export default function WorkoutsPage() {
               <button className="flex items-center justify-between w-full p-4 sm:p-8 text-left" onClick={() => toggleSection("history")}>
                 <div className="flex items-center gap-3">
                   <HistoryBold size={28} color="currentColor" className="text-primary" />
-                  <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>Histórico de Treinos</h3>
+                  <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>{t("workouts.history")}</h3>
                 </div>
                 <div className="shrink-0 ml-2 text-muted-foreground">
                   {sectionsOpen["history"] ? <AltArrowUpBold size={20} color="currentColor" /> : <AltArrowDownBold size={20} color="currentColor" />}
@@ -428,8 +430,8 @@ export default function WorkoutsPage() {
                       {wt.history.length === 0 ? (
                         <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
                           <DumbbellBold size={48} color="currentColor" className="text-muted-foreground" />
-                          <p className="text-muted-foreground">Nenhum treino registrado ainda</p>
-                          <p className="text-muted-foreground text-sm">Complete treinos para vê-los aqui</p>
+                          <p className="text-muted-foreground">{t("workouts.noHistoryYet")}</p>
+                          <p className="text-muted-foreground text-sm">{t("workouts.completeWorkoutsToSeeThemHere", { defaultValue: "Complete treinos para vê-los aqui" })}</p>
                         </div>
                       ) : (
                         <div className="flex flex-col gap-3">
@@ -444,7 +446,7 @@ export default function WorkoutsPage() {
                                     <p className="text-sm sm:text-base font-bold text-card-foreground">{entry.workout_name}</p>
                                     <p className="text-xs text-muted-foreground">
                                       {new Date(entry.completed_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" })}
-                                      {entry.duration_minutes ? ` · ${entry.duration_minutes} min` : ""}
+                                      {entry.duration_minutes ? ` · ${entry.duration_minutes} ${t("common.min")}` : ""}
                                     </p>
                                   </div>
                                 </div>
@@ -458,7 +460,7 @@ export default function WorkoutsPage() {
                               {expandedId === entry.id && entry.exercise_logs && entry.exercise_logs.length > 0 && (
                                 <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                                   <div className="grid grid-cols-4 gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-muted-foreground mb-2 px-1 sm:px-2">
-                                    <span className="truncate">Exercício</span><span className="text-center">Série</span><span className="text-center">Reps</span><span className="text-center">Carga</span>
+                                    <span className="truncate">{t("workouts.exercise", { defaultValue: "Exercício" })}</span><span className="text-center">{t("workouts.set")}</span><span className="text-center">{t("workouts.reps")}</span><span className="text-center">{t("workouts.weight")}</span>
                                   </div>
                                   {entry.exercise_logs.map((log) => (
                                     <div key={log.id} className="grid grid-cols-4 gap-1 sm:gap-2 text-xs sm:text-sm py-1.5 px-1 sm:px-2 rounded-lg hover:bg-background/50">

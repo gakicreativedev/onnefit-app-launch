@@ -25,6 +25,7 @@ import { MEAL_TIMES } from "@/lib/types";
 import type { SearchFood } from "@/lib/types";
 import type { Profile } from "@/modules/auth/hooks/useProfile";
 import { calculateProteinTarget, calculateWaterTargetL } from "@/lib/nutrition";
+import { useTranslation } from "react-i18next";
 
 interface DietPageProps {
   profile: Profile;
@@ -33,6 +34,7 @@ interface DietPageProps {
 const COST_COLORS = ["", "text-green-500", "text-yellow-500", "text-red-500"];
 
 export default function DietPage({ profile }: DietPageProps) {
+  const { t } = useTranslation();
   const dt = useDietTracker();
   const [expandedMeal, setExpandedMeal] = useState<string | null>(null);
   const [dietaiPrompt, setDietaiPrompt] = useState("");
@@ -96,9 +98,9 @@ export default function DietPage({ profile }: DietPageProps) {
   const waterPercent = Math.min(100, Math.round((waterLiters / waterTargetL) * 100));
 
   const metrics = [
-    { label: "Calorias", current: dt.totalCalories.toLocaleString("pt-BR"), total: `/${calorieTarget.toLocaleString("pt-BR")}`, percent: caloriePercent },
-    { label: "Proteínas", current: `${dt.totalProtein}g`, total: `/${proteinTarget}g`, percent: proteinPercent },
-    { label: "Água", current: waterLiters.toFixed(1), total: `/${waterTargetL}L`, percent: waterPercent },
+    { label: t("dashboard.calories"), current: dt.totalCalories.toLocaleString("pt-BR"), total: `/${calorieTarget.toLocaleString("pt-BR")}`, percent: caloriePercent },
+    { label: t("dashboard.proteins"), current: `${dt.totalProtein}g`, total: `/${proteinTarget}g`, percent: proteinPercent },
+    { label: t("dashboard.water"), current: waterLiters.toFixed(1), total: `/${waterTargetL}L`, percent: waterPercent },
   ];
 
   const filteredRecipes = recipes.filter((r) => {
@@ -123,7 +125,7 @@ export default function DietPage({ profile }: DietPageProps) {
           <section className="relative flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-primary p-4 sm:p-8 lg:p-10 overflow-hidden">
             <div className="flex items-center justify-between">
               <Badge className="bg-primary-foreground text-primary border-0 rounded-full px-4 py-1.5 text-xs font-bold">
-                Dieta do Dia
+                {t("nutrition.dietOfTheDay")}
               </Badge>
             </div>
 
@@ -156,7 +158,7 @@ export default function DietPage({ profile }: DietPageProps) {
               onClick={() => window.location.href = '/ai-chef'}
             >
               <BoltCircleBold size={16} color="currentColor" className="mr-2" />
-              Gerar Dieta com DietAI
+              {t("nutrition.generateDiet")}
             </Button>
           </section>
 
@@ -164,7 +166,7 @@ export default function DietPage({ profile }: DietPageProps) {
           <section className="flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
             <div className="flex items-center justify-between">
               <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                Minhas Refeições
+                {t("nutrition.myMeals")}
               </h3>
               <ChefHatBold size={28} color="currentColor" className="text-primary" />
             </div>
@@ -222,7 +224,7 @@ export default function DietPage({ profile }: DietPageProps) {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
               <div className="flex items-center gap-3">
                 <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                  Receitas
+                  {t("nutrition.recipes")}
                 </h3>
                 <ChefHatHeartBold size={28} color="currentColor" className="text-primary" />
               </div>
@@ -232,17 +234,17 @@ export default function DietPage({ profile }: DietPageProps) {
                   <Input
                     value={recipeSearch}
                     onChange={(e) => setRecipeSearch(e.target.value)}
-                    placeholder="Buscar por nome ou ingrediente..."
+                    placeholder={t("nutrition.searchByNameOrIngredient")}
                     className="pl-10 rounded-2xl bg-muted/50 border-0"
                   />
                 </div>
                 <Button variant="outline" onClick={() => setShowCommunityFoods(true)} className="rounded-2xl gap-2 shrink-0">
                   <GlobalBold size={16} color="currentColor" />
-                  <span className="hidden sm:inline">Comunidade</span>
+                  <span className="hidden sm:inline">{t("nutrition.communityFoods")}</span>
                 </Button>
                 <Button onClick={() => setShowCreateRecipe(true)} className="rounded-2xl gap-2 shrink-0">
                   <AddCircleBold size={16} color="currentColor" />
-                  <span className="hidden sm:inline">Nova</span>
+                  <span className="hidden sm:inline">{t("nutrition.new")}</span>
                 </Button>
               </div>
             </div>
@@ -253,14 +255,14 @@ export default function DietPage({ profile }: DietPageProps) {
                 onClick={() => setRecipeTab("all")}
                 className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeTab === "all" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}
               >
-                Todas
+                {t("common.all")}
               </button>
               <button
                 onClick={() => setRecipeTab("favorites")}
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeTab === "favorites" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}
               >
                 <BookmarkBold size={14} color="currentColor" />
-                Salvas
+                {t("nutrition.saved")}
               </button>
 
               <div className="h-6 w-px bg-muted-foreground/20 mx-1 self-center" />
@@ -311,7 +313,7 @@ export default function DietPage({ profile }: DietPageProps) {
             ) : filteredRecipes.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
                 <ChefHatHeartBold size={48} color="currentColor" className="text-muted-foreground" />
-                <p className="text-muted-foreground">Nenhuma receita encontrada</p>
+                <p className="text-muted-foreground">{t("nutrition.noRecipeFound")}</p>
                 <Button variant="outline" onClick={() => setShowCreateRecipe(true)} className="rounded-2xl gap-2">
                   <AddCircleBold size={16} color="currentColor" />
                   Criar primeira receita

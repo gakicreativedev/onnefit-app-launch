@@ -19,8 +19,10 @@ import { NotificationsDrawer } from "../components/NotificationsDrawer";
 import { FeedSearchBar } from "../components/FeedSearchBar";
 import { AddCircleBold, UserPlusBold, BellBold, RefreshBold, PlainBold, WomenBold, ConfettiBold, BookmarkBold } from "solar-icon-set";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function SocialFeedPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { profile } = useProfile(user);
   const isFemale = profile?.gender === "female";
@@ -189,17 +191,17 @@ export default function SocialFeedPage() {
           className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-primary py-2.5 text-primary-foreground text-sm font-bold hover:brightness-110 transition-all"
         >
           <AddCircleBold size={18} color="currentColor" />
-          Novo Post
+          {t("social.newPost")}
         </motion.button>
         {isFemale && (
           <motion.button
             onClick={() => setWomenOnlyPostOpen(true)}
             whileTap={{ scale: 0.95 }}
             className="flex items-center justify-center gap-2 rounded-xl bg-destructive py-2.5 px-4 text-destructive-foreground text-sm font-bold hover:brightness-110 transition-all"
-            title="Post apenas para mulheres"
+            title={t("social.feminine")}
           >
             <WomenBold size={18} color="currentColor" />
-            Feminino
+            {t("social.feminine")}
           </motion.button>
         )}
       </div>
@@ -251,10 +253,10 @@ export default function SocialFeedPage() {
             </div>
             <div>
               <p className="text-foreground font-bold text-base mb-1">
-                {activeTag ? `Nenhum post com #${activeTag}` : "Seu feed está vazio"}
+                {activeTag ? t("social.noPostsWithTag", { tag: activeTag }) : t("social.feedEmpty")}
               </p>
               <p className="text-muted-foreground text-sm">
-                {activeTag ? "Tente buscar por outra tag." : "Siga pessoas para ver seus posts aqui!"}
+                {activeTag ? t("social.tryAnotherTag") : t("social.feedEmptyDesc")}
               </p>
             </div>
             {!activeTag && (
@@ -264,7 +266,7 @@ export default function SocialFeedPage() {
                 className="flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-primary-foreground text-sm font-bold hover:brightness-110 transition-all mt-1"
               >
                 <UserPlusBold size={16} color="currentColor" />
-                Descobrir Pessoas
+                {t("social.discoverPeople")}
               </motion.button>
             )}
           </motion.div>
@@ -279,10 +281,10 @@ export default function SocialFeedPage() {
             >
               <BookmarkBold size={32} color="hsl(var(--muted-foreground))" />
               <p className="text-foreground font-bold text-base">
-                {feedMode === "salvos" ? "Nenhum post salvo" : "Sem posts"}
+                {feedMode === "salvos" ? t("social.noSavedPosts") : t("social.noPosts")}
               </p>
               <p className="text-muted-foreground text-sm">
-                {feedMode === "salvos" ? "Toque no ícone de bookmark para salvar posts." : "Tente novamente."}
+                {feedMode === "salvos" ? t("social.savedPostsDesc") : t("social.tryAgain")}
               </p>
             </motion.div>
           ) : (
@@ -317,7 +319,7 @@ export default function SocialFeedPage() {
               <RefreshBold size={20} color="hsl(var(--muted-foreground))" />
             </motion.div>
           ) : !hasMore ? (
-            <span className="text-xs text-muted-foreground flex items-center gap-1.5">Você viu todos os posts <ConfettiBold size={14} color="hsl(var(--primary))" /></span>
+            <span className="text-xs text-muted-foreground flex items-center gap-1.5">{t("social.allPostsSeen")} <ConfettiBold size={14} color="hsl(var(--primary))" /></span>
           ) : null}
         </div>
       )}
