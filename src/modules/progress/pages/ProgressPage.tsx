@@ -6,6 +6,7 @@ import { ProgressCharts } from "../components/ProgressCharts";
 import { PhotoGallery } from "../components/PhotoGallery";
 import { MEASUREMENT_LABELS, MEASUREMENT_ICONS, type MeasurementField } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const HistoryPage = lazy(() => import("@/modules/history/pages/HistoryPage"));
 
@@ -39,15 +40,15 @@ export default function ProgressPage() {
     const { photos, loading: photosLoading, uploading, upload, remove: removePhoto } = useProgressPhotos();
     const [tab, setTab] = useState<Tab>("overview");
     const [showForm, setShowForm] = useState(false);
+    const { t } = useTranslation();
 
     const tabs: { id: Tab; label: string; icon: string }[] = [
-        { id: "overview", label: "Medidas", icon: "📏" },
-        { id: "charts", label: "Gráficos", icon: "📈" },
-        { id: "photos", label: "Fotos", icon: "📷" },
-        { id: "history", label: "Histórico", icon: "📅" },
+        { id: "overview", label: t("progress.measurements"), icon: "📏" },
+        { id: "charts", label: t("progress.charts"), icon: "📈" },
+        { id: "photos", label: t("progress.photos"), icon: "📷" },
+        { id: "history", label: t("progress.history"), icon: "📅" },
     ];
 
-    // Key measurement fields to show in overview
     const overviewFields: { field: MeasurementField; invert?: boolean }[] = [
         { field: "weight_kg", invert: true },
         { field: "body_fat_pct", invert: true },
@@ -63,30 +64,27 @@ export default function ProgressPage() {
 
     return (
         <div className="space-y-6 max-w-2xl mx-auto">
-            {/* Header */}
             <div>
-                <h1 className="text-2xl sm:text-3xl font-black">📊 Progresso Corporal</h1>
-                <p className="text-sm text-muted-foreground mt-1">Acompanhe sua evolução com medidas e fotos</p>
+                <h1 className="text-2xl sm:text-3xl font-black">📊 {t("progress.bodyProgress")}</h1>
+                <p className="text-sm text-muted-foreground mt-1">{t("progress.bodyProgressDesc")}</p>
             </div>
 
-            {/* Tabs */}
             <div className="flex gap-1 bg-muted/50 rounded-2xl p-1">
-                {tabs.map((t) => (
+                {tabs.map((tb) => (
                     <button
-                        key={t.id}
-                        onClick={() => setTab(t.id)}
-                        className={`relative flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-bold transition-all ${tab === t.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                            }`}
+                        key={tb.id}
+                        onClick={() => setTab(tb.id)}
+                        className={`relative flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-bold transition-all ${tab === tb.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
                     >
-                        {tab === t.id && (
+                        {tab === tb.id && (
                             <motion.div
                                 layoutId="progress-tab"
                                 className="absolute inset-0 rounded-xl bg-primary glow-primary-sm"
                                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
                             />
                         )}
-                        <span className="relative z-10">{t.icon}</span>
-                        <span className="relative z-10 hidden sm:inline">{t.label}</span>
+                        <span className="relative z-10">{tb.icon}</span>
+                        <span className="relative z-10 hidden sm:inline">{tb.label}</span>
                     </button>
                 ))}
             </div>
@@ -99,24 +97,18 @@ export default function ProgressPage() {
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2 }}
                 >
-                    {/* ── Medidas Tab ── */}
                     {tab === "overview" && (
                         <div className="space-y-4">
                             <button
                                 onClick={() => setShowForm(!showForm)}
                                 className="w-full rounded-2xl border-2 border-dashed border-primary/30 py-4 text-sm font-bold text-primary hover:border-primary/60 hover:bg-primary/5 transition-all"
                             >
-                                {showForm ? "✕ Fechar formulário" : "+ Nova Medida"}
+                                {showForm ? `✕ ${t("progress.closeForm")}` : t("progress.newMeasurement")}
                             </button>
 
                             <AnimatePresence>
                                 {showForm && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="overflow-hidden"
-                                    >
+                                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                                         <div className="glass-card rounded-2xl p-4">
                                             <MeasurementForm onSubmit={add} onCancel={() => setShowForm(false)} />
                                         </div>
@@ -131,7 +123,7 @@ export default function ProgressPage() {
                             ) : latest ? (
                                 <>
                                     <p className="text-xs text-muted-foreground">
-                                        Última atualização: {new Date(latest.date).toLocaleDateString("pt-BR")}
+                                        {t("progress.lastUpdate")}: {new Date(latest.date).toLocaleDateString()}
                                         {latest.notes && <span className="ml-2 italic">— {latest.notes}</span>}
                                     </p>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -146,25 +138,21 @@ export default function ProgressPage() {
                                         ))}
                                     </div>
 
-                                    {/* History list */}
                                     {measurements.length > 1 && (
                                         <div className="space-y-2 mt-4">
-                                            <h3 className="text-sm font-bold text-muted-foreground">Histórico</h3>
+                                            <h3 className="text-sm font-bold text-muted-foreground">{t("progress.measurementHistory")}</h3>
                                             {[...measurements].reverse().map((m) => (
                                                 <div key={m.id} className="flex items-center justify-between rounded-xl bg-card border border-border/40 p-3">
                                                     <div>
-                                                        <p className="text-sm font-bold">{new Date(m.date).toLocaleDateString("pt-BR")}</p>
+                                                        <p className="text-sm font-bold">{new Date(m.date).toLocaleDateString()}</p>
                                                         <p className="text-xs text-muted-foreground">
                                                             {m.weight_kg && `${m.weight_kg}kg`}
                                                             {m.body_fat_pct && ` · ${m.body_fat_pct}%`}
-                                                            {m.waist_cm && ` · ${m.waist_cm}cm cintura`}
+                                                            {m.waist_cm && ` · ${m.waist_cm}cm ${t("progress.waist")}`}
                                                         </p>
                                                     </div>
-                                                    <button
-                                                        onClick={() => remove(m.id)}
-                                                        className="text-xs text-destructive hover:underline font-semibold"
-                                                    >
-                                                        Excluir
+                                                    <button onClick={() => remove(m.id)} className="text-xs text-destructive hover:underline font-semibold">
+                                                        {t("progress.deleteLabel")}
                                                     </button>
                                                 </div>
                                             ))}
@@ -174,31 +162,23 @@ export default function ProgressPage() {
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
                                     <span className="text-5xl mb-4">📏</span>
-                                    <p className="text-sm font-bold">Nenhuma medida ainda</p>
-                                    <p className="text-xs mt-1">Registre suas medidas para acompanhar o progresso</p>
+                                    <p className="text-sm font-bold">{t("progress.noMeasurementsYet")}</p>
+                                    <p className="text-xs mt-1">{t("progress.recordMeasurements")}</p>
                                 </div>
                             )}
                         </div>
                     )}
 
-                    {/* ── Gráficos Tab ── */}
                     {tab === "charts" && (
                         <div className="glass-card rounded-2xl p-4">
                             <ProgressCharts measurements={measurements} />
                         </div>
                     )}
 
-                    {/* ── Fotos Tab ── */}
                     {tab === "photos" && (
-                        <PhotoGallery
-                            photos={photos}
-                            uploading={uploading}
-                            onUpload={upload}
-                            onDelete={removePhoto}
-                        />
+                        <PhotoGallery photos={photos} uploading={uploading} onUpload={upload} onDelete={removePhoto} />
                     )}
 
-                    {/* ── Histórico Tab ── */}
                     {tab === "history" && (
                         <Suspense fallback={
                             <div className="flex items-center justify-center py-12">

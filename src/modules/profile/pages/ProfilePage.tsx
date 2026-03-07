@@ -14,6 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { calculateProteinTarget, calculateWaterTargetMl, getProteinMultiplier, calculateBMR, calculateCalorieTarget } from "@/lib/nutrition";
 import { StoryViewer } from "@/modules/social/components/StoryViewer";
 import type { Profile } from "@/modules/auth/hooks/useProfile";
+import { useTranslation } from "react-i18next";
 
 const GamificationPage = lazy(() => import("@/modules/gamification/pages/GamificationPage"));
 import { EditProfileDialog } from "@/modules/profile/components/EditProfileDialog";
@@ -31,24 +32,12 @@ const SOURCE_ICONS: Record<string, any> = {
   streak_bonus_30: CupStarBold,
 };
 
-const SOURCE_LABELS: Record<string, string> = {
-  workout_completed: "Treino completo",
-  diet_logged: "Dieta registrada",
-  water_goal: "Meta de água",
-  streak_bonus_3: "Streak 3 dias",
-  streak_bonus_7: "Streak 7 dias",
-  streak_bonus_30: "Streak 30 dias",
-};
-
 interface ProfilePageProps {
   profile: Profile;
   onUpdate: (data: Partial<Profile>) => Promise<{ data: any; error: any; } | undefined>;
   userRole?: AppRole;
   onSwitchRole?: (role: AppRole) => void;
 }
-
-const goalLabels: Record<string, string> = { lose_weight: "Perder Peso", gain_muscle: "Ganhar Músculo", recomposition: "Recomposição", maintain: "Manter" };
-const activityLabels: Record<string, string> = { sedentary: "Sedentário", light: "Leve", moderate: "Moderado", active: "Ativo", very_active: "Muito Ativo" };
 
 function ProfileTagField({ label, hint, tags, onChange, placeholder }: { label: string; hint: string; tags: string[]; onChange: (t: string[]) => void; placeholder: string; }) {
   const [input, setInput] = useState("");
@@ -76,6 +65,7 @@ function ProfileTagField({ label, hint, tags, onChange, placeholder }: { label: 
 }
 
 export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole }: ProfilePageProps) {
+  const { t } = useTranslation();
   const pd = useProfileData(profile);
   const navigate = useNavigate();
 
@@ -115,7 +105,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
         <div className="flex items-center justify-center gap-6 w-full max-w-[280px]">
           <div className="text-center min-w-[60px]">
             <p className="text-lg font-black text-foreground leading-none">{pd.followersCount}</p>
-            <p className="text-[10px] text-muted-foreground font-medium mt-1">Seguidores</p>
+            <p className="text-[10px] text-muted-foreground font-medium mt-1">{t("profile.followers")}</p>
           </div>
           <div className="relative flex-shrink-0">
             <button
@@ -132,7 +122,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           </div>
           <div className="text-center min-w-[60px]">
             <p className="text-lg font-black text-foreground leading-none">{pd.followingCount}</p>
-            <p className="text-[10px] text-muted-foreground font-medium mt-1">Seguindo</p>
+            <p className="text-[10px] text-muted-foreground font-medium mt-1">{t("profile.following")}</p>
           </div>
         </div>
 
@@ -141,14 +131,14 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             <h1 className="text-lg font-bold text-foreground leading-tight">{displayName}</h1>
             {profile.is_verified && <VerifiedCheckBold size={16} color="hsl(var(--primary))" />}
           </div>
-          {profile.goal && <span className="inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[11px] font-semibold text-primary">{goalLabels[profile.goal] || profile.goal}</span>}
+          {profile.goal && <span className="inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[11px] font-semibold text-primary">{t(`gamification.goalLabels.${profile.goal}`, { defaultValue: profile.goal })}</span>}
           {profile.bio && <p className="text-sm text-muted-foreground max-w-[260px] mx-auto leading-snug">{profile.bio}</p>}
           <p className="flex items-center justify-center gap-1 text-xs text-primary/70"><LinkBold size={11} color="currentColor" /><span>onnefit.lovable.app</span></p>
         </div>
 
         <div className="flex gap-2.5 w-full max-w-[280px]">
-          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => setEditOpen(true)}>Editar perfil</Button>
-          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => navigate("/settings")}>Configurações</Button>
+          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => setEditOpen(true)}>{t("profile.editProfile")}</Button>
+          <Button variant="outline" className="flex-1 rounded-xl font-bold text-sm h-9" onClick={() => navigate("/settings")}>{t("profile.settings")}</Button>
         </div>
       </div>
 
@@ -169,7 +159,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           <div className="flex h-[60px] w-[60px] items-center justify-center rounded-full border-2 border-dashed border-muted-foreground/30 bg-card text-muted-foreground hover:border-primary hover:text-primary transition-colors">
             <AddCircleBold size={20} color="currentColor" />
           </div>
-          <span className="text-[10px] text-muted-foreground font-medium">Novo</span>
+          <span className="text-[10px] text-muted-foreground font-medium">{t("profile.new")}</span>
         </div>
       </div>
 
@@ -193,7 +183,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {activeTab === "posts" && (
         <div className="grid grid-cols-3 gap-0.5">
           {pd.userPosts.length === 0 ? (
-            <div className="col-span-3 py-16 text-center"><p className="text-sm text-muted-foreground">Nenhuma publicação ainda</p></div>
+            <div className="col-span-3 py-16 text-center"><p className="text-sm text-muted-foreground">{t("profile.noPosts")}</p></div>
           ) : pd.userPosts.map((post) => (
             <div key={post.id} onClick={() => pd.openPostDetail(post)} className={`aspect-square flex items-center justify-center p-1 cursor-pointer hover:opacity-80 transition-opacity relative group overflow-hidden ${post.image_url ? "" : "bg-muted"}`}>
               {post.image_url ? <img src={post.image_url} alt="" className="w-full h-full object-cover" /> : <p className="text-xs text-foreground text-center line-clamp-3 font-medium px-2">{post.content}</p>}
@@ -209,16 +199,16 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {/* Recipes tab */}
       {activeTab === "recipes" && (
         <div className="p-4 space-y-4">
-          <div className="flex gap-2 mb-3">
-            <button onClick={() => setRecipeSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>Minhas ({pd.myRecipes.length})</button>
-            <button onClick={() => setRecipeSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />Salvas ({pd.savedRecipes.length})</button>
+           <div className="flex gap-2 mb-3">
+             <button onClick={() => setRecipeSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>{t("profile.mineCount", { count: pd.myRecipes.length })}</button>
+             <button onClick={() => setRecipeSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />{t("profile.savedCount", { count: pd.savedRecipes.length })}</button>
           </div>
           {(() => {
             const list = recipeSubTab === "mine" ? pd.myRecipes : pd.savedRecipes;
             if (list.length === 0) return (
               <div className="rounded-2xl bg-card p-8 text-center">
                 <ChefHatBold size={32} color="currentColor" className="text-muted-foreground mx-auto mb-2" />
-                <p className="text-muted-foreground text-sm">{recipeSubTab === "mine" ? "Nenhuma receita criada ainda" : "Nenhuma receita salva ainda"}</p>
+                <p className="text-muted-foreground text-sm">{recipeSubTab === "mine" ? t("profile.noRecipesCreated") : t("profile.noRecipesSaved")}</p>
               </div>
             );
             return (
@@ -243,16 +233,16 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {/* Workouts tab */}
       {activeTab === "workouts" && (
         <div className="p-4 space-y-4">
-          <div className="flex gap-2 mb-3">
-            <button onClick={() => setWorkoutSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>Meus ({pd.myWorkouts.length})</button>
-            <button onClick={() => setWorkoutSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />Salvos ({pd.savedWorkouts.length})</button>
+           <div className="flex gap-2 mb-3">
+             <button onClick={() => setWorkoutSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>{t("profile.mineWorkoutsCount", { count: pd.myWorkouts.length })}</button>
+             <button onClick={() => setWorkoutSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />{t("profile.savedWorkoutsCount", { count: pd.savedWorkouts.length })}</button>
           </div>
           {(() => {
             const list = workoutSubTab === "mine" ? pd.myWorkouts : pd.savedWorkouts;
             if (list.length === 0) return (
               <div className="rounded-2xl bg-card p-8 text-center">
                 <DumbbellBold size={32} color="currentColor" className="text-muted-foreground mx-auto mb-2" />
-                <p className="text-muted-foreground text-sm">{workoutSubTab === "mine" ? "Nenhum treino criado ainda" : "Nenhum treino salvo ainda"}</p>
+                <p className="text-muted-foreground text-sm">{workoutSubTab === "mine" ? t("profile.noWorkoutsCreated") : t("profile.noWorkoutsSaved")}</p>
               </div>
             );
             return (
@@ -266,7 +256,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                           {w.difficulty && <span className="capitalize">{w.difficulty}</span>}
                           {w.duration_minutes && <span>· {w.duration_minutes} min</span>}
-                          {w.is_shared && <span className="text-primary font-semibold">· Compartilhado</span>}
+                          {w.is_shared && <span className="text-primary font-semibold">· {t("common.shared")}</span>}
                         </div>
                       </div>
                     </div>
@@ -285,38 +275,49 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {/* Info tab */}
       {activeTab === "info" && (
         <div className="p-4 sm:p-6 space-y-4">
-          <Card className="border-0 bg-card rounded-2xl">
-            <CardHeader><CardTitle className="text-card-foreground">Informações Pessoais</CardTitle></CardHeader>
+           <Card className="border-0 bg-card rounded-2xl">
+             <CardHeader><CardTitle className="text-card-foreground">{t("profile.personalInfo")}</CardTitle></CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2"><Label>Nome</Label><Input value={pd.form.name} onChange={(e) => pd.setForm({ ...pd.form, name: e.target.value })} /></div>
+              <div className="space-y-2"><Label>{t("profile.name")}</Label><Input value={pd.form.name} onChange={(e) => pd.setForm({ ...pd.form, name: e.target.value })} /></div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>Idade</Label><Input type="number" value={pd.form.age} onChange={(e) => pd.setForm({ ...pd.form, age: Number(e.target.value) })} /></div>
-                <div className="space-y-2"><Label>Sexo Biológico</Label>
-                  <Select value={pd.form.gender} onValueChange={(v) => pd.setForm({ ...pd.form, gender: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="male">Masculino</SelectItem><SelectItem value="female">Feminino</SelectItem></SelectContent>
-                  </Select>
-                </div>
+                 <div className="space-y-2"><Label>{t("profile.age")}</Label><Input type="number" value={pd.form.age} onChange={(e) => pd.setForm({ ...pd.form, age: Number(e.target.value) })} /></div>
+                 <div className="space-y-2"><Label>{t("profile.biologicalSex")}</Label>
+                   <Select value={pd.form.gender} onValueChange={(v) => pd.setForm({ ...pd.form, gender: v })}>
+                     <SelectTrigger><SelectValue /></SelectTrigger>
+                     <SelectContent><SelectItem value="male">{t("profile.male")}</SelectItem><SelectItem value="female">{t("profile.female")}</SelectItem></SelectContent>
+                   </Select>
+                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>Altura (cm)</Label><Input type="number" value={pd.form.height_cm} onChange={(e) => pd.setForm({ ...pd.form, height_cm: Number(e.target.value) })} /></div>
-                <div className="space-y-2"><Label>Peso (kg)</Label><Input type="number" value={pd.form.weight_kg} onChange={(e) => pd.setForm({ ...pd.form, weight_kg: Number(e.target.value) })} /></div>
+                 <div className="space-y-2"><Label>{t("profile.heightCm")}</Label><Input type="number" value={pd.form.height_cm} onChange={(e) => pd.setForm({ ...pd.form, height_cm: Number(e.target.value) })} /></div>
+                 <div className="space-y-2"><Label>{t("profile.weightKg")}</Label><Input type="number" value={pd.form.weight_kg} onChange={(e) => pd.setForm({ ...pd.form, weight_kg: Number(e.target.value) })} /></div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>Objetivo</Label>
-                  <Select value={pd.form.goal} onValueChange={(v) => pd.setForm({ ...pd.form, goal: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="lose_weight">Perder Peso</SelectItem><SelectItem value="gain_muscle">Ganhar Músculo</SelectItem><SelectItem value="recomposition">Recomposição Corporal</SelectItem><SelectItem value="maintain">Manter</SelectItem></SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2"><Label>Nível de Atividade</Label>
-                  <Select value={pd.form.activity_level} onValueChange={(v) => pd.setForm({ ...pd.form, activity_level: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="sedentary">Sedentário</SelectItem><SelectItem value="light">Leve</SelectItem><SelectItem value="moderate">Moderado</SelectItem><SelectItem value="active">Ativo</SelectItem><SelectItem value="very_active">Muito Ativo</SelectItem></SelectContent>
-                  </Select>
-                </div>
+                 <div className="space-y-2"><Label>{t("profile.goal")}</Label>
+                   <Select value={pd.form.goal} onValueChange={(v) => pd.setForm({ ...pd.form, goal: v })}>
+                     <SelectTrigger><SelectValue /></SelectTrigger>
+                     <SelectContent>
+                       <SelectItem value="lose_weight">{t("gamification.goalLabels.lose_weight")}</SelectItem>
+                       <SelectItem value="gain_muscle">{t("gamification.goalLabels.gain_muscle")}</SelectItem>
+                       <SelectItem value="recomposition">{t("gamification.goalLabels.recomposition")}</SelectItem>
+                       <SelectItem value="maintain">{t("gamification.goalLabels.maintain")}</SelectItem>
+                     </SelectContent>
+                   </Select>
+                 </div>
+                 <div className="space-y-2"><Label>{t("profile.activityLevel")}</Label>
+                   <Select value={pd.form.activity_level} onValueChange={(v) => pd.setForm({ ...pd.form, activity_level: v })}>
+                     <SelectTrigger><SelectValue /></SelectTrigger>
+                     <SelectContent>
+                       <SelectItem value="sedentary">{t("onboarding.activityLevels.sedentary")}</SelectItem>
+                       <SelectItem value="light">{t("onboarding.activityLevels.light")}</SelectItem>
+                       <SelectItem value="moderate">{t("onboarding.activityLevels.moderate")}</SelectItem>
+                       <SelectItem value="active">{t("onboarding.activityLevels.active")}</SelectItem>
+                       <SelectItem value="very_active">{t("onboarding.activityLevels.very_active")}</SelectItem>
+                     </SelectContent>
+                   </Select>
+                 </div>
               </div>
-              <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? "Salvando..." : "Salvar Alterações"}</Button>
+               <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? t("common.saving") : t("profile.saveChanges")}</Button>
             </CardContent>
           </Card>
 
@@ -334,20 +335,20 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             const goalLabel: Record<string, string> = { gain_muscle: "Ganho muscular (1.6g/kg)", lose_weight: "Perda de peso (1.4g/kg)", recomposition: "Recomposição (1.6g/kg)", maintain: "Manutenção (1.2g/kg)" };
             const actLabel: Record<string, string> = { very_active: "Muito ativo (×1.3)", active: "Ativo (×1.15)", moderate: "Moderado (×1.0)", light: "Leve (×0.95)", sedentary: "Sedentário (×0.9)" };
             return (
-              <Card className="border-0 bg-card rounded-2xl">
-                <CardHeader><CardTitle className="text-card-foreground flex items-center gap-2"><StarBold size={20} color="currentColor" className="text-primary" />Metas Calculadas</CardTitle></CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-xs text-muted-foreground">Valores calculados automaticamente com base nos seus dados.</p>
-                  <div className="rounded-xl bg-background p-4 space-y-1">
-                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground">Calorias diárias</span><span className="text-lg font-bold text-primary">{calTarget.toLocaleString("pt-BR")} kcal</span></div>
+               <Card className="border-0 bg-card rounded-2xl">
+                 <CardHeader><CardTitle className="text-card-foreground flex items-center gap-2"><StarBold size={20} color="currentColor" className="text-primary" />{t("profile.calculatedTargets")}</CardTitle></CardHeader>
+                 <CardContent className="space-y-4">
+                   <p className="text-xs text-muted-foreground">{t("profile.calculatedTargetsDesc")}</p>
+                   <div className="rounded-xl bg-background p-4 space-y-1">
+                     <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground">{t("profile.dailyCalories")}</span><span className="text-lg font-bold text-primary">{calTarget.toLocaleString()} kcal</span></div>
                     <p className="text-xs text-muted-foreground">TMB ({Math.round(bmr)} kcal) × atividade × objetivo</p>
                   </div>
                   <div className="rounded-xl bg-background p-4 space-y-1">
-                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><DumbbellBold size={14} color="currentColor" className="text-primary" />Meta de Proteína</span><span className="text-lg font-bold text-primary">{protTarget}g/dia</span></div>
+                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><DumbbellBold size={14} color="currentColor" className="text-primary" />{t("profile.proteinTarget")}</span><span className="text-lg font-bold text-primary">{protTarget}g/{t("common.days").replace("dias","dia").replace("days","day")}</span></div>
                     <p className="text-xs text-muted-foreground">{w}kg × {protMult}g/kg — {goalLabel[goalKey] || goalLabel.maintain}</p>
                   </div>
                   <div className="rounded-xl bg-background p-4 space-y-1">
-                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><WaterdropsBold size={14} color="currentColor" className="text-primary" />Meta de Água</span><span className="text-lg font-bold text-primary">{waterL}L/dia</span></div>
+                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><WaterdropsBold size={14} color="currentColor" className="text-primary" />{t("profile.waterTarget")}</span><span className="text-lg font-bold text-primary">{waterL}L/{t("common.days").replace("dias","dia").replace("days","day")}</span></div>
                     <p className="text-xs text-muted-foreground">{w}kg × 35ml × {actLabel[actKey] || actLabel.moderate}</p>
                   </div>
                 </CardContent>
@@ -355,24 +356,24 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             );
           })()}
 
-          <Card className="border-0 bg-card rounded-2xl">
-            <CardHeader><CardTitle className="text-card-foreground">Saúde & Restrições</CardTitle></CardHeader>
-            <CardContent className="space-y-5">
-              <ProfileTagField label="Lesões ou Limitações Físicas" hint="Ex: hérnia de disco, tendinite no ombro" tags={pd.form.injuries} onChange={(t) => pd.setForm({ ...pd.form, injuries: t })} placeholder="Adicionar lesão..." />
-              <ProfileTagField label="Alergias Alimentares" hint="Ex: lactose, glúten, amendoim" tags={pd.form.allergies} onChange={(t) => pd.setForm({ ...pd.form, allergies: t })} placeholder="Adicionar alergia..." />
-              <ProfileTagField label="Restrições Alimentares" hint="Ex: vegetariano, vegano, sem açúcar" tags={pd.form.dietary_restrictions} onChange={(t) => pd.setForm({ ...pd.form, dietary_restrictions: t })} placeholder="Adicionar restrição..." />
-              <p className="text-xs text-muted-foreground text-center">Dados privados usados pela IA para personalizar treinos e dietas.</p>
-              <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? "Salvando..." : "Salvar Alterações"}</Button>
+           <Card className="border-0 bg-card rounded-2xl">
+             <CardHeader><CardTitle className="text-card-foreground">{t("profile.healthRestrictions")}</CardTitle></CardHeader>
+             <CardContent className="space-y-5">
+               <ProfileTagField label={t("onboarding.injuries")} hint={t("onboarding.injuriesDesc")} tags={pd.form.injuries} onChange={(tags) => pd.setForm({ ...pd.form, injuries: tags })} placeholder={t("onboarding.injuriesPlaceholder")} />
+               <ProfileTagField label={t("onboarding.allergies")} hint={t("onboarding.allergiesDesc")} tags={pd.form.allergies} onChange={(tags) => pd.setForm({ ...pd.form, allergies: tags })} placeholder={t("onboarding.allergiesPlaceholder")} />
+               <ProfileTagField label={t("onboarding.dietaryRestrictions")} hint={t("onboarding.dietaryRestrictionsDesc")} tags={pd.form.dietary_restrictions} onChange={(tags) => pd.setForm({ ...pd.form, dietary_restrictions: tags })} placeholder={t("onboarding.dietaryRestrictionsPlaceholder")} />
+               <p className="text-xs text-muted-foreground text-center">{t("profile.privateDataNote")}</p>
+               <Button onClick={() => pd.handleSave(onUpdate)} disabled={pd.saving} className="w-full rounded-xl py-3 font-bold">{pd.saving ? t("common.saving") : t("profile.saveChanges")}</Button>
             </CardContent>
           </Card>
 
-          {onSwitchRole && (
-            <Card className="border-0 bg-card rounded-2xl">
-              <CardHeader><CardTitle className="text-card-foreground">Tipo de Conta</CardTitle></CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-muted-foreground">{userRole === "professional" ? "Você está no modo Personal Trainer." : "Mude para modo profissional para acessar o painel de Personal Trainer."}</p>
-                <Button variant={userRole === "professional" ? "outline" : "default"} onClick={() => onSwitchRole(userRole === "professional" ? "athlete" : "professional")} className="w-full rounded-xl py-3 font-bold">{userRole === "professional" ? "Voltar para Modo Atleta" : "Ativar Modo Personal Trainer"}</Button>
-              </CardContent>
+           {onSwitchRole && (
+             <Card className="border-0 bg-card rounded-2xl">
+               <CardHeader><CardTitle className="text-card-foreground">{t("profile.accountType")}</CardTitle></CardHeader>
+               <CardContent className="space-y-3">
+                 <p className="text-sm text-muted-foreground">{userRole === "professional" ? t("profile.trainerModeActive") : t("profile.switchTrainerHint")}</p>
+                 <Button variant={userRole === "professional" ? "outline" : "default"} onClick={() => onSwitchRole(userRole === "professional" ? "athlete" : "professional")} className="w-full rounded-xl py-3 font-bold">{userRole === "professional" ? t("profile.switchToAthlete") : t("profile.switchToTrainer")}</Button>
+               </CardContent>
             </Card>
           )}
         </div>
@@ -384,7 +385,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           <section className="relative flex flex-col gap-4 rounded-[24px] bg-primary p-6 overflow-hidden">
             <div className="flex items-end justify-between">
               <div>
-                <p className="text-primary-foreground/70 text-xs font-bold uppercase tracking-wider">Seu Nível</p>
+                <p className="text-primary-foreground/70 text-xs font-bold uppercase tracking-wider">{t("gamification.yourLevel")}</p>
                 <h2 className="text-4xl font-black text-primary-foreground">Level {String(pd.level.level).padStart(2, "0")}</h2>
               </div>
               <div className="flex items-center gap-2">
@@ -402,18 +403,18 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           </section>
 
           <div className="grid grid-cols-3 gap-3">
-            <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><FireBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.current_streak}</span><span className="text-[10px] text-muted-foreground font-bold">Streak</span></div>
-            <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><CupStarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.longest_streak}</span><span className="text-[10px] text-muted-foreground font-bold">Recorde</span></div>
-            <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><StarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.xpHistory.length}</span><span className="text-[10px] text-muted-foreground font-bold">Ações</span></div>
+             <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><FireBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.current_streak}</span><span className="text-[10px] text-muted-foreground font-bold">{t("gamification.streak")}</span></div>
+             <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><CupStarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.longest_streak}</span><span className="text-[10px] text-muted-foreground font-bold">{t("gamification.record")}</span></div>
+             <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><StarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.xpHistory.length}</span><span className="text-[10px] text-muted-foreground font-bold">{t("gamification.rewardedActions")}</span></div>
           </div>
 
           <section className="flex flex-col gap-3 rounded-[24px] bg-card p-5 border border-border">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-black text-card-foreground">Histórico de XP</h3>
-              <BoltBold size={22} color="currentColor" className="text-primary" />
-            </div>
-            {pd.xpHistory.length === 0 ? (
-              <p className="text-muted-foreground text-sm text-center py-6">Nenhum XP ganho ainda</p>
+               <h3 className="text-lg font-black text-card-foreground">{t("gamification.xpHistory")}</h3>
+               <BoltBold size={22} color="currentColor" className="text-primary" />
+             </div>
+             {pd.xpHistory.length === 0 ? (
+               <p className="text-muted-foreground text-sm text-center py-6">{t("gamification.noXPYet")}</p>
             ) : (
               <div className="flex flex-col gap-2">
                 {pd.xpHistory.slice(0, 20).map((entry) => {
@@ -423,7 +424,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                       <div className="flex items-center gap-3">
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15"><Icon size={16} color="currentColor" className="text-primary" /></div>
                         <div>
-                          <p className="text-xs font-bold text-card-foreground">{SOURCE_LABELS[entry.source] || entry.source}</p>
+                          <p className="text-xs font-bold text-card-foreground">{t(`gamification.sourceLabels.${entry.source}`, { defaultValue: entry.source })}</p>
                           <p className="text-[10px] text-muted-foreground">{new Date(entry.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })}</p>
                         </div>
                       </div>
@@ -455,17 +456,17 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       <RecipeDetailDialog recipe={selectedRecipe} open={recipeDialogOpen} onOpenChange={setRecipeDialogOpen} />
 
       {/* Highlight dialog */}
-      <Dialog open={highlightDialog.open} onOpenChange={(open) => !open && setHighlightDialog({ open: false })}>
-        <DialogContent className="max-w-sm">
-          <DialogHeader><DialogTitle>{highlightDialog.editing ? "Editar Destaque" : "Novo Destaque"}</DialogTitle></DialogHeader>
-          <div className="space-y-4 py-2">
-            <div className="space-y-2"><Label>Ícone</Label><Input value={highlightForm.icon} onChange={(e) => setHighlightForm({ ...highlightForm, icon: e.target.value })} placeholder="Ex: 🏋️" maxLength={4} /></div>
-            <div className="space-y-2"><Label>Nome</Label><Input value={highlightForm.label} onChange={(e) => setHighlightForm({ ...highlightForm, label: e.target.value })} placeholder="Ex: Treinos" maxLength={20} /></div>
-          </div>
-          <DialogFooter className="flex-row gap-2">
-            {highlightDialog.editing && <Button variant="destructive" onClick={() => { pd.handleDeleteHighlight(highlightDialog.editing!.id); setHighlightDialog({ open: false }); }} className="mr-auto"><TrashBin2Bold size={16} color="currentColor" className="mr-1" /> Remover</Button>}
-            <Button variant="secondary" onClick={() => setHighlightDialog({ open: false })}>Cancelar</Button>
-            <Button onClick={() => { pd.saveHighlight(highlightForm, highlightDialog.editing?.id); setHighlightDialog({ open: false }); }}>Salvar</Button>
+       <Dialog open={highlightDialog.open} onOpenChange={(open) => !open && setHighlightDialog({ open: false })}>
+         <DialogContent className="max-w-sm">
+           <DialogHeader><DialogTitle>{highlightDialog.editing ? t("profile.editHighlight") : t("profile.newHighlight")}</DialogTitle></DialogHeader>
+           <div className="space-y-4 py-2">
+             <div className="space-y-2"><Label>{t("profile.icon")}</Label><Input value={highlightForm.icon} onChange={(e) => setHighlightForm({ ...highlightForm, icon: e.target.value })} placeholder="Ex: 🏋️" maxLength={4} /></div>
+             <div className="space-y-2"><Label>{t("profile.highlightName")}</Label><Input value={highlightForm.label} onChange={(e) => setHighlightForm({ ...highlightForm, label: e.target.value })} placeholder="Ex: Workouts" maxLength={20} /></div>
+           </div>
+           <DialogFooter className="flex-row gap-2">
+             {highlightDialog.editing && <Button variant="destructive" onClick={() => { pd.handleDeleteHighlight(highlightDialog.editing!.id); setHighlightDialog({ open: false }); }} className="mr-auto"><TrashBin2Bold size={16} color="currentColor" className="mr-1" /> {t("common.remove")}</Button>}
+             <Button variant="secondary" onClick={() => setHighlightDialog({ open: false })}>{t("common.cancel")}</Button>
+             <Button onClick={() => { pd.saveHighlight(highlightForm, highlightDialog.editing?.id); setHighlightDialog({ open: false }); }}>{t("common.save")}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
