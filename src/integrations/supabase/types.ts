@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      body_measurements: {
+        Row: {
+          arm_left_cm: number | null
+          arm_right_cm: number | null
+          body_fat_pct: number | null
+          chest_cm: number | null
+          created_at: string
+          date: string
+          hip_cm: number | null
+          id: string
+          neck_cm: number | null
+          notes: string | null
+          thigh_left_cm: number | null
+          thigh_right_cm: number | null
+          user_id: string
+          waist_cm: number | null
+          weight_kg: number | null
+        }
+        Insert: {
+          arm_left_cm?: number | null
+          arm_right_cm?: number | null
+          body_fat_pct?: number | null
+          chest_cm?: number | null
+          created_at?: string
+          date?: string
+          hip_cm?: number | null
+          id?: string
+          neck_cm?: number | null
+          notes?: string | null
+          thigh_left_cm?: number | null
+          thigh_right_cm?: number | null
+          user_id: string
+          waist_cm?: number | null
+          weight_kg?: number | null
+        }
+        Update: {
+          arm_left_cm?: number | null
+          arm_right_cm?: number | null
+          body_fat_pct?: number | null
+          chest_cm?: number | null
+          created_at?: string
+          date?: string
+          hip_cm?: number | null
+          id?: string
+          neck_cm?: number | null
+          notes?: string | null
+          thigh_left_cm?: number | null
+          thigh_right_cm?: number | null
+          user_id?: string
+          waist_cm?: number | null
+          weight_kg?: number | null
+        }
+        Relationships: []
+      }
+      progress_photos: {
+        Row: {
+          category: string
+          created_at: string
+          date: string
+          id: string
+          notes: string | null
+          photo_url: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          date?: string
+          id?: string
+          notes?: string | null
+          photo_url: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          date?: string
+          id?: string
+          notes?: string | null
+          photo_url?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
