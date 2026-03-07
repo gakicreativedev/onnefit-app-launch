@@ -65,6 +65,7 @@ function ProfileTagField({ label, hint, tags, onChange, placeholder }: { label: 
 }
 
 export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole }: ProfilePageProps) {
+  const { t } = useTranslation();
   const pd = useProfileData(profile);
   const navigate = useNavigate();
 
