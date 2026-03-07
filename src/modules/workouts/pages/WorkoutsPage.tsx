@@ -246,8 +246,8 @@ export default function WorkoutsPage() {
                                 <div className="flex items-center gap-1">
                                   {w._isLocal ? (
                                     <>
-                                      <button onClick={(e) => { e.stopPropagation(); const local = wt.handleEditLocal(w); if (local) { setEditingWorkout(local); setDialogOpen(true); } }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Editar"><PenBold size={12} color="currentColor" /></button>
-                                      <button onClick={(e) => { e.stopPropagation(); wt.handleDeleteLocal(w); }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-destructive transition-colors" title="Excluir"><TrashBinTrashBold size={12} color="currentColor" /></button>
+                                      <button onClick={(e) => { e.stopPropagation(); const local = wt.handleEditLocal(w); if (local) { setEditingWorkout(local); setDialogOpen(true); } }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-foreground transition-colors" title={t("common.edit")}><PenBold size={12} color="currentColor" /></button>
+                                      <button onClick={(e) => { e.stopPropagation(); wt.handleDeleteLocal(w); }} className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-destructive transition-colors" title={t("common.delete")}><TrashBinTrashBold size={12} color="currentColor" /></button>
                                     </>
                                   ) : w.user_id === wt.user?.id ? (
                                     <>
