@@ -374,9 +374,9 @@ export default function WorkoutsPage() {
                               </ResponsiveContainer>
                             </div>
                           ) : selectedExercise ? (
-                            <p className="text-primary-foreground/60 text-sm mt-4">Nenhum dado de progressão para este exercício ainda.</p>
+                            <p className="text-primary-foreground/60 text-sm mt-4">{t("workouts.noProgressionData", { defaultValue: "Nenhum dado de progressão para este exercício ainda." })}</p>
                           ) : (
-                            <p className="text-primary-foreground/60 text-sm mt-4">Selecione um exercício acima para ver a progressão.</p>
+                            <p className="text-primary-foreground/60 text-sm mt-4">{t("workouts.selectExercise")}</p>
                           )}
                         </>
                       ) : (
