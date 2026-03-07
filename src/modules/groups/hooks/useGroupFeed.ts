@@ -342,7 +342,7 @@ export function useGroupFeed(groupId: string | undefined) {
 
         const userIds = [...new Set(raw.map((c: any) => c.user_id))];
         // @ts-ignore
-        const { data: profiles } = await (supabase as any).from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
+        const { data: profiles } = await (supabase as any).from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
         const profileMap = new Map<string, any>((profiles || []).map((p: any) => [p.user_id, p]));
 
         return raw.map((c: any) => {

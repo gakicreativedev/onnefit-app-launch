@@ -317,7 +317,7 @@ export function useGroupDetail(groupId: string | undefined) {
 
     if (ranks?.length) {
       const userIds = ranks.map((r: any) => r.user_id);
-      const { data: profiles } = await supabase.from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
+      const { data: profiles } = await supabase.from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds);
       const profileMap = new Map((profiles || []).map((p: any) => [p.user_id, p]));
       setRankings(ranks.map((r: any) => ({ ...r, profile: profileMap.get(r.user_id) })));
     } else {
