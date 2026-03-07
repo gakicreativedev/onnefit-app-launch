@@ -23,7 +23,7 @@ export function useGroupChat(groupId?: string) {
         if (!groupId) return;
         setLoading(true);
 
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from("group_messages")
             .select("*")
             .eq("group_id", groupId)
@@ -83,7 +83,7 @@ export function useGroupChat(groupId?: string) {
     const sendMessage = async (content: string) => {
         if (!user || !groupId || !content.trim()) return;
 
-        const { error } = await supabase.from("group_messages").insert({
+        const { error } = await (supabase as any).from("group_messages").insert({
             group_id: groupId,
             user_id: user.id,
             content: content.trim()

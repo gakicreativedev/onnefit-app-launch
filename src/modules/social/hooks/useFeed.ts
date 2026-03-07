@@ -163,8 +163,7 @@ export function useFeed() {
     let combinedFeed: any[] = (rawPosts || []).map(p => ({ ...p, type: "post" }));
 
     if (!tagFilter && groupIds.length > 0) {
-      // @ts-ignore
-      const { data: rawActivities } = await supabase
+      const { data: rawActivities } = await (supabase as any)
         .from("group_activities")
         .select("*")
         .in("group_id", groupIds)
@@ -243,8 +242,7 @@ export function useFeed() {
     let combinedFeed: any[] = (rawPosts || []).map(p => ({ ...p, type: "post" }));
 
     if (!activeTag && groupIds.length > 0) {
-      // @ts-ignore
-      const { data: rawActivities } = await supabase
+      const { data: rawActivities } = await (supabase as any)
         .from("group_activities")
         .select("*")
         .in("group_id", groupIds)
@@ -329,7 +327,7 @@ export function useFeed() {
     setPosts(prev => prev.map(p => p.id === postId ? { ...p, comments_count: Math.max(0, p.comments_count + change) } : p));
   };
 
-  const createPost = async (content: string, imageFile: File | null, tags: string[], isWomenOnly = false) => {
+  const createPost = async (content: string, imageFile?: File, tags?: string[], isWomenOnly = false) => {
     if (!user) return;
     const newPostId = crypto.randomUUID();
     let imageUrl: string | null = null;
@@ -351,7 +349,7 @@ export function useFeed() {
       content: content.trim() || null,
       image_url: imageUrl,
       location,
-      tags,
+      tags: tags || [],
       women_only: isWomenOnly
     });
 

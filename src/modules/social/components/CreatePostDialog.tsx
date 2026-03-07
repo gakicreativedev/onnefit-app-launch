@@ -8,7 +8,7 @@ import { HashtagBold, CloseCircleBold, WomenBold } from "solar-icon-set";
 interface CreatePostDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (content: string, image?: File, tags?: string[], womenOnly?: boolean) => Promise<void>;
+  onSubmit: (content: string, image?: File, tags?: string[], womenOnly?: boolean) => Promise<any>;
   womenOnly?: boolean;
 }
 

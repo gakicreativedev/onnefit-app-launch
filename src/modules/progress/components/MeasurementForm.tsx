@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,7 +14,7 @@ const FIELDS: MeasurementField[] = [
     "arm_left_cm", "arm_right_cm", "thigh_left_cm", "thigh_right_cm", "neck_cm",
 ];
 
-export function MeasurementForm({ onSubmit, onCancel }: MeasurementFormProps) {
+export const MeasurementForm = forwardRef<HTMLFormElement, MeasurementFormProps>(({ onSubmit, onCancel }, ref) => {
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [values, setValues] = useState<Record<string, string>>({});
     const [notes, setNotes] = useState("");
@@ -97,4 +97,6 @@ export function MeasurementForm({ onSubmit, onCancel }: MeasurementFormProps) {
             </div>
         </form>
     );
-}
+});
+
+MeasurementForm.displayName = "MeasurementForm";
