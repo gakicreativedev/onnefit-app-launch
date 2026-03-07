@@ -123,7 +123,7 @@ export default function WorkoutsPage() {
                 className="text-xl sm:text-3xl lg:text-5xl uppercase leading-tight tracking-tight text-primary-foreground font-black break-words"
                 style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}
               >
-                {wt.todayWorkout?.name || "Sem treino hoje"}
+                {wt.todayWorkout?.name || t("workouts.noWorkoutToday")}
               </h2>
 
               {wt.todayExercises.length > 0 && (
