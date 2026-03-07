@@ -27,17 +27,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { FitSoulLogo } from "@/components/FitSoulLogo";
 import { useTheme, THEMES } from "@/hooks/useTheme";
-
-const mainNav = [
-  { title: "home", url: "/", icon: HomeBold },
-  { title: "treino", url: "/workouts", icon: DumbbellBold },
-  { title: "dieta", url: "/diet", icon: ChefHatBold },
-  { title: "feed", url: "/social", icon: UsersGroupTwoRoundedBold },
-  { title: "treinai", url: "/ai-trainer", icon: BoltCircleBold },
-  { title: "dietai", url: "/ai-chef", icon: ChefHatHeartBold },
-  { title: "grupos", url: "/groups", icon: CupBold },
-  { title: "progresso", url: "/progress", icon: RulerAngularBold },
-];
+import { useTranslation } from "react-i18next";
 
 interface AppSidebarProps {
   profile: Profile | null;
@@ -48,11 +38,23 @@ export function AppSidebar({ profile, onProfileUpdate }: AppSidebarProps) {
   const { signOut, user } = useAuth();
   const { level } = useXP(user?.id);
   const { activeThemeId } = useTheme();
+  const { t } = useTranslation();
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) ?? THEMES[0];
   const navigate = useNavigate();
   const location = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+
+  const mainNav = [
+    { title: t("nav.home"), url: "/", icon: HomeBold },
+    { title: t("nav.workout"), url: "/workouts", icon: DumbbellBold },
+    { title: t("nav.diet"), url: "/diet", icon: ChefHatBold },
+    { title: t("nav.feed"), url: "/social", icon: UsersGroupTwoRoundedBold },
+    { title: t("nav.treinai"), url: "/ai-trainer", icon: BoltCircleBold },
+    { title: t("nav.dietai"), url: "/ai-chef", icon: ChefHatHeartBold },
+    { title: t("nav.groups"), url: "/groups", icon: CupBold },
+    { title: t("nav.progress"), url: "/progress", icon: RulerAngularBold },
+  ];
 
   const displayName = profile?.name || "Athlete";
   const username = profile?.username || displayName;
@@ -63,35 +65,31 @@ export function AppSidebar({ profile, onProfileUpdate }: AppSidebarProps) {
     const fileExt = file.name.split(".").pop();
     const filePath = `${user.id}/avatar.${fileExt}`;
     const { error: uploadError } = await supabase.storage.from("avatars").upload(filePath, file, { upsert: true });
-    if (uploadError) { toast.error("Erro ao enviar foto"); return; }
+    if (uploadError) { toast.error(t("profile.photoUploadError")); return; }
     const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(filePath);
     const { error: updateError } = await supabase.from("profiles").update({ avatar_url: urlData.publicUrl + "?t=" + Date.now() }).eq("user_id", user.id);
-    if (updateError) { toast.error("Erro ao salvar foto"); return; }
-    toast.success("Foto atualizada!");
+    if (updateError) { toast.error(t("profile.photoSaveError")); return; }
+    toast.success(t("profile.photoUpdated"));
     onProfileUpdate?.();
   };
 
   return (
     <Sidebar className="border-r-0 bg-sidebar-background/95 backdrop-blur-sm">
-      {/* Logo — centered */}
       <SidebarHeader className="flex items-center justify-center pt-8 pb-6 px-4">
         <FitSoulLogo className="h-10 w-auto" color={`hsl(${activeTheme.primary})`} />
       </SidebarHeader>
 
-      {/* Profile Card — premium style with glow */}
       <div className="flex justify-center px-4 mb-6">
         <button
           onClick={() => navigate("/profile")}
           className="flex flex-col items-center w-[160px] rounded-[20px] border-[3px] border-primary/60 bg-card overflow-hidden cursor-pointer hover:border-primary hover:scale-[1.02] transition-all glow-primary-sm"
         >
-          {/* Avatar area */}
           <div className="w-full aspect-square bg-muted flex items-center justify-center relative group overflow-hidden">
             {profile?.avatar_url ? (
               <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
               <span className="text-5xl font-black text-primary">{displayName.charAt(0).toUpperCase()}</span>
             )}
-            {/* Camera overlay */}
             <div
               className="absolute inset-0 bg-background/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
               onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
@@ -99,7 +97,6 @@ export function AppSidebar({ profile, onProfileUpdate }: AppSidebarProps) {
               <CameraBold size={28} color="currentColor" />
             </div>
           </div>
-          {/* Info below avatar */}
           <div className="flex flex-col items-center gap-1.5 py-3 px-2 w-full bg-gradient-to-b from-primary to-primary/80">
             <span className="text-base font-bold text-card">@{username}</span>
             <span className="inline-flex items-center gap-1 rounded-lg bg-card/90 px-2.5 py-0.5 backdrop-blur-sm">
@@ -112,14 +109,13 @@ export function AppSidebar({ profile, onProfileUpdate }: AppSidebarProps) {
         <input ref={cameraInputRef} type="file" accept="image/*" capture="user" className="hidden" onChange={handleAvatarUpload} />
       </div>
 
-      {/* Navigation — with active pill indicator */}
       <SidebarContent className="flex justify-center px-4">
         <nav className="flex flex-col gap-1 w-[160px] mx-auto">
           {mainNav.map((item) => {
             const isActive = item.url === "/" ? location.pathname === "/" : location.pathname.startsWith(item.url);
             return (
               <NavLink
-                key={item.title}
+                key={item.url}
                 to={item.url}
                 end={item.url === "/"}
                 className={`relative flex items-center gap-3 rounded-xl px-4 py-2.5 text-base font-semibold transition-all w-full ${isActive
@@ -136,20 +132,19 @@ export function AppSidebar({ profile, onProfileUpdate }: AppSidebarProps) {
         </nav>
       </SidebarContent>
 
-      {/* Footer — settings & logout with tooltips */}
       <SidebarFooter className="px-5 pb-6 pt-4">
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigate("/settings")}
             className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-card hover:opacity-90 hover:scale-105 active:scale-95 transition-all glow-primary-sm"
-            title="Configurações"
+            title={t("nav.settings")}
           >
             <SettingsBold size={20} color="currentColor" />
           </button>
           <button
             onClick={signOut}
             className="flex h-11 w-11 items-center justify-center rounded-xl bg-muted-foreground/20 text-muted-foreground hover:text-foreground hover:bg-muted-foreground/30 hover:scale-105 active:scale-95 transition-all"
-            title="Sair"
+            title={t("nav.logout")}
           >
             <Logout3Bold size={20} color="currentColor" />
           </button>
