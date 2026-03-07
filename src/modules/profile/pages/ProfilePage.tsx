@@ -335,12 +335,12 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             const goalLabel: Record<string, string> = { gain_muscle: "Ganho muscular (1.6g/kg)", lose_weight: "Perda de peso (1.4g/kg)", recomposition: "Recomposição (1.6g/kg)", maintain: "Manutenção (1.2g/kg)" };
             const actLabel: Record<string, string> = { very_active: "Muito ativo (×1.3)", active: "Ativo (×1.15)", moderate: "Moderado (×1.0)", light: "Leve (×0.95)", sedentary: "Sedentário (×0.9)" };
             return (
-              <Card className="border-0 bg-card rounded-2xl">
-                <CardHeader><CardTitle className="text-card-foreground flex items-center gap-2"><StarBold size={20} color="currentColor" className="text-primary" />Metas Calculadas</CardTitle></CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-xs text-muted-foreground">Valores calculados automaticamente com base nos seus dados.</p>
-                  <div className="rounded-xl bg-background p-4 space-y-1">
-                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground">Calorias diárias</span><span className="text-lg font-bold text-primary">{calTarget.toLocaleString("pt-BR")} kcal</span></div>
+               <Card className="border-0 bg-card rounded-2xl">
+                 <CardHeader><CardTitle className="text-card-foreground flex items-center gap-2"><StarBold size={20} color="currentColor" className="text-primary" />{t("profile.calculatedTargets")}</CardTitle></CardHeader>
+                 <CardContent className="space-y-4">
+                   <p className="text-xs text-muted-foreground">{t("profile.calculatedTargetsDesc")}</p>
+                   <div className="rounded-xl bg-background p-4 space-y-1">
+                     <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground">{t("profile.dailyCalories")}</span><span className="text-lg font-bold text-primary">{calTarget.toLocaleString()} kcal</span></div>
                     <p className="text-xs text-muted-foreground">TMB ({Math.round(bmr)} kcal) × atividade × objetivo</p>
                   </div>
                   <div className="rounded-xl bg-background p-4 space-y-1">
