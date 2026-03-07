@@ -319,7 +319,7 @@ export default function SocialFeedPage() {
               <RefreshBold size={20} color="hsl(var(--muted-foreground))" />
             </motion.div>
           ) : !hasMore ? (
-            <span className="text-xs text-muted-foreground flex items-center gap-1.5">Você viu todos os posts <ConfettiBold size={14} color="hsl(var(--primary))" /></span>
+            <span className="text-xs text-muted-foreground flex items-center gap-1.5">{t("social.allPostsSeen")} <ConfettiBold size={14} color="hsl(var(--primary))" /></span>
           ) : null}
         </div>
       )}
