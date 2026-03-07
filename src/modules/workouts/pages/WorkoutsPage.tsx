@@ -30,11 +30,13 @@ import ActiveWorkoutView from "@/modules/workouts/components/ActiveWorkoutView";
 import { useWorkoutTracker } from "@/modules/workouts/hooks/useWorkoutTracker";
 import { toast } from "sonner";
 import { DAY_LABELS_FULL, type Exercise } from "@/lib/types";
+import { useTranslation } from "react-i18next";
 
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } } };
 
 export default function WorkoutsPage() {
+  const { t } = useTranslation();
   const wt = useWorkoutTracker();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingWorkout, setEditingWorkout] = useState<LocalWorkout | null>(null);
