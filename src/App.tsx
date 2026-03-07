@@ -22,6 +22,7 @@ import AuthPage from "@/modules/auth/pages/AuthPage";
 import ResetPasswordPage from "@/modules/auth/pages/ResetPasswordPage";
 import OnboardingPage from "@/modules/onboarding/pages/OnboardingPage";
 import { AppLayout } from "@/modules/layout/components/AppLayout";
+const LandingPage = lazy(() => import("@/modules/landing/LandingPage"));
 
 /* ── Lazy-loaded pages (athlete) ── */
 const DashboardPage = lazy(() => import("@/modules/dashboard/pages/DashboardPage"));
@@ -121,10 +122,13 @@ function AppRoutes() {
   // Not logged in — show auth routes
   if (!user) {
     return (
-      <Routes>
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="*" element={<AuthPage />} />
-      </Routes>
+      <Suspense fallback={<LoadingScreen />}>
+        <Routes>
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="*" element={<LandingPage />} />
+        </Routes>
+      </Suspense>
     );
   }
 
