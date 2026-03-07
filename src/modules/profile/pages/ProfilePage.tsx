@@ -256,7 +256,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                           {w.difficulty && <span className="capitalize">{w.difficulty}</span>}
                           {w.duration_minutes && <span>· {w.duration_minutes} min</span>}
-                          {w.is_shared && <span className="text-primary font-semibold">· Compartilhado</span>}
+                          {w.is_shared && <span className="text-primary font-semibold">· {t("common.shared")}</span>}
                         </div>
                       </div>
                     </div>
