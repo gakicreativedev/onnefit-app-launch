@@ -111,7 +111,7 @@ export function useGroupFeed(groupId: string | undefined) {
         // @ts-ignore
         const { data: reactorProfiles } = reactorIds.length > 0
             // @ts-ignore
-            ? await (supabase as any).from("profiles").select("user_id, name").in("user_id", reactorIds)
+            ? await (supabase as any).from("public_profiles").select("user_id, name").in("user_id", reactorIds)
             : { data: [] };
         const reactorNameMap = new Map((reactorProfiles || []).map((p: any) => [p.user_id, p.name || "Usuário"]));
 
