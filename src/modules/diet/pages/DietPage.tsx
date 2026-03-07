@@ -158,7 +158,7 @@ export default function DietPage({ profile }: DietPageProps) {
               onClick={() => window.location.href = '/ai-chef'}
             >
               <BoltCircleBold size={16} color="currentColor" className="mr-2" />
-              Gerar Dieta com DietAI
+              {t("nutrition.generateDiet")}
             </Button>
           </section>
 
