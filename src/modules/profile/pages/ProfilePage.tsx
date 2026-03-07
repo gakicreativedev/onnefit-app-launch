@@ -367,13 +367,13 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             </CardContent>
           </Card>
 
-          {onSwitchRole && (
-            <Card className="border-0 bg-card rounded-2xl">
-              <CardHeader><CardTitle className="text-card-foreground">Tipo de Conta</CardTitle></CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-muted-foreground">{userRole === "professional" ? "Você está no modo Personal Trainer." : "Mude para modo profissional para acessar o painel de Personal Trainer."}</p>
-                <Button variant={userRole === "professional" ? "outline" : "default"} onClick={() => onSwitchRole(userRole === "professional" ? "athlete" : "professional")} className="w-full rounded-xl py-3 font-bold">{userRole === "professional" ? "Voltar para Modo Atleta" : "Ativar Modo Personal Trainer"}</Button>
-              </CardContent>
+           {onSwitchRole && (
+             <Card className="border-0 bg-card rounded-2xl">
+               <CardHeader><CardTitle className="text-card-foreground">{t("profile.accountType")}</CardTitle></CardHeader>
+               <CardContent className="space-y-3">
+                 <p className="text-sm text-muted-foreground">{userRole === "professional" ? t("profile.trainerModeActive") : t("profile.switchTrainerHint")}</p>
+                 <Button variant={userRole === "professional" ? "outline" : "default"} onClick={() => onSwitchRole(userRole === "professional" ? "athlete" : "professional")} className="w-full rounded-xl py-3 font-bold">{userRole === "professional" ? t("profile.switchToAthlete") : t("profile.switchToTrainer")}</Button>
+               </CardContent>
             </Card>
           )}
         </div>
