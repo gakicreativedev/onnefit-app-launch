@@ -456,17 +456,17 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       <RecipeDetailDialog recipe={selectedRecipe} open={recipeDialogOpen} onOpenChange={setRecipeDialogOpen} />
 
       {/* Highlight dialog */}
-      <Dialog open={highlightDialog.open} onOpenChange={(open) => !open && setHighlightDialog({ open: false })}>
-        <DialogContent className="max-w-sm">
-          <DialogHeader><DialogTitle>{highlightDialog.editing ? "Editar Destaque" : "Novo Destaque"}</DialogTitle></DialogHeader>
-          <div className="space-y-4 py-2">
-            <div className="space-y-2"><Label>Ícone</Label><Input value={highlightForm.icon} onChange={(e) => setHighlightForm({ ...highlightForm, icon: e.target.value })} placeholder="Ex: 🏋️" maxLength={4} /></div>
-            <div className="space-y-2"><Label>Nome</Label><Input value={highlightForm.label} onChange={(e) => setHighlightForm({ ...highlightForm, label: e.target.value })} placeholder="Ex: Treinos" maxLength={20} /></div>
-          </div>
-          <DialogFooter className="flex-row gap-2">
-            {highlightDialog.editing && <Button variant="destructive" onClick={() => { pd.handleDeleteHighlight(highlightDialog.editing!.id); setHighlightDialog({ open: false }); }} className="mr-auto"><TrashBin2Bold size={16} color="currentColor" className="mr-1" /> Remover</Button>}
-            <Button variant="secondary" onClick={() => setHighlightDialog({ open: false })}>Cancelar</Button>
-            <Button onClick={() => { pd.saveHighlight(highlightForm, highlightDialog.editing?.id); setHighlightDialog({ open: false }); }}>Salvar</Button>
+       <Dialog open={highlightDialog.open} onOpenChange={(open) => !open && setHighlightDialog({ open: false })}>
+         <DialogContent className="max-w-sm">
+           <DialogHeader><DialogTitle>{highlightDialog.editing ? t("profile.editHighlight") : t("profile.newHighlight")}</DialogTitle></DialogHeader>
+           <div className="space-y-4 py-2">
+             <div className="space-y-2"><Label>{t("profile.icon")}</Label><Input value={highlightForm.icon} onChange={(e) => setHighlightForm({ ...highlightForm, icon: e.target.value })} placeholder="Ex: 🏋️" maxLength={4} /></div>
+             <div className="space-y-2"><Label>{t("profile.highlightName")}</Label><Input value={highlightForm.label} onChange={(e) => setHighlightForm({ ...highlightForm, label: e.target.value })} placeholder="Ex: Workouts" maxLength={20} /></div>
+           </div>
+           <DialogFooter className="flex-row gap-2">
+             {highlightDialog.editing && <Button variant="destructive" onClick={() => { pd.handleDeleteHighlight(highlightDialog.editing!.id); setHighlightDialog({ open: false }); }} className="mr-auto"><TrashBin2Bold size={16} color="currentColor" className="mr-1" /> {t("common.remove")}</Button>}
+             <Button variant="secondary" onClick={() => setHighlightDialog({ open: false })}>{t("common.cancel")}</Button>
+             <Button onClick={() => { pd.saveHighlight(highlightForm, highlightDialog.editing?.id); setHighlightDialog({ open: false }); }}>{t("common.save")}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
