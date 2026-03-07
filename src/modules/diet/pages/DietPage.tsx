@@ -25,6 +25,7 @@ import { MEAL_TIMES } from "@/lib/types";
 import type { SearchFood } from "@/lib/types";
 import type { Profile } from "@/modules/auth/hooks/useProfile";
 import { calculateProteinTarget, calculateWaterTargetL } from "@/lib/nutrition";
+import { useTranslation } from "react-i18next";
 
 interface DietPageProps {
   profile: Profile;
@@ -33,6 +34,7 @@ interface DietPageProps {
 const COST_COLORS = ["", "text-green-500", "text-yellow-500", "text-red-500"];
 
 export default function DietPage({ profile }: DietPageProps) {
+  const { t } = useTranslation();
   const dt = useDietTracker();
   const [expandedMeal, setExpandedMeal] = useState<string | null>(null);
   const [dietaiPrompt, setDietaiPrompt] = useState("");
