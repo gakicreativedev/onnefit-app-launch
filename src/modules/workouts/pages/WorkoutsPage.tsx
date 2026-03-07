@@ -172,7 +172,7 @@ export default function WorkoutsPage() {
               <section className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
                 <div className="flex items-center justify-between">
                   <h3 className="text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                    Meus treinos
+                    {t("workouts.myWorkouts")}
                   </h3>
                   <div className="flex items-center gap-2">
                     <Button
@@ -181,7 +181,7 @@ export default function WorkoutsPage() {
                       onClick={() => { setEditingWorkout(null); setDialogOpen(true); }}
                     >
                       <AddCircleBold size={16} color="currentColor" className="mr-1" />
-                      Criar
+                      {t("common.create")}
                     </Button>
                     <DumbbellBold size={28} color="currentColor" className="text-primary" />
                   </div>
