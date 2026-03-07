@@ -471,5 +471,63 @@
     "workouts": "Workouts",
     "recipes": "Recipes",
     "updates": "Updates"
+  },
+  "landing": {
+    "nav": { "login": "Sign In" },
+    "hero": {
+      "tagline": "One place for your evolution.",
+      "headline": "Your entire fitness life. In one place.",
+      "subheadline": "Onne Fit brings your workouts, habits, progress and goals together in one powerful platform designed to help you evolve with clarity and consistency.",
+      "cta": "Start your evolution"
+    },
+    "problem": {
+      "title": "Fitness today is fragmented.",
+      "p1": "People use different apps for workouts, habits, progress tracking and goals.",
+      "p2": "This creates confusion, loss of motivation and inconsistent results.",
+      "p3": "Your evolution deserves something simpler.",
+      "conclusion": "Your evolution deserves something simpler."
+    },
+    "solution": {
+      "title": "Meet Onne Fit.",
+      "p1": "A platform built to unify your entire fitness journey.",
+      "p2": "Instead of switching between multiple apps, everything you need lives in one place.",
+      "pillars": "Plan. Track. Evolve."
+    },
+    "features": {
+      "title": "Everything you need",
+      "f0": { "title": "Workout Planning", "desc": "Create, customize and follow structured training programs tailored to your goals." },
+      "f1": { "title": "Progress Tracking", "desc": "Visualize your evolution with detailed charts, measurements and photo comparisons." },
+      "f2": { "title": "Habit Building", "desc": "Build consistency with daily streaks, XP rewards and achievement milestones." },
+      "f3": { "title": "Goal Management", "desc": "Set clear targets and track your progress with intelligent insights." }
+    },
+    "benefits": {
+      "title": "Designed for real progress",
+      "subtitle": "Stay consistent and focused with tools that adapt to your lifestyle.",
+      "b0": { "title": "Daily Consistency", "desc": "Streak tracking and reminders keep you showing up every day." },
+      "b1": { "title": "Clear Progress", "desc": "See exactly how far you've come with visual progress reports." },
+      "b2": { "title": "Community", "desc": "Train with friends, share results and stay motivated together." }
+    },
+    "product": {
+      "title": "See it in action",
+      "s0": "Progress Dashboard",
+      "s1": "Workout Tracker",
+      "s2": "Evolution Charts"
+    },
+    "philosophy": {
+      "headline1": "Evolution is not a moment.",
+      "headline2": "It's a lifestyle.",
+      "body": "Onne Fit was created for people who want to improve every day."
+    },
+    "social": {
+      "title": "What people are saying",
+      "t0": { "quote": "Finally one app that replaces four. My training has never been this organized.", "name": "Alex R.", "role": "Early Adopter" },
+      "t1": { "quote": "The progress tracking is incredible. I can actually see my evolution week by week.", "name": "Maria S.", "role": "Fitness Enthusiast" },
+      "t2": { "quote": "Simple, beautiful and effective. Exactly what I needed to stay consistent.", "name": "Carlos M.", "role": "Community Member" }
+    },
+    "cta": {
+      "headline": "Start your evolution today.",
+      "button": "Get Started"
+    },
+    "footer": { "rights": "All rights reserved." }
   }
 }
