@@ -240,7 +240,7 @@ export default function DietPage({ profile }: DietPageProps) {
                 </div>
                 <Button variant="outline" onClick={() => setShowCommunityFoods(true)} className="rounded-2xl gap-2 shrink-0">
                   <GlobalBold size={16} color="currentColor" />
-                  <span className="hidden sm:inline">Comunidade</span>
+                  <span className="hidden sm:inline">{t("nutrition.communityFoods")}</span>
                 </Button>
                 <Button onClick={() => setShowCreateRecipe(true)} className="rounded-2xl gap-2 shrink-0">
                   <AddCircleBold size={16} color="currentColor" />
