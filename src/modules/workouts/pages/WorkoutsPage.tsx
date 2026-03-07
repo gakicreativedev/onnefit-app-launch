@@ -417,7 +417,7 @@ export default function WorkoutsPage() {
               <button className="flex items-center justify-between w-full p-4 sm:p-8 text-left" onClick={() => toggleSection("history")}>
                 <div className="flex items-center gap-3">
                   <HistoryBold size={28} color="currentColor" className="text-primary" />
-                  <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>Histórico de Treinos</h3>
+                  <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>{t("workouts.history")}</h3>
                 </div>
                 <div className="shrink-0 ml-2 text-muted-foreground">
                   {sectionsOpen["history"] ? <AltArrowUpBold size={20} color="currentColor" /> : <AltArrowDownBold size={20} color="currentColor" />}
