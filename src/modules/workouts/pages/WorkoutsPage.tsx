@@ -287,7 +287,7 @@ export default function WorkoutsPage() {
                                 <p className="text-base font-bold text-card-foreground leading-tight line-clamp-2">{w.name}</p>
                                 <p className="text-xs text-muted-foreground mt-0.5">
                                   {w.day_of_week != null ? DAY_LABELS_FULL[w.day_of_week] : DAY_LABELS_FULL[i % 7]}
-                                  {w._isLocal && <span className="ml-1 text-primary">(local)</span>}
+                                  {w._isLocal && <span className="ml-1 text-primary">({t("common.local")})</span>}
                                 </p>
                                 {estMinutes && (
                                   <p className="text-[10px] text-primary mt-1 font-bold">
