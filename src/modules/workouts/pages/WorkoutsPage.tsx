@@ -316,17 +316,17 @@ export default function WorkoutsPage() {
               <section className="lg:col-span-2 flex flex-col gap-4 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                    TreinAI
+                    {t("ai.treinAI")}
                   </h3>
                   <BoltCircleBold size={24} color="currentColor" className="text-primary" />
                 </div>
-                <p className="text-sm text-muted-foreground">Gere treinos personalizados com inteligência artificial</p>
+                <p className="text-sm text-muted-foreground">{t("workouts.generateWithAI")}</p>
                 <Button
                   className="rounded-2xl py-5 text-base font-black w-full"
                   onClick={() => window.location.href = '/ai-trainer'}
                 >
                   <BoltCircleBold size={18} color="currentColor" className="mr-2" />
-                  Abrir TreinAI
+                  {t("workouts.goToTreinAI")}
                 </Button>
               </section>
             </div>
