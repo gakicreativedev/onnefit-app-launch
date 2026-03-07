@@ -143,7 +143,8 @@ Deno.serve(async (req) => {
       });
 
     if (insertErr) {
-      return new Response(JSON.stringify({ error: insertErr.message }), {
+      console.error("trainer_students insert error:", insertErr.message);
+      return new Response(JSON.stringify({ error: "Não foi possível vincular o aluno. Tente novamente." }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });

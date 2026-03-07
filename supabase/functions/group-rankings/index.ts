@@ -38,6 +38,21 @@ Deno.serve(async (req) => {
     const { group_id } = await req.json();
     if (!group_id) throw new Error("group_id required");
 
+    // Verify caller is a member of the group
+    const { data: membership } = await anonClient
+      .from("group_members")
+      .select("user_id")
+      .eq("group_id", group_id)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (!membership) {
+      return new Response(
+        JSON.stringify({ error: "Forbidden" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     // Get group members
     const { data: members } = await supabase
       .from("group_members")
