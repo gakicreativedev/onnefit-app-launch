@@ -1,29 +1,66 @@
 
 
-## Plano: Tornar o OnneFit Real
+# FitSoul MVP — Fitness App with AI Foundation
 
-### Passo 1: Conectar ao GitHub e trazer o código
-1. Vá em **Settings** (configurações do projeto, canto superior) → **GitHub** → **Connect project**
-2. Autorize o Lovable no GitHub se ainda não fez
-3. **Importante**: Como o repositório `onnefit` já existe, você precisa conectar a ele. Selecione sua conta GitHub e o repositório `gakicreativedev/onnefit`
-4. O código será sincronizado automaticamente para este projeto Lovable
-
-### Passo 2: Conectar o Supabase externo
-1. Depois que o código estiver sincronizado, vá em **Settings** → **Supabase** → **Connect**
-2. Insira a **URL** e a **anon key** do seu projeto Supabase
-3. Isso permitirá que o app se conecte ao banco de dados real
-
-### Passo 3: Verificar migrations e banco de dados
-1. O repositório já tem uma pasta `supabase/` com migrations SQL
-2. Precisaremos garantir que essas migrations foram aplicadas no seu projeto Supabase
-3. Verificar se as tabelas, RLS policies e edge functions estão configuradas corretamente
-
-### Passo 4: Testar o app end-to-end
-1. Testar autenticação (login/signup)
-2. Verificar se os módulos principais funcionam com dados reais (workouts, diet, groups, etc.)
-3. Corrigir quaisquer erros de conexão com o banco
+## Overview
+A modern fitness application with dark mode UI (deep navy/black background with vibrant blue accents), modular architecture, real-time backend via Lovable Cloud, and authentication — ready for future AI expansion.
 
 ---
 
-**⚠️ Primeiro passo necessário**: Você precisa conectar o GitHub manualmente nas configurações do projeto. Depois que o código estiver aqui, posso ajudar com a integração do Supabase e ajustes necessários.
+## 1. Authentication & Onboarding
+- **Sign Up / Sign In** page with email+password and Google OAuth
+- **Onboarding flow** (3 steps after first login):
+  1. Basic info: name, age, gender, height, weight
+  2. Fitness goal selection (lose weight, gain muscle, maintain)
+  3. Activity level selection
+- Auto-calculate **BMR (Basal Metabolic Rate)** and estimated daily calorie target
+- Save profile to database
+
+## 2. Layout & Navigation
+- **Fixed sidebar** on the left (collapsible on mobile) with:
+  - User avatar, name, level badge
+  - Nav items: Dashboard, Workouts, Diet, Profile
+  - Settings & Logout at bottom
+- **Main content area** with responsive grid layout
+- Dark mode theme with deep navy background (#0a0e1a) and vibrant blue (#2563eb) accents
+
+## 3. Dashboard (Home)
+Based on the reference image, the dashboard will include:
+- **Workout of the Day** — featured card with today's workout name and "Start Workout" button
+- **Daily Calories** — progress bar showing consumed vs. target calories
+- **Daily Protein** — progress bar showing protein intake vs. goal
+- **Weekly Frequency** — visual display of which days the user trained
+- **Daily Meals** — list of meals (breakfast, lunch, snack, dinner) with calorie counts
+- **Daily Highlights** — horizontal scroll of featured workouts/recipes
+
+## 4. Workouts Module
+- Pre-defined simple workout plans (push/pull/legs or full body)
+- Workout detail view showing exercises, sets, reps
+- Static data initially, ready for AI-generated plans later
+
+## 5. Diet / Nutrition Module
+- Basic meal plan based on calculated calorie target
+- List of daily meals with macro breakdown
+- Water intake tracker
+- Static data initially, ready for AI-generated nutrition plans later
+
+## 6. Profile Module
+- View and edit personal data (weight, height, goals)
+- Recalculate BMR/calorie target on changes
+- Display current stats summary
+
+## 7. Database Schema (Lovable Cloud)
+- **profiles** — user_id, name, age, gender, height, weight, activity_level, goal, bmr, calorie_target
+- **workouts** — id, name, description, muscle_groups, difficulty
+- **workout_exercises** — workout_id, exercise_name, sets, reps, rest_seconds
+- **meal_plans** — id, user_id, date, total_calories
+- **meals** — id, meal_plan_id, name, time, calories, protein, carbs, fat
+- **user_activity** — user_id, date, workout_completed, water_intake_ml
+
+## 8. What's NOT in MVP (Future Expansion)
+- AI-powered adaptive workout/diet generation
+- Social features, challenges, achievements
+- Paid plans & subscriptions
+- Progress photos & body measurements tracking
+- AI Trainer & AI Chef chatbots
 
