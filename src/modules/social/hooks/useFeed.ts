@@ -163,8 +163,7 @@ export function useFeed() {
     let combinedFeed: any[] = (rawPosts || []).map(p => ({ ...p, type: "post" }));
 
     if (!tagFilter && groupIds.length > 0) {
-      // @ts-ignore
-      const { data: rawActivities } = await supabase
+      const { data: rawActivities } = await (supabase as any)
         .from("group_activities")
         .select("*")
         .in("group_id", groupIds)
