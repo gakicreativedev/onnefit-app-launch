@@ -98,9 +98,9 @@ export default function DietPage({ profile }: DietPageProps) {
   const waterPercent = Math.min(100, Math.round((waterLiters / waterTargetL) * 100));
 
   const metrics = [
-    { label: "Calorias", current: dt.totalCalories.toLocaleString("pt-BR"), total: `/${calorieTarget.toLocaleString("pt-BR")}`, percent: caloriePercent },
-    { label: "Proteínas", current: `${dt.totalProtein}g`, total: `/${proteinTarget}g`, percent: proteinPercent },
-    { label: "Água", current: waterLiters.toFixed(1), total: `/${waterTargetL}L`, percent: waterPercent },
+    { label: t("dashboard.calories"), current: dt.totalCalories.toLocaleString("pt-BR"), total: `/${calorieTarget.toLocaleString("pt-BR")}`, percent: caloriePercent },
+    { label: t("dashboard.proteins"), current: `${dt.totalProtein}g`, total: `/${proteinTarget}g`, percent: proteinPercent },
+    { label: t("dashboard.water"), current: waterLiters.toFixed(1), total: `/${waterTargetL}L`, percent: waterPercent },
   ];
 
   const filteredRecipes = recipes.filter((r) => {
