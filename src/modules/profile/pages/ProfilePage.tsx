@@ -14,6 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { calculateProteinTarget, calculateWaterTargetMl, getProteinMultiplier, calculateBMR, calculateCalorieTarget } from "@/lib/nutrition";
 import { StoryViewer } from "@/modules/social/components/StoryViewer";
 import type { Profile } from "@/modules/auth/hooks/useProfile";
+import { useTranslation } from "react-i18next";
 
 const GamificationPage = lazy(() => import("@/modules/gamification/pages/GamificationPage"));
 import { EditProfileDialog } from "@/modules/profile/components/EditProfileDialog";
@@ -31,24 +32,12 @@ const SOURCE_ICONS: Record<string, any> = {
   streak_bonus_30: CupStarBold,
 };
 
-const SOURCE_LABELS: Record<string, string> = {
-  workout_completed: "Treino completo",
-  diet_logged: "Dieta registrada",
-  water_goal: "Meta de água",
-  streak_bonus_3: "Streak 3 dias",
-  streak_bonus_7: "Streak 7 dias",
-  streak_bonus_30: "Streak 30 dias",
-};
-
 interface ProfilePageProps {
   profile: Profile;
   onUpdate: (data: Partial<Profile>) => Promise<{ data: any; error: any; } | undefined>;
   userRole?: AppRole;
   onSwitchRole?: (role: AppRole) => void;
 }
-
-const goalLabels: Record<string, string> = { lose_weight: "Perder Peso", gain_muscle: "Ganhar Músculo", recomposition: "Recomposição", maintain: "Manter" };
-const activityLabels: Record<string, string> = { sedentary: "Sedentário", light: "Leve", moderate: "Moderado", active: "Ativo", very_active: "Muito Ativo" };
 
 function ProfileTagField({ label, hint, tags, onChange, placeholder }: { label: string; hint: string; tags: string[]; onChange: (t: string[]) => void; placeholder: string; }) {
   const [input, setInput] = useState("");
