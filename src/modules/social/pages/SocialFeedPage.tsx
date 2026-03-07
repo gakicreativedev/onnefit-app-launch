@@ -253,10 +253,10 @@ export default function SocialFeedPage() {
             </div>
             <div>
               <p className="text-foreground font-bold text-base mb-1">
-                {activeTag ? `Nenhum post com #${activeTag}` : "Seu feed está vazio"}
+                {activeTag ? t("social.noPostsWithTag", { tag: activeTag }) : t("social.feedEmpty")}
               </p>
               <p className="text-muted-foreground text-sm">
-                {activeTag ? "Tente buscar por outra tag." : "Siga pessoas para ver seus posts aqui!"}
+                {activeTag ? t("social.tryAnotherTag") : t("social.feedEmptyDesc")}
               </p>
             </div>
             {!activeTag && (
