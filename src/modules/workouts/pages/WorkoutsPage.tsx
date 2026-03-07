@@ -267,15 +267,15 @@ export default function WorkoutsPage() {
                                       <button
                                         onClick={async (e) => {
                                           e.stopPropagation();
-                                          if (!window.confirm("Excluir este treino?")) return;
+                                          if (!window.confirm(t("workouts.deleteWorkout"))) return;
                                           await supabase.from("workout_exercises").delete().eq("workout_id", w.id);
                                           await supabase.from("workout_bookmarks").delete().eq("workout_id", w.id);
                                           await supabase.from("workouts").delete().eq("id", w.id);
                                           wt.setWorkouts((prev) => prev.filter((wk) => wk.id !== w.id));
-                                          toast.success("Treino excluído!");
+                                          toast.success(t("workouts.workoutDeleted"));
                                         }}
                                         className="h-7 w-7 rounded-full flex items-center justify-center bg-muted text-muted-foreground hover:text-destructive transition-colors"
-                                        title="Excluir"
+                                        title={t("common.delete")}
                                       >
                                         <TrashBinTrashBold size={12} color="currentColor" />
                                       </button>
