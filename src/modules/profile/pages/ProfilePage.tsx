@@ -122,7 +122,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           </div>
           <div className="text-center min-w-[60px]">
             <p className="text-lg font-black text-foreground leading-none">{pd.followingCount}</p>
-            <p className="text-[10px] text-muted-foreground font-medium mt-1">Seguindo</p>
+            <p className="text-[10px] text-muted-foreground font-medium mt-1">{t("profile.following")}</p>
           </div>
         </div>
 
