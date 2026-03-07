@@ -257,10 +257,10 @@ export default function WorkoutsPage() {
                                           const newVal = !w.is_shared;
                                           await supabase.from("workouts").update({ is_shared: newVal }).eq("id", w.id);
                                           wt.setWorkouts((prev) => prev.map((wk) => wk.id === w.id ? { ...wk, is_shared: newVal } : wk));
-                                          toast.success(newVal ? "Treino compartilhado!" : "Treino tornado privado");
+                                          toast.success(newVal ? t("workouts.sharedWorkout") : t("workouts.madePrivate"));
                                         }}
                                         className={`h-7 w-7 rounded-full flex items-center justify-center transition-colors ${w.is_shared ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
-                                        title={w.is_shared ? "Compartilhado" : "Compartilhar"}
+                                        title={w.is_shared ? t("common.shared") : t("common.share")}
                                       >
                                         <ShareBold size={12} color="currentColor" />
                                       </button>
