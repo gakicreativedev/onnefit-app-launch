@@ -23,7 +23,7 @@ export function useGroupChat(groupId?: string) {
         if (!groupId) return;
         setLoading(true);
 
-        const { data, error } = await supabase
+        const { data, error } = await (supabase as any)
             .from("group_messages")
             .select("*")
             .eq("group_id", groupId)
