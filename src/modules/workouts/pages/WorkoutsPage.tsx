@@ -395,7 +395,7 @@ export default function WorkoutsPage() {
               <button className="flex items-center justify-between w-full p-4 sm:p-8 text-left" onClick={() => toggleSection("cardio")}>
                 <div className="flex items-center gap-3">
                   <RunningBold size={28} color="currentColor" className="text-primary" />
-                  <h2 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>Cardio</h2>
+                  <h2 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>{t("workouts.cardio")}</h2>
                 </div>
                 <div className="shrink-0 ml-2 text-muted-foreground">
                   {sectionsOpen["cardio"] ? <AltArrowUpBold size={20} color="currentColor" /> : <AltArrowDownBold size={20} color="currentColor" />}
