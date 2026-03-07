@@ -233,9 +233,9 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {/* Workouts tab */}
       {activeTab === "workouts" && (
         <div className="p-4 space-y-4">
-          <div className="flex gap-2 mb-3">
-            <button onClick={() => setWorkoutSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>Meus ({pd.myWorkouts.length})</button>
-            <button onClick={() => setWorkoutSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />Salvos ({pd.savedWorkouts.length})</button>
+           <div className="flex gap-2 mb-3">
+             <button onClick={() => setWorkoutSubTab("mine")} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "mine" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}>{t("profile.mineWorkoutsCount", { count: pd.myWorkouts.length })}</button>
+             <button onClick={() => setWorkoutSubTab("saved")} className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${workoutSubTab === "saved" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}><BookmarkBold size={14} color="currentColor" />{t("profile.savedWorkoutsCount", { count: pd.savedWorkouts.length })}</button>
           </div>
           {(() => {
             const list = workoutSubTab === "mine" ? pd.myWorkouts : pd.savedWorkouts;
