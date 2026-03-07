@@ -278,7 +278,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
            <Card className="border-0 bg-card rounded-2xl">
              <CardHeader><CardTitle className="text-card-foreground">{t("profile.personalInfo")}</CardTitle></CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2"><Label>Nome</Label><Input value={pd.form.name} onChange={(e) => pd.setForm({ ...pd.form, name: e.target.value })} /></div>
+              <div className="space-y-2"><Label>{t("profile.name")}</Label><Input value={pd.form.name} onChange={(e) => pd.setForm({ ...pd.form, name: e.target.value })} /></div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2"><Label>Idade</Label><Input type="number" value={pd.form.age} onChange={(e) => pd.setForm({ ...pd.form, age: Number(e.target.value) })} /></div>
                 <div className="space-y-2"><Label>Sexo Biológico</Label>
