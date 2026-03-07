@@ -275,8 +275,8 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
       {/* Info tab */}
       {activeTab === "info" && (
         <div className="p-4 sm:p-6 space-y-4">
-          <Card className="border-0 bg-card rounded-2xl">
-            <CardHeader><CardTitle className="text-card-foreground">Informações Pessoais</CardTitle></CardHeader>
+           <Card className="border-0 bg-card rounded-2xl">
+             <CardHeader><CardTitle className="text-card-foreground">{t("profile.personalInfo")}</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2"><Label>Nome</Label><Input value={pd.form.name} onChange={(e) => pd.setForm({ ...pd.form, name: e.target.value })} /></div>
               <div className="grid grid-cols-2 gap-4">
