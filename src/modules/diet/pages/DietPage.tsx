@@ -125,7 +125,7 @@ export default function DietPage({ profile }: DietPageProps) {
           <section className="relative flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-primary p-4 sm:p-8 lg:p-10 overflow-hidden">
             <div className="flex items-center justify-between">
               <Badge className="bg-primary-foreground text-primary border-0 rounded-full px-4 py-1.5 text-xs font-bold">
-                Dieta do Dia
+                {t("nutrition.dietOfTheDay")}
               </Badge>
             </div>
 
