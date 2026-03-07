@@ -166,7 +166,7 @@ export default function DietPage({ profile }: DietPageProps) {
           <section className="flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
             <div className="flex items-center justify-between">
               <h3 className="text-xl sm:text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                Minhas Refeições
+                {t("nutrition.myMeals")}
               </h3>
               <ChefHatBold size={28} color="currentColor" className="text-primary" />
             </div>
