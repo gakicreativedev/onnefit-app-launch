@@ -203,7 +203,7 @@ export function useGroups() {
 
   const inviteUser = async (groupId: string, username: string) => {
     if (!user) return;
-    const { data: profile } = await supabase.from("profiles").select("user_id").eq("username", username.replace("@", "")).single();
+    const { data: profile } = await supabase.from("public_profiles").select("user_id").eq("username", username.replace("@", "")).single();
     if (!profile) { toast.error("Usuário não encontrado"); return; }
     const { error } = await supabase.from("group_invites").insert({
       group_id: groupId,
