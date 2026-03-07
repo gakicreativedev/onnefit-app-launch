@@ -413,7 +413,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                       <div className="flex items-center gap-3">
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15"><Icon size={16} color="currentColor" className="text-primary" /></div>
                         <div>
-                          <p className="text-xs font-bold text-card-foreground">{SOURCE_LABELS[entry.source] || entry.source}</p>
+                          <p className="text-xs font-bold text-card-foreground">{t(`gamification.sourceLabels.${entry.source}`, { defaultValue: entry.source })}</p>
                           <p className="text-[10px] text-muted-foreground">{new Date(entry.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })}</p>
                         </div>
                       </div>
