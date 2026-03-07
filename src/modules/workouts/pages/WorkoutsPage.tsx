@@ -446,7 +446,7 @@ export default function WorkoutsPage() {
                                     <p className="text-sm sm:text-base font-bold text-card-foreground">{entry.workout_name}</p>
                                     <p className="text-xs text-muted-foreground">
                                       {new Date(entry.completed_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" })}
-                                      {entry.duration_minutes ? ` · ${entry.duration_minutes} min` : ""}
+                                      {entry.duration_minutes ? ` · ${entry.duration_minutes} ${t("common.min")}` : ""}
                                     </p>
                                   </div>
                                 </div>
