@@ -255,7 +255,7 @@ export default function DietPage({ profile }: DietPageProps) {
                 onClick={() => setRecipeTab("all")}
                 className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeTab === "all" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}
               >
-                Todas
+                {t("common.all")}
               </button>
               <button
                 onClick={() => setRecipeTab("favorites")}
