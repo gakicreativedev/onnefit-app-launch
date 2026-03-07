@@ -234,9 +234,9 @@ export default function WorkoutsPage() {
                                     .select("*")
                                     .eq("workout_id", w.id)
                                     .order("sort_order");
-                                  if (data && data.length > 0) wt.startWorkout(w, data as Exercise[]);
-                                  else toast.error("Este treino não tem exercícios cadastrados");
-                                }
+                                    if (data && data.length > 0) wt.startWorkout(w, data as Exercise[]);
+                                    else toast.error(t("workouts.noExercisesRegistered"));
+                                  }
                               }}
                             >
                               <div className="flex items-center justify-between">
