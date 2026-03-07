@@ -292,7 +292,7 @@ export default function WorkoutsPage() {
                                 {estMinutes && (
                                   <p className="text-[10px] text-primary mt-1 font-bold">
                                     <ClockCircleBold size={10} color="currentColor" className="inline mr-0.5" />
-                                    {estMinutes} min
+                                    {estMinutes} {t("common.min")}
                                   </p>
                                 )}
                               </div>
