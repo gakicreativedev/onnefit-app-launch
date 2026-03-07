@@ -280,13 +280,13 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             <CardContent className="space-y-4">
               <div className="space-y-2"><Label>{t("profile.name")}</Label><Input value={pd.form.name} onChange={(e) => pd.setForm({ ...pd.form, name: e.target.value })} /></div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>Idade</Label><Input type="number" value={pd.form.age} onChange={(e) => pd.setForm({ ...pd.form, age: Number(e.target.value) })} /></div>
-                <div className="space-y-2"><Label>Sexo Biológico</Label>
-                  <Select value={pd.form.gender} onValueChange={(v) => pd.setForm({ ...pd.form, gender: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent><SelectItem value="male">Masculino</SelectItem><SelectItem value="female">Feminino</SelectItem></SelectContent>
-                  </Select>
-                </div>
+                 <div className="space-y-2"><Label>{t("profile.age")}</Label><Input type="number" value={pd.form.age} onChange={(e) => pd.setForm({ ...pd.form, age: Number(e.target.value) })} /></div>
+                 <div className="space-y-2"><Label>{t("profile.biologicalSex")}</Label>
+                   <Select value={pd.form.gender} onValueChange={(v) => pd.setForm({ ...pd.form, gender: v })}>
+                     <SelectTrigger><SelectValue /></SelectTrigger>
+                     <SelectContent><SelectItem value="male">{t("profile.male")}</SelectItem><SelectItem value="female">{t("profile.female")}</SelectItem></SelectContent>
+                   </Select>
+                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2"><Label>Altura (cm)</Label><Input type="number" value={pd.form.height_cm} onChange={(e) => pd.setForm({ ...pd.form, height_cm: Number(e.target.value) })} /></div>
