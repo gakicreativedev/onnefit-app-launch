@@ -262,7 +262,7 @@ export default function DietPage({ profile }: DietPageProps) {
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${recipeTab === "favorites" ? "bg-primary text-primary-foreground" : "bg-muted/50 text-muted-foreground hover:text-foreground"}`}
               >
                 <BookmarkBold size={14} color="currentColor" />
-                Salvas
+                {t("nutrition.saved")}
               </button>
 
               <div className="h-6 w-px bg-muted-foreground/20 mx-1 self-center" />
