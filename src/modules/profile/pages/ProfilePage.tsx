@@ -348,7 +348,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
                     <p className="text-xs text-muted-foreground">{w}kg × {protMult}g/kg — {goalLabel[goalKey] || goalLabel.maintain}</p>
                   </div>
                   <div className="rounded-xl bg-background p-4 space-y-1">
-                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><WaterdropsBold size={14} color="currentColor" className="text-primary" />Meta de Água</span><span className="text-lg font-bold text-primary">{waterL}L/dia</span></div>
+                    <div className="flex items-center justify-between"><span className="text-sm font-semibold text-card-foreground flex items-center gap-1.5"><WaterdropsBold size={14} color="currentColor" className="text-primary" />{t("profile.waterTarget")}</span><span className="text-lg font-bold text-primary">{waterL}L/{t("common.days").replace("dias","dia").replace("days","day")}</span></div>
                     <p className="text-xs text-muted-foreground">{w}kg × 35ml × {actLabel[actKey] || actLabel.moderate}</p>
                   </div>
                 </CardContent>
