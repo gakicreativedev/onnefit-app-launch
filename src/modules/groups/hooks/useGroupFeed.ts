@@ -95,7 +95,7 @@ export function useGroupFeed(groupId: string | undefined) {
 
         const [profilesRes, reactionsRes, myReactionsRes, commentsCountRes] = await Promise.all([
             // @ts-ignore
-            (supabase as any).from("profiles").select("user_id, name, username, avatar_url").in("user_id", userIds),
+            (supabase as any).from("public_profiles").select("user_id, name, username, avatar_url").in("user_id", userIds),
             // @ts-ignore
             (supabase as any).from("activity_reactions").select("activity_id, emoji, user_id").in("activity_id", activityIds),
             // @ts-ignore
