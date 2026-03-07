@@ -190,13 +190,13 @@ export default function WorkoutsPage() {
                 {wt.workouts.length === 0 ? (
                   <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
                     <DumbbellBold size={48} color="currentColor" className="text-muted-foreground" />
-                    <p className="text-muted-foreground">Nenhum treino cadastrado ainda</p>
+                    <p className="text-muted-foreground">{t("workouts.noWorkoutsYet")}</p>
                     <Button
                       className="rounded-full px-6 font-bold"
                       onClick={() => { setEditingWorkout(null); setDialogOpen(true); }}
                     >
                       <AddCircleBold size={16} color="currentColor" className="mr-1" />
-                      Criar meu primeiro treino
+                      {t("workouts.createFirstWorkout")}
                     </Button>
                   </div>
                 ) : (() => {
