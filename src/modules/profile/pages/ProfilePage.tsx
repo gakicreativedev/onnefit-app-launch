@@ -403,9 +403,9 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
           </section>
 
           <div className="grid grid-cols-3 gap-3">
-            <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><FireBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.current_streak}</span><span className="text-[10px] text-muted-foreground font-bold">Streak</span></div>
-            <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><CupStarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.longest_streak}</span><span className="text-[10px] text-muted-foreground font-bold">Recorde</span></div>
-            <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><StarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.xpHistory.length}</span><span className="text-[10px] text-muted-foreground font-bold">Ações</span></div>
+             <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><FireBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.current_streak}</span><span className="text-[10px] text-muted-foreground font-bold">{t("gamification.streak")}</span></div>
+             <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><CupStarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.streak.longest_streak}</span><span className="text-[10px] text-muted-foreground font-bold">{t("gamification.record")}</span></div>
+             <div className="flex flex-col items-center gap-1.5 rounded-[16px] bg-card p-4 border border-border"><StarBold size={24} color="currentColor" className="text-primary" /><span className="text-2xl font-black text-card-foreground">{pd.xpHistory.length}</span><span className="text-[10px] text-muted-foreground font-bold">{t("gamification.rewardedActions")}</span></div>
           </div>
 
           <section className="flex flex-col gap-3 rounded-[24px] bg-card p-5 border border-border">
