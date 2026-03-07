@@ -242,7 +242,7 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
             if (list.length === 0) return (
               <div className="rounded-2xl bg-card p-8 text-center">
                 <DumbbellBold size={32} color="currentColor" className="text-muted-foreground mx-auto mb-2" />
-                <p className="text-muted-foreground text-sm">{workoutSubTab === "mine" ? "Nenhum treino criado ainda" : "Nenhum treino salvo ainda"}</p>
+                <p className="text-muted-foreground text-sm">{workoutSubTab === "mine" ? t("profile.noWorkoutsCreated") : t("profile.noWorkoutsSaved")}</p>
               </div>
             );
             return (
