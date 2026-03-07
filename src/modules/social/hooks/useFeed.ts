@@ -327,7 +327,7 @@ export function useFeed() {
     setPosts(prev => prev.map(p => p.id === postId ? { ...p, comments_count: Math.max(0, p.comments_count + change) } : p));
   };
 
-  const createPost = async (content: string, imageFile: File | null, tags: string[], isWomenOnly = false) => {
+  const createPost = async (content: string, imageFile?: File, tags?: string[], isWomenOnly = false) => {
     if (!user) return;
     const newPostId = crypto.randomUUID();
     let imageUrl: string | null = null;
