@@ -410,11 +410,11 @@ export default function ProfilePage({ profile, onUpdate, userRole, onSwitchRole 
 
           <section className="flex flex-col gap-3 rounded-[24px] bg-card p-5 border border-border">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-black text-card-foreground">Histórico de XP</h3>
-              <BoltBold size={22} color="currentColor" className="text-primary" />
-            </div>
-            {pd.xpHistory.length === 0 ? (
-              <p className="text-muted-foreground text-sm text-center py-6">Nenhum XP ganho ainda</p>
+               <h3 className="text-lg font-black text-card-foreground">{t("gamification.xpHistory")}</h3>
+               <BoltBold size={22} color="currentColor" className="text-primary" />
+             </div>
+             {pd.xpHistory.length === 0 ? (
+               <p className="text-muted-foreground text-sm text-center py-6">{t("gamification.noXPYet")}</p>
             ) : (
               <div className="flex flex-col gap-2">
                 {pd.xpHistory.slice(0, 20).map((entry) => {
