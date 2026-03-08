@@ -569,7 +569,10 @@
         "f6": "Metas y análisis ilimitados",
         "f7": "Coaching con IA ilimitado",
         "f8": "Soporte prioritario y acceso anticipado",
-        "f9": "15 consultas IA por mes"
+        "f9": "15 consultas IA por mes",
+        "f10": "1 consulta IA por mes",
+        "f11": "1 análisis avanzado por mes",
+        "f12": "1 generación de plan por mes"
       },
       "excluded": {
         "x0": "Consultas con IA",
