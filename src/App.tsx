@@ -52,7 +52,11 @@ const TrainerAnalyticsPage = lazy(() => import("@/modules/trainer/pages/TrainerA
 const AdminDashboard = lazy(() => import("@/modules/admin/pages/AdminDashboard"));
 const AdminRecipesPage = lazy(() => import("@/modules/admin/pages/AdminRecipesPage"));
 const AdminWorkoutsPage = lazy(() => import("@/modules/admin/pages/AdminWorkoutsPage"));
+const AdminExercisesPage = lazy(() => import("@/modules/admin/pages/AdminExercisesPage"));
 const AdminUpdatesPage = lazy(() => import("@/modules/admin/pages/AdminUpdatesPage"));
+const AdminPostsPage = lazy(() => import("@/modules/admin/pages/AdminPostsPage"));
+const AdminGroupsPage = lazy(() => import("@/modules/admin/pages/AdminGroupsPage"));
+const AdminAnalyticsPage = lazy(() => import("@/modules/admin/pages/AdminAnalyticsPage"));
 const AdminUsersPage = lazy(() => import("@/modules/admin/pages/AdminUsersPage"));
 
 const queryClient = new QueryClient({
