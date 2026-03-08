@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { AIUsageBadge } from "@/modules/ai/components/AIUsageBadge";
 import { useAIChat, parseAllDietJsons, stripJsonTags } from "@/modules/ai/hooks/useAIChat";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -187,6 +188,7 @@ export default function DietAIPage() {
             <div>
               <h1 className="text-2xl font-black" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>DietAI</h1>
               <p className="text-xs text-muted-foreground">Seu nutricionista inteligente</p>
+              <AIUsageBadge />
             </div>
           </div>
           {messages.length > 0 && (

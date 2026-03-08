@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { AIUsageBadge } from "@/modules/ai/components/AIUsageBadge";
 import { useAIChat, parseWorkoutJson, parseAllWorkoutJsons, stripJsonTags } from "@/modules/ai/hooks/useAIChat";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -377,6 +378,7 @@ export default function TreinAIPage() {
             <div>
               <h1 className="text-2xl font-black" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>TreinAI</h1>
               <p className="text-xs text-muted-foreground">Seu personal trainer inteligente</p>
+              <AIUsageBadge />
             </div>
           </div>
           <div className="flex items-center gap-2">

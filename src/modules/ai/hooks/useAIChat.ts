@@ -57,7 +57,9 @@ export function useAIChat(functionName: string) {
 
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({ error: "Erro desconhecido" }));
-        if (resp.status === 429) {
+        if (resp.status === 403 && err.error === "ai_limit_reached") {
+          toast.error(err.message || "Limite de IA atingido este mês. Faça upgrade do seu plano.");
+        } else if (resp.status === 429) {
           toast.error("Limite de requisições excedido. Aguarde alguns instantes e tente novamente.");
         } else if (resp.status === 402) {
           toast.error("Créditos insuficientes para usar a IA.");
