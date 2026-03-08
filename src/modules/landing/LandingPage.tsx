@@ -653,9 +653,8 @@ function FinalCTASection() {
           custom={1}
           className="mb-12"
         >
-          <div className="inline-flex items-center gap-2.5 mb-2">
-            <FitSoulLogo className="w-5 h-5" color="hsl(var(--primary))" />
-            <p className="text-xl font-bold">Onne Fit</p>
+          <div className="inline-flex items-center justify-center mb-2">
+            <FitSoulLogo className="w-6 h-6" color="hsl(var(--primary))" />
           </div>
           <p className="text-muted-foreground text-sm">{t("landing.hero.tagline")}</p>
         </motion.div>
