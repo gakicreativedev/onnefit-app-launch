@@ -217,6 +217,39 @@ export type Database = {
           },
         ]
       }
+      exercises: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          id: string
+          image_url: string | null
+          muscle_groups: string[] | null
+          name: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          muscle_groups?: string[] | null
+          name: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          muscle_groups?: string[] | null
+          name?: string
+        }
+        Relationships: []
+      }
       follows: {
         Row: {
           created_at: string | null
@@ -608,6 +641,7 @@ export type Database = {
           id: string
           image_url: string | null
           invite_code: string | null
+          is_official: boolean | null
           is_public: boolean | null
           max_members: number | null
           name: string
@@ -624,6 +658,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           invite_code?: string | null
+          is_official?: boolean | null
           is_public?: boolean | null
           max_members?: number | null
           name: string
@@ -640,6 +675,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           invite_code?: string | null
+          is_official?: boolean | null
           is_public?: boolean | null
           max_members?: number | null
           name?: string
