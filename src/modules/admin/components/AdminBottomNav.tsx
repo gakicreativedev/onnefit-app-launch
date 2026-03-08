@@ -5,22 +5,26 @@ import {
   HomeBold,
   ChefHatBold,
   DumbbellBold,
-  BookBold,
-  VerifiedCheckBold,
+  GalleryBold,
   HamburgerMenuBold,
   CloseCircleBold,
   CupBold,
   ChartBold,
+  BookBold,
+  VerifiedCheckBold,
+  Widget4Bold,
 } from "solar-icon-set";
 
 const mainNav = [
   { title: "Painel", url: "/admin", icon: HomeBold },
   { title: "Receitas", url: "/admin/recipes", icon: ChefHatBold },
   { title: "Treinos", url: "/admin/workouts", icon: DumbbellBold },
-  { title: "Posts", url: "/admin/updates", icon: BookBold },
+  { title: "Posts", url: "/admin/posts", icon: GalleryBold },
 ];
 
 const moreLinks = [
+  { title: "Exercícios", url: "/admin/exercises", icon: Widget4Bold },
+  { title: "Updates", url: "/admin/updates", icon: BookBold },
   { title: "Verificar", url: "/admin/users", icon: VerifiedCheckBold },
   { title: "Grupos", url: "/admin/groups", icon: CupBold },
   { title: "Analytics", url: "/admin/analytics", icon: ChartBold },
