@@ -166,10 +166,9 @@ export default function WorkoutsPage() {
             </section>
           </motion.div>
 
-          {/* ── Workouts Grid + TreinAI ── */}
+          {/* ── Workouts Grid ── */}
           <motion.div variants={fadeUp}>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
-              <section className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
+              <section className="flex flex-col gap-4 sm:gap-5 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
                 <div className="flex items-center justify-between">
                   <h3 className="text-2xl font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
                     {t("workouts.myWorkouts")}
@@ -186,6 +185,16 @@ export default function WorkoutsPage() {
                     <DumbbellBold size={28} color="currentColor" className="text-primary" />
                   </div>
                 </div>
+
+                {/* TreinAI inline button */}
+                <Button
+                  variant="outline"
+                  className="rounded-full w-full py-3 font-bold text-sm border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                  onClick={() => window.location.href = '/ai-trainer'}
+                >
+                  <BoltCircleBold size={18} color="currentColor" className="mr-2" />
+                  {t("workouts.goToTreinAI")}
+                </Button>
 
                 {wt.workouts.length === 0 ? (
                   <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
@@ -312,24 +321,6 @@ export default function WorkoutsPage() {
                   );
                 })()}
               </section>
-
-              <section className="lg:col-span-2 flex flex-col gap-4 rounded-[20px] sm:rounded-[34px] bg-card p-4 sm:p-8">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-black text-card-foreground" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>
-                    {t("ai.treinAI")}
-                  </h3>
-                  <BoltCircleBold size={24} color="currentColor" className="text-primary" />
-                </div>
-                <p className="text-sm text-muted-foreground">{t("workouts.generateWithAI")}</p>
-                <Button
-                  className="rounded-2xl py-5 text-base font-black w-full"
-                  onClick={() => window.location.href = '/ai-trainer'}
-                >
-                  <BoltCircleBold size={18} color="currentColor" className="mr-2" />
-                  {t("workouts.goToTreinAI")}
-                </Button>
-              </section>
-            </div>
           </motion.div>
 
           {/* ── Progression Chart — collapsible ── */}
