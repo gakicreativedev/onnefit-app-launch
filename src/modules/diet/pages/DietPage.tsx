@@ -146,7 +146,7 @@ export default function DietPage({ profile }: DietPageProps) {
             <div className="flex items-center gap-2">
               {[250, 500].map((ml) => (
                 <button key={ml} onClick={() => dt.handleAddWater(ml)} className="flex items-center justify-center gap-2 rounded-2xl bg-primary-foreground/15 backdrop-blur-sm px-4 py-3 hover:bg-primary-foreground/25 transition-colors flex-1">
-                  <span className="text-base">💧</span>
+                  <WaterDropsBold size={18} color="currentColor" className="text-primary-foreground" />
                   <span className="text-sm font-bold text-primary-foreground">+{ml}ml</span>
                 </button>
               ))}

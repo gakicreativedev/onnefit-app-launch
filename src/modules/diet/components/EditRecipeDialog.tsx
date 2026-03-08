@@ -183,11 +183,11 @@ export default function EditRecipeDialog({ recipe, open, onOpenChange, onSubmit 
             ) : (
               <div className="flex gap-2 w-full">
                 <button onClick={() => fileInputRef.current?.click()} className="flex-1 flex flex-col items-center justify-center gap-2 h-28 rounded-2xl border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors bg-muted/30">
-                  <span className="text-2xl">🖼️</span>
+                  <GalleryBold size={24} color="currentColor" className="text-muted-foreground" />
                   <span className="text-xs text-muted-foreground">Galeria</span>
                 </button>
                 <button onClick={() => cameraInputRef.current?.click()} className="flex-1 flex flex-col items-center justify-center gap-2 h-28 rounded-2xl border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors bg-muted/30">
-                  <span className="text-2xl">📷</span>
+                  <CameraBold size={24} color="currentColor" className="text-muted-foreground" />
                   <span className="text-xs text-muted-foreground">Câmera</span>
                 </button>
               </div>
