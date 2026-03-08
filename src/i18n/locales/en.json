@@ -569,7 +569,10 @@
         "f6": "Unlimited goals & analytics",
         "f7": "Unlimited AI coaching",
         "f8": "Priority support & early access",
-        "f9": "15 AI queries per month"
+        "f9": "15 AI queries per month",
+        "f10": "1 AI query per month",
+        "f11": "1 advanced analysis per month",
+        "f12": "1 AI-generated plan per month"
       },
       "excluded": {
         "x0": "AI queries",
