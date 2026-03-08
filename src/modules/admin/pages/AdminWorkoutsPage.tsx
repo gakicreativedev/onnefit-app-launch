@@ -273,7 +273,7 @@ export default function AdminWorkoutsPage() {
               <Input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Breve descrição (opcional)" />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               <div className="space-y-1">
                 <Label>Dia da Semana</Label>
                 <Select value={form.day_of_week} onValueChange={(v) => setForm({ ...form, day_of_week: v })}>
@@ -296,6 +296,10 @@ export default function AdminWorkoutsPage() {
                     <SelectItem value="advanced">Avançado</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="space-y-1">
+                <Label>Duração (min)</Label>
+                <Input type="number" min={1} value={form.duration_minutes} onChange={(e) => setForm({ ...form, duration_minutes: Math.max(1, Number(e.target.value)) })} className="text-center" />
               </div>
             </div>
 
