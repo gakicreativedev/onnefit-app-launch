@@ -15,6 +15,9 @@ import {
   Star,
   Quote,
   Check,
+  X,
+  Sparkles,
+  Crown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FitSoulLogo } from "@/components/FitSoulLogo";
