@@ -13,7 +13,7 @@ import {
   ChefHatBold, MagniferBold, AddCircleBold, AltArrowDownBold, AltArrowUpBold,
   TrashBinTrashBold, BoltCircleBold, ChefHatHeartBold, AltArrowRightBold, StarBold, WalletMoneyBold,
   BookmarkBold, SunBold, Widget4Bold, CupHotBold, MoonBold, ClipboardTextBold, TagBold,
-  HeartBold, MinimalisticMagniferBold, GlobalBold
+  HeartBold, MinimalisticMagniferBold, GlobalBold, WaterDropsBold
 } from "solar-icon-set";
 import { useRecipes, useRecipeBookmarks, type Recipe } from "../hooks/useRecipes";
 import RecipeDetailDialog from "../components/RecipeDetailDialog";
