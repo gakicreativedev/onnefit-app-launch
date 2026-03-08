@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { toast } from "sonner";
-import { WalletMoneyBold, CloseCircleBold, SunBold, ChefHatBold, CupHotBold, MoonBold, ClipboardTextBold, TagBold, UsersGroupRoundedBold } from "solar-icon-set";
+import { WalletMoneyBold, CloseCircleBold, SunBold, ChefHatBold, CupHotBold, MoonBold, ClipboardTextBold, TagBold, UsersGroupRoundedBold, GalleryBold, CameraBold } from "solar-icon-set";
 import { ImagePickerButton } from "@/components/ui/ImagePickerButton";
 import IngredientListInput, { type IngredientItem } from "./IngredientListInput";
 import StepListInput from "./StepListInput";
@@ -149,11 +149,11 @@ export default function CreateRecipeDialog({ open, onOpenChange, onSubmit }: Pro
             ) : (
               <div className="flex gap-2 w-full">
                 <button onClick={() => fileInputRef.current?.click()} className="flex-1 flex flex-col items-center justify-center gap-2 h-28 rounded-2xl border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors bg-muted/30">
-                  <span className="text-2xl">🖼️</span>
+                  <GalleryBold size={24} color="currentColor" className="text-muted-foreground" />
                   <span className="text-xs text-muted-foreground">Galeria</span>
                 </button>
                 <button onClick={() => cameraInputRef.current?.click()} className="flex-1 flex flex-col items-center justify-center gap-2 h-28 rounded-2xl border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors bg-muted/30">
-                  <span className="text-2xl">📷</span>
+                  <CameraBold size={24} color="currentColor" className="text-muted-foreground" />
                   <span className="text-xs text-muted-foreground">Câmera</span>
                 </button>
               </div>
