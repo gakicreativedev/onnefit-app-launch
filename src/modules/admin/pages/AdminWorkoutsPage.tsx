@@ -53,6 +53,7 @@ interface WorkoutForm {
   difficulty: string;
   is_shared: boolean;
   muscle_groups: string;
+  duration_minutes: number;
   exercises: ExerciseForm[];
 }
 
@@ -65,6 +66,7 @@ const emptyForm = (): WorkoutForm => ({
   difficulty: "beginner",
   is_shared: true,
   muscle_groups: "",
+  duration_minutes: 45,
   exercises: [emptyExercise()],
 });
 
