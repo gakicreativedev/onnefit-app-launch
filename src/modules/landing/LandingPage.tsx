@@ -22,7 +22,7 @@ import {
   Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FitSoulLogo } from "@/components/FitSoulLogo";
+import { OnneFitIcon } from "@/components/OnneFitIcon";
 import screenshotDashboard from "@/assets/screenshot-dashboard.png";
 import screenshotWorkouts from "@/assets/screenshot-workouts.png";
 import screenshotProgress from "@/assets/screenshot-progress.png";
