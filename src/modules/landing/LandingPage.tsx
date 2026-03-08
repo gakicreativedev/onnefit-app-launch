@@ -873,6 +873,7 @@ export default function LandingPage() {
       <BenefitsSection />
       <ProductSection />
       <PricingSection />
+      <FAQSection />
       <PhilosophySection />
       <SocialProofSection />
       <FinalCTASection />
