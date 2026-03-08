@@ -27,6 +27,29 @@ import screenshotDashboard from "@/assets/screenshot-dashboard.png";
 import screenshotWorkouts from "@/assets/screenshot-workouts.png";
 import screenshotProgress from "@/assets/screenshot-progress.png";
 
+/* ── Inline CTA ── */
+function InlineCTA() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  return (
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="flex justify-center mt-12"
+    >
+      <Button
+        size="lg"
+        onClick={() => navigate("/auth")}
+        className="rounded-full px-8 gap-2 text-sm font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-shadow"
+      >
+        {t("landing.hero.cta")} <ArrowRight className="w-4 h-4" />
+      </Button>
+    </motion.div>
+  );
+}
+
 /* ── Animations ── */
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
