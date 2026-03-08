@@ -685,10 +685,7 @@ function Footer() {
   return (
     <footer className="border-t border-border/20 py-10 px-5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2.5">
-          <FitSoulLogo className="w-4 h-4" color="hsl(var(--primary))" />
-          <span className="text-sm font-bold">Onne Fit</span>
-        </div>
+        <FitSoulLogo className="w-4 h-4" color="hsl(var(--primary))" />
         <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} Onne Fit. {t("landing.footer.rights")}
         </p>
