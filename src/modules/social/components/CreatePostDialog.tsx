@@ -137,7 +137,7 @@ export function CreatePostDialog({ open, onOpenChange, onSubmit, womenOnly = fal
                 type="button"
                 className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
               >
-                <span className="text-sm font-semibold">📷 Foto</span>
+                <span className="text-sm font-semibold flex items-center gap-1.5"><CameraBold size={14} color="currentColor" /> Foto</span>
               </button>
             </ImagePickerButton>
             <Button
