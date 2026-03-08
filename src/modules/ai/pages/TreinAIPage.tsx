@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { AIUsageBadge } from "@/modules/ai/components/AIUsageBadge";
 import { useAIChat, parseWorkoutJson, parseAllWorkoutJsons, stripJsonTags } from "@/modules/ai/hooks/useAIChat";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
