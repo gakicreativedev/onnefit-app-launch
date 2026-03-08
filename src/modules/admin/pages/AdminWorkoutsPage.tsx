@@ -53,6 +53,7 @@ interface WorkoutForm {
   difficulty: string;
   is_shared: boolean;
   muscle_groups: string;
+  duration_minutes: number;
   exercises: ExerciseForm[];
 }
 
@@ -65,6 +66,7 @@ const emptyForm = (): WorkoutForm => ({
   difficulty: "beginner",
   is_shared: true,
   muscle_groups: "",
+  duration_minutes: 45,
   exercises: [emptyExercise()],
 });
 
@@ -76,6 +78,7 @@ function formFromWorkout(w: AdminWorkout): WorkoutForm {
     difficulty: w.difficulty || "beginner",
     is_shared: w.is_shared,
     muscle_groups: (w.muscle_groups || []).join(", "),
+    duration_minutes: w.duration_minutes || 45,
     exercises: w.exercises.length > 0
       ? w.exercises.map((ex) => ({
           exercise_name: ex.exercise_name,
@@ -93,6 +96,15 @@ export default function AdminWorkoutsPage() {
   const [showDialog, setShowDialog] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<WorkoutForm>(emptyForm());
+  const [search, setSearch] = useState("");
+  const [diffFilter, setDiffFilter] = useState("all");
+
+  const filtered = workouts.filter(w => {
+    const q = search.toLowerCase();
+    const matchSearch = !search || w.name.toLowerCase().includes(q) || (w.muscle_groups || []).some(mg => mg.toLowerCase().includes(q));
+    const matchDiff = diffFilter === "all" || w.difficulty === diffFilter;
+    return matchSearch && matchDiff;
+  });
 
   const openCreate = () => {
     setEditingId(null);
@@ -165,15 +177,27 @@ export default function AdminWorkoutsPage() {
       animate="show"
       variants={{ show: { transition: { staggerChildren: 0.08 } } }}
     >
-      <motion.div variants={fadeUp} className="flex items-center justify-between">
+      <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-black text-foreground">Treinos</h1>
           <p className="text-sm text-muted-foreground">{workouts.length} treino(s) na base de dados</p>
         </div>
-        <Button onClick={openCreate} className="rounded-xl gap-2">
-          <AddCircleBold size={18} color="currentColor" />
-          Novo Treino
-        </Button>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar treino..." className="rounded-2xl bg-muted/50 border-0 h-9 text-sm flex-1 sm:w-40" />
+          <Select value={diffFilter} onValueChange={setDiffFilter}>
+            <SelectTrigger className="w-[130px] h-9 rounded-2xl text-sm"><SelectValue placeholder="Dificuldade" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todas</SelectItem>
+              <SelectItem value="beginner">Iniciante</SelectItem>
+              <SelectItem value="intermediate">Intermediário</SelectItem>
+              <SelectItem value="advanced">Avançado</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button onClick={openCreate} className="rounded-xl gap-2 shrink-0">
+            <AddCircleBold size={18} color="currentColor" />
+            Novo
+          </Button>
+        </div>
       </motion.div>
 
       <motion.div variants={fadeUp} className="flex flex-col gap-2">
@@ -181,13 +205,13 @@ export default function AdminWorkoutsPage() {
           <div className="flex justify-center py-12">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
           </div>
-        ) : workouts.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-4 py-16 text-muted-foreground">
             <DumbbellBold size={48} color="currentColor" />
-            <p className="text-base font-semibold">Nenhum treino cadastrado</p>
+            <p className="text-base font-semibold">Nenhum treino encontrado</p>
           </div>
         ) : (
-          workouts.map((w) => (
+          filtered.map((w) => (
             <div key={w.id} className="flex items-center gap-3 rounded-[16px] bg-card p-4">
               <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
                 <DumbbellBold size={24} color="currentColor" className="text-primary" />
@@ -203,8 +227,10 @@ export default function AdminWorkoutsPage() {
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {w.exercises.length} exercício(s)
+                  {w.duration_minutes && ` · ${w.duration_minutes}min`}
                   {w.day_of_week != null && ` · ${dayLabels[w.day_of_week]}`}
                   {w.difficulty && ` · ${w.difficulty}`}
+                  {w.muscle_groups && w.muscle_groups.length > 0 && ` · ${w.muscle_groups.join(", ")}`}
                 </p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
@@ -247,7 +273,7 @@ export default function AdminWorkoutsPage() {
               <Input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Breve descrição (opcional)" />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               <div className="space-y-1">
                 <Label>Dia da Semana</Label>
                 <Select value={form.day_of_week} onValueChange={(v) => setForm({ ...form, day_of_week: v })}>
@@ -270,6 +296,10 @@ export default function AdminWorkoutsPage() {
                     <SelectItem value="advanced">Avançado</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="space-y-1">
+                <Label>Duração (min)</Label>
+                <Input type="number" min={1} value={form.duration_minutes} onChange={(e) => setForm({ ...form, duration_minutes: Math.max(1, Number(e.target.value)) })} className="text-center" />
               </div>
             </div>
 

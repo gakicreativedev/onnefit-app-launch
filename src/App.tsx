@@ -52,7 +52,11 @@ const TrainerAnalyticsPage = lazy(() => import("@/modules/trainer/pages/TrainerA
 const AdminDashboard = lazy(() => import("@/modules/admin/pages/AdminDashboard"));
 const AdminRecipesPage = lazy(() => import("@/modules/admin/pages/AdminRecipesPage"));
 const AdminWorkoutsPage = lazy(() => import("@/modules/admin/pages/AdminWorkoutsPage"));
+const AdminExercisesPage = lazy(() => import("@/modules/admin/pages/AdminExercisesPage"));
 const AdminUpdatesPage = lazy(() => import("@/modules/admin/pages/AdminUpdatesPage"));
+const AdminPostsPage = lazy(() => import("@/modules/admin/pages/AdminPostsPage"));
+const AdminGroupsPage = lazy(() => import("@/modules/admin/pages/AdminGroupsPage"));
+const AdminAnalyticsPage = lazy(() => import("@/modules/admin/pages/AdminAnalyticsPage"));
 const AdminUsersPage = lazy(() => import("@/modules/admin/pages/AdminUsersPage"));
 
 const queryClient = new QueryClient({
@@ -210,11 +214,13 @@ function AppRoutes() {
               <Route path="/admin" element={<SuspensePageTransition><AdminDashboard /></SuspensePageTransition>} />
               <Route path="/admin/recipes" element={<SuspensePageTransition><AdminRecipesPage /></SuspensePageTransition>} />
               <Route path="/admin/workouts" element={<SuspensePageTransition><AdminWorkoutsPage /></SuspensePageTransition>} />
+              <Route path="/admin/exercises" element={<SuspensePageTransition><AdminExercisesPage /></SuspensePageTransition>} />
               <Route path="/admin/updates" element={<SuspensePageTransition><AdminUpdatesPage /></SuspensePageTransition>} />
+              <Route path="/admin/posts" element={<SuspensePageTransition><AdminPostsPage /></SuspensePageTransition>} />
               <Route path="/admin/users" element={<SuspensePageTransition><AdminUsersPage /></SuspensePageTransition>} />
-              <Route path="/admin/groups" element={<SuspensePageTransition><GroupsPage /></SuspensePageTransition>} />
+              <Route path="/admin/groups" element={<SuspensePageTransition><AdminGroupsPage /></SuspensePageTransition>} />
               <Route path="/admin/groups/:groupId" element={<SuspensePageTransition><GroupDetailPage /></SuspensePageTransition>} />
-              <Route path="/admin/analytics" element={<SuspensePageTransition><TrainerAnalyticsPage /></SuspensePageTransition>} />
+              <Route path="/admin/analytics" element={<SuspensePageTransition><AdminAnalyticsPage /></SuspensePageTransition>} />
               <Route path="/profile" element={<SuspensePageTransition><ProfilePage profile={profile} onUpdate={updateProfile} userRole={role} onSwitchRole={handleSwitchRole} /></SuspensePageTransition>} />
               <Route path="/settings" element={<SuspensePageTransition><SettingsPage dbRole={dbRole} activeRole={role} onSwitchRole={handleSwitchRole} /></SuspensePageTransition>} />
               <Route path="*" element={<Navigate to="/admin" replace />} />

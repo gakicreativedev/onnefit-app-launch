@@ -17,6 +17,8 @@ import {
   VerifiedCheckBold,
   CupBold,
   ChartBold,
+  GalleryBold,
+  Widget4Bold,
 } from "solar-icon-set";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import type { AppRole } from "@/modules/auth/hooks/useUserRole";
@@ -27,7 +29,9 @@ const adminNav = [
   { title: "painel", url: "/admin", icon: HomeBold },
   { title: "receitas", url: "/admin/recipes", icon: ChefHatBold },
   { title: "treinos", url: "/admin/workouts", icon: DumbbellBold },
-  { title: "posts", url: "/admin/updates", icon: BookBold },
+  { title: "exercícios", url: "/admin/exercises", icon: Widget4Bold },
+  { title: "posts", url: "/admin/posts", icon: GalleryBold },
+  { title: "updates", url: "/admin/updates", icon: BookBold },
   { title: "verificação", url: "/admin/users", icon: VerifiedCheckBold },
   { title: "grupos", url: "/admin/groups", icon: CupBold },
   { title: "analytics", url: "/admin/analytics", icon: ChartBold },
