@@ -22,7 +22,7 @@ import {
   Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FitSoulLogo } from "@/components/FitSoulLogo";
+import { OnneFitIcon } from "@/components/OnneFitIcon";
 import screenshotDashboard from "@/assets/screenshot-dashboard.png";
 import screenshotWorkouts from "@/assets/screenshot-workouts.png";
 import screenshotProgress from "@/assets/screenshot-progress.png";
@@ -112,7 +112,7 @@ function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 border-b border-border/20 bg-background/70 backdrop-blur-2xl"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <FitSoulLogo className="w-10 h-10" color="hsl(var(--primary))" />
+        <OnneFitIcon className="w-8 h-8" color="hsl(var(--primary))" />
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
           <Button
@@ -352,12 +352,15 @@ function FeaturesSection() {
                     {t(`landing.features.f${i}.desc`)}
                   </p>
                 </div>
-                <div className={`relative h-64 md:h-80 overflow-hidden ${isReversed ? "md:order-1" : ""}`}>
+                <div className={`relative h-56 sm:h-64 md:h-80 overflow-hidden ${isReversed ? "md:order-1" : ""}`}>
                   <img
                     src={featureImages[i]}
                     alt={t(`landing.features.f${i}.title`)}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
+                    loading={i < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                    width={800}
+                    height={400}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent md:bg-gradient-to-r md:from-card/60 md:via-transparent md:to-transparent" />
                 </div>
@@ -679,7 +682,7 @@ function FinalCTASection() {
           className="mb-12"
         >
           <div className="inline-flex items-center justify-center mb-2">
-            <FitSoulLogo className="w-8 h-8" color="hsl(var(--primary))" />
+            <OnneFitIcon className="w-10 h-10" color="hsl(var(--primary))" />
           </div>
           <p className="text-muted-foreground text-sm">{t("landing.hero.tagline")}</p>
         </motion.div>
@@ -710,7 +713,7 @@ function Footer() {
   return (
     <footer className="border-t border-border/20 py-10 px-5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <FitSoulLogo className="w-6 h-6" color="hsl(var(--primary))" />
+        <OnneFitIcon className="w-6 h-6" color="hsl(var(--primary))" />
         <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} Onne Fit. {t("landing.footer.rights")}
         </p>
