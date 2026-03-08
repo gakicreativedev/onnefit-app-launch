@@ -645,6 +645,163 @@ function Footer() {
   );
 }
 
+/* ── Pricing Section ── */
+function PricingSection() {
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const isBRL = i18n.language?.startsWith("pt");
+
+  const plans = [
+    {
+      key: "free",
+      icon: Zap,
+      price: { brl: "0", usd: "0" },
+      popular: false,
+      features: ["f0", "f1", "f2", "f3", "f4"],
+      excluded: ["x0", "x1", "x2"],
+    },
+    {
+      key: "pro",
+      icon: Sparkles,
+      price: { brl: "29,90", usd: "9.90" },
+      popular: true,
+      features: ["f0", "f1", "f2", "f3", "f4", "f5", "f6"],
+      excluded: ["x0"],
+    },
+    {
+      key: "premium",
+      icon: Crown,
+      price: { brl: "49,90", usd: "19.90" },
+      popular: false,
+      features: ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"],
+      excluded: [],
+    },
+  ];
+
+  return (
+    <section className="py-28 md:py-36 px-5 relative" id="pricing">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/4 blur-[180px]" />
+      </div>
+      <div className="relative max-w-6xl mx-auto">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+            {t("landing.pricing.title")}
+          </h2>
+          <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto">
+            {t("landing.pricing.subtitle")}
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-5 items-start"
+        >
+          {plans.map((plan, idx) => {
+            const Icon = plan.icon;
+            const price = isBRL ? plan.price.brl : plan.price.usd;
+            const currency = isBRL ? "R$" : "$";
+            return (
+              <motion.div
+                key={plan.key}
+                variants={fadeUp}
+                custom={idx}
+                className={`relative rounded-3xl border p-7 md:p-8 transition-all duration-300 ${
+                  plan.popular
+                    ? "border-primary/40 bg-card/80 shadow-xl shadow-primary/5 md:-mt-4 md:mb-[-16px]"
+                    : "border-border/30 bg-card/40 hover:border-border/50"
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-4 py-1 text-xs font-semibold shadow-lg shadow-primary/20">
+                      <Star className="w-3 h-3 fill-current" />
+                      {t("landing.pricing.popular")}
+                    </span>
+                  </div>
+                )}
+
+                <div className="flex items-center gap-3 mb-6">
+                  <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${
+                    plan.popular ? "bg-primary/15" : "bg-primary/10"
+                  }`}>
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-bold">{t(`landing.pricing.plans.${plan.key}.name`)}</h3>
+                </div>
+
+                <div className="mb-2">
+                  <span className="text-4xl font-extrabold tracking-tight">
+                    {currency}{price}
+                  </span>
+                  {price !== "0" && (
+                    <span className="text-muted-foreground text-sm ml-1">
+                      /{t("landing.pricing.month")}
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground mb-8">
+                  {t(`landing.pricing.plans.${plan.key}.desc`)}
+                </p>
+
+                <Button
+                  onClick={() => navigate("/auth")}
+                  className={`w-full rounded-full py-5 font-semibold mb-8 ${
+                    plan.popular ? "glow-primary-sm" : ""
+                  }`}
+                  variant={plan.popular ? "default" : "outline"}
+                >
+                  {t(`landing.pricing.plans.${plan.key}.cta`)}
+                </Button>
+
+                <div className="space-y-3">
+                  {plan.features.map((f) => (
+                    <div key={f} className="flex items-start gap-2.5">
+                      <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                      <span className="text-sm text-foreground/80">
+                        {t(`landing.pricing.features.${f}`)}
+                      </span>
+                    </div>
+                  ))}
+                  {plan.excluded.map((x) => (
+                    <div key={x} className="flex items-start gap-2.5 opacity-40">
+                      <X className="w-4 h-4 mt-0.5 shrink-0" />
+                      <span className="text-sm line-through">
+                        {t(`landing.pricing.excluded.${x}`)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        <motion.p
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={4}
+          className="text-center text-xs text-muted-foreground mt-10"
+        >
+          {t("landing.pricing.note")}
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
 /* ── Main ── */
 export default function LandingPage() {
   return (
@@ -656,6 +813,7 @@ export default function LandingPage() {
       <FeaturesSection />
       <BenefitsSection />
       <ProductSection />
+      <PricingSection />
       <PhilosophySection />
       <SocialProofSection />
       <FinalCTASection />
