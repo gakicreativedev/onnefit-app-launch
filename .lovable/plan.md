@@ -1,66 +1,86 @@
 
 
-# FitSoul MVP — Fitness App with AI Foundation
+# Correções de Inconsistências no App
 
-## Overview
-A modern fitness application with dark mode UI (deep navy/black background with vibrant blue accents), modular architecture, real-time backend via Lovable Cloud, and authentication — ready for future AI expansion.
+## 1. Substituir emojis por Solar Icons
+
+**Arquivos afetados** (19 arquivos com emojis na interface):
+
+| Arquivo | Emojis | Substituição Solar Icon |
+|---------|--------|------------------------|
+| `CardioTracker.tsx` | 🏃🚶🏃‍♂️🚴🚵⚙️🪢🏊🚣🪜🎉 | `RunningBold`, `WalkingBold`, `RunningRoundBold`, `BicycleBold` (ou reutilizar Running variants), `SettingsBold`, `WaterdropsBold`, etc. |
+| `ProgressPage.tsx` | 📏📈📷📅📊 | `RulerBold`, `GraphUpBold`, `CameraBold`, `CalendarBold`, `ChartSquareBold` |
+| `PhotoGallery.tsx` | 📊🖼️📷🔄 | `ChartSquareBold`, `GalleryBold`, `CameraBold`, `RestartBold` |
+| `MeasurementForm.tsx` | 📝 | `NoteBold` / `ClipboardTextBold` |
+| `ProgressCharts.tsx` | 📈 | `GraphUpBold` |
+| `CreatePostDialog.tsx` | 📷 | `CameraBold` |
+| `DailyNutritionCard.tsx` | 💧 | `WaterdropsBold` |
+| `TrainerDashboard.tsx` | 💪 | `DumbbellBold` |
+| `GamificationPage.tsx` | 🏅 (badge_icon fallback) | `MedalRibbonBold` |
+| `ErrorBoundary.tsx` | ⚠️ | `DangerTriangleBold` |
+| `TreinAIPage.tsx` / `DietAIPage.tsx` | 📷🤖 | `CameraBold`, `BoltCircleBold` |
+| `ProfilePage.tsx` | 🏋️ (placeholder) | Manter (é input do usuário) |
+| `useGroupFeed.ts` | 🎉 (toast) | Remover emoji do toast |
+| `useGroups.ts` | 🏆🥈🥉 (badge emojis salvos no DB) | Manter (dados persistidos) |
+| `ActivityCard.tsx` | 🔥💪👏❤️🏆 fallback | Já usa Solar Icons para esses, apenas remover o fallback `<span>{emoji}</span>` |
+
+**Nota**: Emojis que são dados do usuário (profile highlights, badge_icon do DB) serão mantidos como estão. Apenas emojis hardcoded na UI serão substituídos.
 
 ---
 
-## 1. Authentication & Onboarding
-- **Sign Up / Sign In** page with email+password and Google OAuth
-- **Onboarding flow** (3 steps after first login):
-  1. Basic info: name, age, gender, height, weight
-  2. Fitness goal selection (lose weight, gain muscle, maintain)
-  3. Activity level selection
-- Auto-calculate **BMR (Basal Metabolic Rate)** and estimated daily calorie target
-- Save profile to database
+## 2. Contraste dos botões e hovers
 
-## 2. Layout & Navigation
-- **Fixed sidebar** on the left (collapsible on mobile) with:
-  - User avatar, name, level badge
-  - Nav items: Dashboard, Workouts, Diet, Profile
-  - Settings & Logout at bottom
-- **Main content area** with responsive grid layout
-- Dark mode theme with deep navy background (#0a0e1a) and vibrant blue (#2563eb) accents
+O botão `default` já foi ajustado para `bg-foreground text-background hover:bg-white hover:text-black`. Vou revisar:
 
-## 3. Dashboard (Home)
-Based on the reference image, the dashboard will include:
-- **Workout of the Day** — featured card with today's workout name and "Start Workout" button
-- **Daily Calories** — progress bar showing consumed vs. target calories
-- **Daily Protein** — progress bar showing protein intake vs. goal
-- **Weekly Frequency** — visual display of which days the user trained
-- **Daily Meals** — list of meals (breakfast, lunch, snack, dinner) with calorie counts
-- **Daily Highlights** — horizontal scroll of featured workouts/recipes
+- Verificar botões `outline` e `secondary` para garantir contraste consistente
+- Ajustar o variant `outline` para ter hover mais visível: `hover:bg-foreground hover:text-background`
+- Garantir que badges de tab (WorkoutsPage) tenham contraste adequado no estado ativo/inativo
 
-## 4. Workouts Module
-- Pre-defined simple workout plans (push/pull/legs or full body)
-- Workout detail view showing exercises, sets, reps
-- Static data initially, ready for AI-generated plans later
+---
 
-## 5. Diet / Nutrition Module
-- Basic meal plan based on calculated calorie target
-- List of daily meals with macro breakdown
-- Water intake tracker
-- Static data initially, ready for AI-generated nutrition plans later
+## 3. Treinos: Painéis de séries retráteis (ActiveWorkoutView)
 
-## 6. Profile Module
-- View and edit personal data (weight, height, goals)
-- Recalculate BMR/calorie target on changes
-- Display current stats summary
+**Estado atual**: Cada exercício no `ActiveWorkoutView` mostra todas as séries sempre expandidas, sem opção de retrair.
 
-## 7. Database Schema (Lovable Cloud)
-- **profiles** — user_id, name, age, gender, height, weight, activity_level, goal, bmr, calorie_target
-- **workouts** — id, name, description, muscle_groups, difficulty
-- **workout_exercises** — workout_id, exercise_name, sets, reps, rest_seconds
-- **meal_plans** — id, user_id, date, total_calories
-- **meals** — id, meal_plan_id, name, time, calories, protein, carbs, fat
-- **user_activity** — user_id, date, workout_completed, water_intake_ml
+**Plano**:
+- Adicionar estado `collapsedExercises` como `Set<number>` ao `ActiveWorkoutView`
+- Salvar estado no `localStorage` (key: `fitsoul_exercise_collapse`)
+- Iniciar **todos retraídos** por padrão
+- Ao clicar no header do exercício, expandir/retrair as séries
+- Mostrar indicador visual (chevron) e badge com progresso (`2/4 séries`)
 
-## 8. What's NOT in MVP (Future Expansion)
-- AI-powered adaptive workout/diet generation
-- Social features, challenges, achievements
-- Paid plans & subscriptions
-- Progress photos & body measurements tracking
-- AI Trainer & AI Chef chatbots
+---
+
+## 4. TreinAI como botão abaixo de "Meus Treinos"
+
+**Estado atual**: TreinAI é um card separado em `lg:col-span-2` ao lado do grid de treinos (`lg:col-span-3`), ocupando muito espaço visual.
+
+**Plano**:
+- Remover o card separado do TreinAI (a `<section className="lg:col-span-2">`)
+- Remover o grid `grid-cols-1 lg:grid-cols-5`
+- Adicionar um botão `BoltCircleBold + "Gerar treino com TreinAI"` logo abaixo do header "Meus Treinos", dentro da mesma section
+- Estilo: botão `outline` com ícone, rounded-full, discreto mas acessível
+
+---
+
+## Resumo de arquivos a editar
+
+| Arquivo | Mudança |
+|---------|---------|
+| `button.tsx` | Ajustar variant `outline` hover |
+| `ActiveWorkoutView.tsx` | Adicionar collapse com localStorage |
+| `WorkoutsPage.tsx` | Mover TreinAI para botão inline |
+| `CardioTracker.tsx` | Emojis -> Solar Icons |
+| `ProgressPage.tsx` | Emojis -> Solar Icons |
+| `PhotoGallery.tsx` | Emojis -> Solar Icons |
+| `MeasurementForm.tsx` | Emojis -> Solar Icons |
+| `ProgressCharts.tsx` | Emojis -> Solar Icons |
+| `CreatePostDialog.tsx` | Emojis -> Solar Icons |
+| `DailyNutritionCard.tsx` | Emojis -> Solar Icons |
+| `TrainerDashboard.tsx` | Emojis -> Solar Icons |
+| `GamificationPage.tsx` | Emojis -> Solar Icons |
+| `ErrorBoundary.tsx` | Emojis -> Solar Icons |
+| `TreinAIPage.tsx` | Emojis -> Solar Icons |
+| `DietAIPage.tsx` | Emojis -> Solar Icons |
+| `useGroupFeed.ts` | Remover emoji do toast |
 
