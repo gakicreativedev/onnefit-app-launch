@@ -566,6 +566,60 @@ function SocialProofSection() {
   );
 }
 
+/* ── FAQ Section ── */
+function FAQSection() {
+  const { t } = useTranslation();
+  const faqs = Array.from({ length: 8 }, (_, i) => ({
+    q: t(`landing.faq.q${i}`),
+    a: t(`landing.faq.a${i}`),
+  }));
+
+  return (
+    <section className="py-24 md:py-36 px-5">
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">
+            {t("landing.faq.title")}
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            {t("landing.faq.subtitle")}
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="space-y-3"
+        >
+          {faqs.map((faq, i) => (
+            <motion.details
+              key={i}
+              variants={fadeUp}
+              className="group rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden"
+            >
+              <summary className="flex cursor-pointer items-center justify-between px-6 py-5 text-left font-semibold text-card-foreground hover:bg-muted/30 transition-colors [&::-webkit-details-marker]:hidden list-none">
+                <span className="pr-4">{faq.q}</span>
+                <ChevronDown className="w-5 h-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <div className="px-6 pb-5 text-muted-foreground leading-relaxed">
+                {faq.a}
+              </div>
+            </motion.details>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 /* ── Final CTA Section ── */
 function FinalCTASection() {
   const { t } = useTranslation();
@@ -873,6 +927,7 @@ export default function LandingPage() {
       <BenefitsSection />
       <ProductSection />
       <PricingSection />
+      <FAQSection />
       <PhilosophySection />
       <SocialProofSection />
       <FinalCTASection />

@@ -581,6 +581,26 @@
         "x3": "Planes generados por IA"
       }
     },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Todo lo que necesitas saber sobre Onne Fit.",
+      "q0": "¿Onne Fit es realmente gratis?",
+      "a0": "¡Sí! El plan gratuito incluye planificación de entrenos, gráficos de progreso, sistema de XP, feed social y hasta 3 consultas de IA por mes. Sin costo.",
+      "q1": "¿Cuál es la diferencia entre los planes?",
+      "a1": "El plan Gratis cubre lo esencial. El Esencial agrega más consultas de IA (15/mes) y metas extras. El Pro desbloquea IA ilimitada y análisis avanzados. El Premium incluye todo + soporte prioritario y acceso anticipado.",
+      "q2": "¿Puedo cancelar mi suscripción en cualquier momento?",
+      "a2": "Sí, sin compromiso. Puedes cancelar cuando quieras y mantendrás el acceso hasta el final del período pagado.",
+      "q3": "¿Cómo funciona la IA de Onne Fit?",
+      "a3": "Nuestra IA genera planes de entrenamiento y dieta personalizados según tu perfil (peso, altura, objetivo, restricciones). Es como tener un entrenador personal y nutricionista disponibles 24/7.",
+      "q4": "¿Mis datos están seguros?",
+      "a4": "Absolutamente. Todos los datos están cifrados y protegidos. La información de salud es privada y nunca se comparte con terceros.",
+      "q5": "¿Necesito equipamiento para usar la app?",
+      "a5": "No necesariamente. La IA puede generar entrenos para gimnasio, casa o solo con peso corporal, adaptados a lo que tengas disponible.",
+      "q6": "¿Puedo usar Onne Fit como entrenador personal?",
+      "a6": "¡Sí! Activando el modo Entrenador, obtienes un panel completo para gestionar alumnos, crear entrenos y seguir su progreso.",
+      "q7": "¿La app funciona sin conexión?",
+      "a7": "Onne Fit es una PWA (Progressive Web App). Algunas funciones operan sin conexión, pero la IA y la sincronización de datos requieren internet."
+    },
     "footer": { "rights": "Todos los derechos reservados." }
   }
 }

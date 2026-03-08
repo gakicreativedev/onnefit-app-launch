@@ -581,6 +581,26 @@
         "x3": "Planos gerados por IA"
       }
     },
+    "faq": {
+      "title": "Perguntas Frequentes",
+      "subtitle": "Tudo o que você precisa saber sobre o Onne Fit.",
+      "q0": "O Onne Fit é realmente gratuito?",
+      "a0": "Sim! O plano gratuito inclui planejamento de treinos, gráficos de progresso, sistema de XP, feed social e até 3 consultas de IA por mês. Você pode usar sem pagar nada.",
+      "q1": "Qual a diferença entre os planos?",
+      "a1": "O plano Grátis cobre o essencial. O Essencial adiciona mais consultas de IA (15/mês) e metas extras. O Pro desbloqueia IA ilimitada e análises avançadas. O Premium inclui tudo + suporte prioritário e acesso antecipado a novidades.",
+      "q2": "Posso cancelar minha assinatura a qualquer momento?",
+      "a2": "Sim, sem compromisso. Você pode cancelar quando quiser e continuará com acesso até o final do período pago.",
+      "q3": "Como funciona a IA do Onne Fit?",
+      "a3": "Nossa IA gera planos de treino e dieta personalizados com base no seu perfil (peso, altura, objetivo, restrições). É como ter um personal trainer e nutricionista disponíveis 24h.",
+      "q4": "Meus dados estão seguros?",
+      "a4": "Absolutamente. Todos os dados são criptografados e protegidos. Informações de saúde são privadas e nunca compartilhadas com terceiros.",
+      "q5": "Preciso de equipamentos para usar o app?",
+      "a5": "Não necessariamente. A IA pode gerar treinos para academia, casa ou apenas com peso corporal, adaptados ao que você tem disponível.",
+      "q6": "Posso usar o Onne Fit como personal trainer?",
+      "a6": "Sim! Ativando o modo Entrenador, você ganha acesso a um painel completo para gerenciar alunos, criar treinos e acompanhar o progresso deles.",
+      "q7": "O app funciona offline?",
+      "a7": "O Onne Fit é um PWA (Progressive Web App). Algumas funcionalidades funcionam offline, mas recursos como IA e sincronização de dados precisam de conexão."
+    },
     "footer": { "rights": "Todos os direitos reservados." }
   }
 }

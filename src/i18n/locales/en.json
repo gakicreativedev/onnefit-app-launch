@@ -581,6 +581,26 @@
         "x3": "AI-powered plans"
       }
     },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about Onne Fit.",
+      "q0": "Is Onne Fit really free?",
+      "a0": "Yes! The free plan includes workout planning, progress charts, XP system, social feed, and up to 3 AI queries per month. No payment required.",
+      "q1": "What's the difference between plans?",
+      "a1": "The Free plan covers the essentials. Essential adds more AI queries (15/month) and extra goals. Pro unlocks unlimited AI and advanced analytics. Premium includes everything + priority support and early access.",
+      "q2": "Can I cancel my subscription anytime?",
+      "a2": "Yes, no commitment. You can cancel whenever you want and keep access until the end of your billing period.",
+      "q3": "How does Onne Fit's AI work?",
+      "a3": "Our AI generates personalized workout and diet plans based on your profile (weight, height, goals, restrictions). It's like having a personal trainer and nutritionist available 24/7.",
+      "q4": "Is my data secure?",
+      "a4": "Absolutely. All data is encrypted and protected. Health information is private and never shared with third parties.",
+      "q5": "Do I need equipment to use the app?",
+      "a5": "Not necessarily. The AI can generate workouts for the gym, home, or bodyweight-only, adapted to what you have available.",
+      "q6": "Can I use Onne Fit as a personal trainer?",
+      "a6": "Yes! By activating Trainer mode, you get a complete dashboard to manage students, create workouts, and track their progress.",
+      "q7": "Does the app work offline?",
+      "a7": "Onne Fit is a PWA (Progressive Web App). Some features work offline, but AI and data sync require an internet connection."
+    },
     "footer": { "rights": "All rights reserved." }
   }
 }
