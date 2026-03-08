@@ -211,7 +211,7 @@ export default function AdminWorkoutsPage() {
             <p className="text-base font-semibold">Nenhum treino encontrado</p>
           </div>
         ) : (
-          workouts.map((w) => (
+          filtered.map((w) => (
             <div key={w.id} className="flex items-center gap-3 rounded-[16px] bg-card p-4">
               <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
                 <DumbbellBold size={24} color="currentColor" className="text-primary" />
@@ -227,8 +227,10 @@ export default function AdminWorkoutsPage() {
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {w.exercises.length} exercício(s)
+                  {w.duration_minutes && ` · ${w.duration_minutes}min`}
                   {w.day_of_week != null && ` · ${dayLabels[w.day_of_week]}`}
                   {w.difficulty && ` · ${w.difficulty}`}
+                  {w.muscle_groups && w.muscle_groups.length > 0 && ` · ${w.muscle_groups.join(", ")}`}
                 </p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
