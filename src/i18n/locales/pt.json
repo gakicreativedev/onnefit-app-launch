@@ -602,5 +602,50 @@
       "a7": "O Onne Fit é um PWA (Progressive Web App). Algumas funcionalidades funcionam offline, mas recursos como IA e sincronização de dados precisam de conexão."
     },
     "footer": { "rights": "Todos os direitos reservados." }
+  },
+  "trainerLanding": {
+    "hero": {
+      "tagline": "Um lugar para sua evolução.",
+      "headline": "Construa um negócio de coaching mais forte",
+      "subheadline1": "O Onne Fit ajuda personal trainers a organizar alunos, acompanhar progresso e oferecer uma experiência profissional de treino — tudo em uma única plataforma.",
+      "subheadline2": "Passe menos tempo gerenciando ferramentas e mais tempo ajudando seus alunos a evoluir.",
+      "cta": "Começar com o Onne Fit"
+    },
+    "problem": {
+      "title": "Seu coaching não deveria ser caótico",
+      "intro": "Muitos personal trainers ainda gerenciam seus alunos usando várias ferramentas:",
+      "p1": "Planilhas",
+      "p2": "Aplicativos de mensagem",
+      "p3": "Treinos em PDF",
+      "p4": "Anotações espalhadas",
+      "conclusion1": "Isso dificulta a organização, o acompanhamento de progresso e a entrega de uma experiência profissional.",
+      "conclusion2": "Quando seu fluxo de trabalho é confuso, seu tempo desaparece — e seu negócio não cresce."
+    },
+    "solution": {
+      "title": "Conheça o Onne Fit para Coaches",
+      "p1": "O Onne Fit reúne todo o seu fluxo de trabalho de coaching em uma única plataforma.",
+      "p2": "Gerencie seus alunos, crie treinos e acompanhe o progresso sem precisar usar várias ferramentas diferentes.",
+      "pillars": "Planeje. Acompanhe. Evolua."
+    },
+    "benefits": {
+      "title": "Criado para personal trainers modernos",
+      "subtitle": "Com o Onne Fit você pode:",
+      "b0": { "title": "Economizar tempo organizando alunos", "desc": "Gerencie treinos, anotações e progresso sem planilhas ou ferramentas espalhadas." },
+      "b1": { "title": "Parecer mais profissional para seus alunos", "desc": "Seus alunos acompanham treinos, resultados e progresso dentro de uma plataforma estruturada." },
+      "b2": { "title": "Escalar seu negócio de coaching", "desc": "Com melhor organização você pode atender mais alunos sem aumentar sua carga de trabalho." }
+    },
+    "features": {
+      "title": "Tudo que você precisa para treinar com confiança",
+      "f0": { "title": "Gestão de Alunos", "desc": "Organize todos os seus alunos em um único painel." },
+      "f1": { "title": "Programação de Treinos", "desc": "Crie planos de treino estruturados para cada aluno." },
+      "f2": { "title": "Acompanhamento de Progresso", "desc": "Visualize resultados e evolução ao longo do tempo." },
+      "f3": { "title": "Hábitos e Metas", "desc": "Ajude seus alunos a manter consistência." }
+    },
+    "cta": {
+      "headline": "Escale seu negócio de coaching",
+      "body": "Leve seu trabalho como personal trainer para o próximo nível com uma plataforma criada para profissionais modernos do fitness.",
+      "button": "Começar agora",
+      "tagline": "Um lugar para sua evolução."
+    }
   }
 }

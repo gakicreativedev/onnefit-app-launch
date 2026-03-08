@@ -127,6 +127,7 @@ function AppRoutes() {
         <Routes>
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/coaches" element={<TrainerLandingPage />} />
           <Route path="*" element={<LandingPage />} />
         </Routes>
       </Suspense>
