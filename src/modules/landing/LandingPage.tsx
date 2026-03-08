@@ -89,9 +89,7 @@ function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 border-b border-border/20 bg-background/70 backdrop-blur-2xl"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
-          <FitSoulLogo className="w-5 h-5" color="hsl(var(--primary))" />
-        </div>
+        <FitSoulLogo className="w-8 h-8" color="hsl(var(--primary))" />
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
           <Button
