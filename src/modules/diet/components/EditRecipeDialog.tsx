@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { toast } from "sonner";
-import { CloseCircleBold, WalletMoneyBold, SunBold, ChefHatBold, CupHotBold, MoonBold, ClipboardTextBold, TagBold, UsersGroupRoundedBold } from "solar-icon-set";
+import { CloseCircleBold, WalletMoneyBold, SunBold, ChefHatBold, CupHotBold, MoonBold, ClipboardTextBold, TagBold, UsersGroupRoundedBold, GalleryBold, CameraBold } from "solar-icon-set";
 import IngredientListInput, { type IngredientItem } from "./IngredientListInput";
 import StepListInput from "./StepListInput";
 import type { Recipe } from "../hooks/useRecipes";
