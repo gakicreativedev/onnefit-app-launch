@@ -602,5 +602,50 @@
       "a7": "Onne Fit es una PWA (Progressive Web App). Algunas funciones operan sin conexión, pero la IA y la sincronización de datos requieren internet."
     },
     "footer": { "rights": "Todos los derechos reservados." }
+  },
+  "trainerLanding": {
+    "hero": {
+      "tagline": "Un lugar para tu evolución.",
+      "headline": "Construye un negocio de coaching más fuerte",
+      "subheadline1": "Onne Fit ayuda a entrenadores personales a organizar clientes, seguir su progreso y ofrecer una experiencia profesional de entrenamiento — todo en una sola plataforma.",
+      "subheadline2": "Dedica menos tiempo a gestionar herramientas y más tiempo a ayudar a tus clientes a evolucionar.",
+      "cta": "Comenzar con Onne Fit"
+    },
+    "problem": {
+      "title": "Tu coaching no debería ser caótico",
+      "intro": "Muchos entrenadores personales gestionan a sus clientes con diferentes herramientas:",
+      "p1": "Hojas de cálculo",
+      "p2": "Apps de mensajería",
+      "p3": "Entrenamientos en PDF",
+      "p4": "Notas dispersas",
+      "conclusion1": "Esto dificulta la organización, el seguimiento del progreso y ofrecer una experiencia profesional.",
+      "conclusion2": "Cuando tu flujo de trabajo es desordenado, pierdes tiempo y tu negocio no puede crecer."
+    },
+    "solution": {
+      "title": "Conoce Onne Fit para Coaches",
+      "p1": "Onne Fit reúne todo tu flujo de trabajo de coaching en una sola plataforma.",
+      "p2": "Gestiona clientes, crea entrenamientos y sigue su progreso sin cambiar entre múltiples herramientas.",
+      "pillars": "Planifica. Sigue el progreso. Evoluciona."
+    },
+    "benefits": {
+      "title": "Diseñado para entrenadores personales modernos",
+      "subtitle": "Con Onne Fit puedes:",
+      "b0": { "title": "Ahorrar tiempo organizando clientes", "desc": "Gestiona entrenamientos, notas y progreso sin hojas de cálculo ni herramientas dispersas." },
+      "b1": { "title": "Parecer más profesional para tus clientes", "desc": "Tus clientes siguen sus entrenamientos, resultados y progreso dentro de una plataforma estructurada." },
+      "b2": { "title": "Escalar tu negocio de coaching", "desc": "Con mejor organización puedes manejar más clientes sin aumentar tu carga de trabajo." }
+    },
+    "features": {
+      "title": "Todo lo que necesitas para entrenar con confianza",
+      "f0": { "title": "Gestión de Clientes", "desc": "Organiza todos tus clientes en un solo panel." },
+      "f1": { "title": "Programación de Entrenamientos", "desc": "Crea planes de entrenamiento estructurados." },
+      "f2": { "title": "Seguimiento de Progreso", "desc": "Visualiza resultados y evolución con claridad." },
+      "f3": { "title": "Hábitos y Objetivos", "desc": "Ayuda a tus clientes a mantener disciplina y constancia." }
+    },
+    "cta": {
+      "headline": "Haz crecer tu negocio de coaching",
+      "body": "Lleva tu entrenamiento personal al siguiente nivel con una plataforma creada para profesionales modernos del fitness.",
+      "button": "Comenzar ahora",
+      "tagline": "Un lugar para tu evolución."
+    }
   }
 }

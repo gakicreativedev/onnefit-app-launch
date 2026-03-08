@@ -602,5 +602,50 @@
       "a7": "Onne Fit is a PWA (Progressive Web App). Some features work offline, but AI and data sync require an internet connection."
     },
     "footer": { "rights": "All rights reserved." }
+  },
+  "trainerLanding": {
+    "hero": {
+      "tagline": "One place for your evolution.",
+      "headline": "Build a stronger coaching business",
+      "subheadline1": "Onne Fit helps personal trainers organize clients, track progress and deliver a professional training experience — all in one platform.",
+      "subheadline2": "Spend less time managing tools and more time helping your clients evolve.",
+      "cta": "Start coaching with Onne Fit"
+    },
+    "problem": {
+      "title": "Coaching shouldn't feel chaotic",
+      "intro": "Many personal trainers manage their clients using a mix of tools:",
+      "p1": "Spreadsheets",
+      "p2": "Messaging apps",
+      "p3": "PDF workouts",
+      "p4": "Scattered notes",
+      "conclusion1": "This makes it difficult to stay organized, track progress and deliver a professional experience.",
+      "conclusion2": "When your workflow is messy, your time disappears — and your business cannot grow."
+    },
+    "solution": {
+      "title": "Meet Onne Fit for Coaches",
+      "p1": "Onne Fit brings your entire coaching workflow into one platform.",
+      "p2": "Manage your clients, create workouts and track their progress without jumping between multiple tools.",
+      "pillars": "Plan. Track. Evolve."
+    },
+    "benefits": {
+      "title": "Designed for modern personal trainers",
+      "subtitle": "With Onne Fit you can:",
+      "b0": { "title": "Save time organizing clients", "desc": "Manage workouts, notes and progress without spreadsheets or scattered tools." },
+      "b1": { "title": "Look more professional to your clients", "desc": "Your clients follow their training, track results and stay motivated through a structured platform." },
+      "b2": { "title": "Scale your coaching business", "desc": "With better organization you can manage more clients without increasing your workload." }
+    },
+    "features": {
+      "title": "Everything you need to coach with confidence",
+      "f0": { "title": "Client Management", "desc": "Organize all your students and their journey in one dashboard." },
+      "f1": { "title": "Workout Programming", "desc": "Create structured training plans for every client." },
+      "f2": { "title": "Progress Tracking", "desc": "Monitor results and improvements over time." },
+      "f3": { "title": "Habit & Goal Tracking", "desc": "Help clients build discipline and consistency." }
+    },
+    "cta": {
+      "headline": "Grow your coaching business",
+      "body": "Take your personal training to the next level with a platform built for modern fitness professionals.",
+      "button": "Start coaching with Onne Fit",
+      "tagline": "One place for your evolution."
+    }
   }
 }
