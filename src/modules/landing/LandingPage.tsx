@@ -89,11 +89,8 @@ function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 border-b border-border/20 bg-background/70 backdrop-blur-2xl"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <div className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
-            <FitSoulLogo className="w-5 h-5" color="hsl(var(--primary))" />
-          </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">Onne Fit</span>
+        <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
+          <FitSoulLogo className="w-5 h-5" color="hsl(var(--primary))" />
         </div>
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
@@ -656,9 +653,8 @@ function FinalCTASection() {
           custom={1}
           className="mb-12"
         >
-          <div className="inline-flex items-center gap-2.5 mb-2">
-            <FitSoulLogo className="w-5 h-5" color="hsl(var(--primary))" />
-            <p className="text-xl font-bold">Onne Fit</p>
+          <div className="inline-flex items-center justify-center mb-2">
+            <FitSoulLogo className="w-6 h-6" color="hsl(var(--primary))" />
           </div>
           <p className="text-muted-foreground text-sm">{t("landing.hero.tagline")}</p>
         </motion.div>
@@ -689,10 +685,7 @@ function Footer() {
   return (
     <footer className="border-t border-border/20 py-10 px-5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2.5">
-          <FitSoulLogo className="w-4 h-4" color="hsl(var(--primary))" />
-          <span className="text-sm font-bold">Onne Fit</span>
-        </div>
+        <FitSoulLogo className="w-4 h-4" color="hsl(var(--primary))" />
         <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} Onne Fit. {t("landing.footer.rights")}
         </p>
