@@ -214,11 +214,13 @@ function AppRoutes() {
               <Route path="/admin" element={<SuspensePageTransition><AdminDashboard /></SuspensePageTransition>} />
               <Route path="/admin/recipes" element={<SuspensePageTransition><AdminRecipesPage /></SuspensePageTransition>} />
               <Route path="/admin/workouts" element={<SuspensePageTransition><AdminWorkoutsPage /></SuspensePageTransition>} />
+              <Route path="/admin/exercises" element={<SuspensePageTransition><AdminExercisesPage /></SuspensePageTransition>} />
               <Route path="/admin/updates" element={<SuspensePageTransition><AdminUpdatesPage /></SuspensePageTransition>} />
+              <Route path="/admin/posts" element={<SuspensePageTransition><AdminPostsPage /></SuspensePageTransition>} />
               <Route path="/admin/users" element={<SuspensePageTransition><AdminUsersPage /></SuspensePageTransition>} />
-              <Route path="/admin/groups" element={<SuspensePageTransition><GroupsPage /></SuspensePageTransition>} />
+              <Route path="/admin/groups" element={<SuspensePageTransition><AdminGroupsPage /></SuspensePageTransition>} />
               <Route path="/admin/groups/:groupId" element={<SuspensePageTransition><GroupDetailPage /></SuspensePageTransition>} />
-              <Route path="/admin/analytics" element={<SuspensePageTransition><TrainerAnalyticsPage /></SuspensePageTransition>} />
+              <Route path="/admin/analytics" element={<SuspensePageTransition><AdminAnalyticsPage /></SuspensePageTransition>} />
               <Route path="/profile" element={<SuspensePageTransition><ProfilePage profile={profile} onUpdate={updateProfile} userRole={role} onSwitchRole={handleSwitchRole} /></SuspensePageTransition>} />
               <Route path="/settings" element={<SuspensePageTransition><SettingsPage dbRole={dbRole} activeRole={role} onSwitchRole={handleSwitchRole} /></SuspensePageTransition>} />
               <Route path="*" element={<Navigate to="/admin" replace />} />
