@@ -651,12 +651,13 @@ function PricingSection() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const isBRL = i18n.language?.startsWith("pt");
+  const [isAnnual, setIsAnnual] = React.useState(false);
 
   const plans = [
     {
       key: "free",
       icon: Zap,
-      price: { brl: "0", usd: "0" },
+      price: { brl: 0, usd: 0 },
       popular: false,
       features: ["f0", "f1", "f2", "f3"],
       excluded: ["x0", "x1", "x2", "x3"],
@@ -664,7 +665,7 @@ function PricingSection() {
     {
       key: "essential",
       icon: Heart,
-      price: { brl: "19,90", usd: "3.90" },
+      price: { brl: 19.90, usd: 3.90 },
       popular: false,
       features: ["f0", "f1", "f2", "f3", "f4", "f9"],
       excluded: ["x1", "x2"],
@@ -672,7 +673,7 @@ function PricingSection() {
     {
       key: "pro",
       icon: Sparkles,
-      price: { brl: "29,90", usd: "9.90" },
+      price: { brl: 29.90, usd: 9.90 },
       popular: true,
       features: ["f0", "f1", "f2", "f3", "f4", "f5", "f6"],
       excluded: ["x2"],
@@ -680,12 +681,20 @@ function PricingSection() {
     {
       key: "premium",
       icon: Crown,
-      price: { brl: "49,90", usd: "19.90" },
+      price: { brl: 49.90, usd: 19.90 },
       popular: false,
       features: ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"],
       excluded: [],
     },
   ];
+
+  const formatPrice = (value: number) => {
+    if (value === 0) return "0";
+    const final = isAnnual ? +(value * 0.8).toFixed(2) : value;
+    return isBRL
+      ? final.toFixed(2).replace(".", ",")
+      : final.toFixed(2);
+  };
 
   return (
     <section className="py-28 md:py-36 px-5 relative" id="pricing">
@@ -699,7 +708,7 @@ function PricingSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-10"
         >
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
             {t("landing.pricing.title")}
@@ -707,6 +716,39 @@ function PricingSection() {
           <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto">
             {t("landing.pricing.subtitle")}
           </p>
+        </motion.div>
+
+        {/* Toggle mensal / anual */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex items-center justify-center gap-3 mb-16"
+        >
+          <span className={`text-sm font-medium transition-colors ${!isAnnual ? "text-foreground" : "text-muted-foreground"}`}>
+            {t("landing.pricing.monthly")}
+          </span>
+          <button
+            onClick={() => setIsAnnual(!isAnnual)}
+            className={`relative w-14 h-7 rounded-full transition-colors duration-300 ${
+              isAnnual ? "bg-primary" : "bg-muted-foreground/30"
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-background shadow-md transition-transform duration-300 ${
+                isAnnual ? "translate-x-7" : "translate-x-0"
+              }`}
+            />
+          </button>
+          <span className={`text-sm font-medium transition-colors ${isAnnual ? "text-foreground" : "text-muted-foreground"}`}>
+            {t("landing.pricing.annual")}
+          </span>
+          {isAnnual && (
+            <span className="ml-1 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+              -20%
+            </span>
+          )}
         </motion.div>
 
         <motion.div
@@ -718,8 +760,10 @@ function PricingSection() {
         >
           {plans.map((plan, idx) => {
             const Icon = plan.icon;
-            const price = isBRL ? plan.price.brl : plan.price.usd;
+            const rawPrice = isBRL ? plan.price.brl : plan.price.usd;
+            const price = formatPrice(rawPrice);
             const currency = isBRL ? "R$" : "$";
+            const isFree = rawPrice === 0;
             return (
               <motion.div
                 key={plan.key}
@@ -753,12 +797,17 @@ function PricingSection() {
                   <span className="text-4xl font-extrabold tracking-tight">
                     {currency}{price}
                   </span>
-                  {price !== "0" && (
+                  {!isFree && (
                     <span className="text-muted-foreground text-sm ml-1">
                       /{t("landing.pricing.month")}
                     </span>
                   )}
                 </div>
+                {!isFree && isAnnual && (
+                  <p className="text-xs text-primary font-medium mb-1">
+                    {t("landing.pricing.billedAnnually")}
+                  </p>
+                )}
                 <p className="text-sm text-muted-foreground mb-8">
                   {t(`landing.pricing.plans.${plan.key}.desc`)}
                 </p>
