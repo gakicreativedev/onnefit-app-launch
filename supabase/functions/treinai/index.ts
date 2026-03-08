@@ -33,6 +33,10 @@ serve(async (req) => {
       });
     }
 
+    // Check AI usage limit
+    const limitResponse = await checkAndRecordAIUsage(user.id, "treinai", corsHeaders);
+    if (limitResponse) return limitResponse;
+
     const { data: profile } = await supabase
       .from("profiles")
       .select("*")
