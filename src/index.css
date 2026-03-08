@@ -167,10 +167,24 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Zalando Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-optical-sizing: auto;
     word-break: break-word;
     overflow-wrap: anywhere;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Zalando Sans', 'Bricolage Grotesque', sans-serif;
+  }
+
+  h3, h4, h5, h6,
+  .font-subheading {
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+
+  h1, h2,
+  .font-display {
+    font-family: 'Zalando Sans', sans-serif;
   }
 
   button,
