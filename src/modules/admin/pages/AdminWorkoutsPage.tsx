@@ -96,6 +96,15 @@ export default function AdminWorkoutsPage() {
   const [showDialog, setShowDialog] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<WorkoutForm>(emptyForm());
+  const [search, setSearch] = useState("");
+  const [diffFilter, setDiffFilter] = useState("all");
+
+  const filtered = workouts.filter(w => {
+    const q = search.toLowerCase();
+    const matchSearch = !search || w.name.toLowerCase().includes(q) || (w.muscle_groups || []).some(mg => mg.toLowerCase().includes(q));
+    const matchDiff = diffFilter === "all" || w.difficulty === diffFilter;
+    return matchSearch && matchDiff;
+  });
 
   const openCreate = () => {
     setEditingId(null);
