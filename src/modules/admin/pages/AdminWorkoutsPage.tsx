@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { useAdminWorkouts, type AdminWorkout } from "../hooks/useAdminWorkouts";
-import { useAdminWorkouts, type AdminWorkout } from "../hooks/useAdminWorkouts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
