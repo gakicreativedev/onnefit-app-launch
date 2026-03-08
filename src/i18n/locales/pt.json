@@ -528,6 +528,46 @@
       "headline": "Comece sua evolução hoje.",
       "button": "Começar agora"
     },
+    "pricing": {
+      "title": "Preços simples e transparentes",
+      "subtitle": "Comece grátis. Evolua quando estiver pronto para desbloquear todo seu potencial.",
+      "popular": "Mais Popular",
+      "month": "mês",
+      "note": "Todos os preços em BRL. Cancele a qualquer momento. Sem taxas ocultas.",
+      "plans": {
+        "free": {
+          "name": "Grátis",
+          "desc": "Tudo que você precisa para começar.",
+          "cta": "Começar grátis"
+        },
+        "pro": {
+          "name": "Pro",
+          "desc": "Desbloqueie coaching com IA e acompanhamento avançado.",
+          "cta": "Assinar Pro"
+        },
+        "premium": {
+          "name": "Premium",
+          "desc": "A experiência definitiva com IA ilimitada e suporte prioritário.",
+          "cta": "Assinar Premium"
+        }
+      },
+      "features": {
+        "f0": "Planejamento e registro de treinos",
+        "f1": "Gráficos de progresso e medidas",
+        "f2": "Sequências diárias e sistema de XP",
+        "f3": "Feed social e comunidade",
+        "f4": "Até 3 metas",
+        "f5": "Planos de treino e dieta com IA",
+        "f6": "Metas e análises ilimitadas",
+        "f7": "Coaching com IA ilimitado",
+        "f8": "Suporte prioritário e acesso antecipado"
+      },
+      "excluded": {
+        "x0": "Coaching com IA ilimitado",
+        "x1": "Planos gerados por IA",
+        "x2": "Análises avançadas"
+      }
+    },
     "footer": { "rights": "Todos os direitos reservados." }
   }
 }

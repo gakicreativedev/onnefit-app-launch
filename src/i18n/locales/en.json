@@ -528,6 +528,46 @@
       "headline": "Start your evolution today.",
       "button": "Get Started"
     },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "Start free. Upgrade when you're ready to unlock your full potential.",
+      "popular": "Most Popular",
+      "month": "month",
+      "note": "All prices in USD. Cancel anytime. No hidden fees.",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "desc": "Everything you need to get started.",
+          "cta": "Get Started"
+        },
+        "pro": {
+          "name": "Pro",
+          "desc": "Unlock AI-powered coaching and advanced tracking.",
+          "cta": "Start Pro"
+        },
+        "premium": {
+          "name": "Premium",
+          "desc": "The ultimate experience with unlimited AI and priority support.",
+          "cta": "Go Premium"
+        }
+      },
+      "features": {
+        "f0": "Workout planning & tracking",
+        "f1": "Progress charts & measurements",
+        "f2": "Daily streaks & XP system",
+        "f3": "Social feed & community",
+        "f4": "Up to 3 goals",
+        "f5": "AI-powered workout & diet plans",
+        "f6": "Unlimited goals & analytics",
+        "f7": "Unlimited AI coaching",
+        "f8": "Priority support & early access"
+      },
+      "excluded": {
+        "x0": "Unlimited AI coaching",
+        "x1": "AI-powered plans",
+        "x2": "Advanced analytics"
+      }
+    },
     "footer": { "rights": "All rights reserved." }
   }
 }
