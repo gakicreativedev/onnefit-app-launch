@@ -53,6 +53,23 @@ export const MEASUREMENT_LABELS: Record<MeasurementField, string> = {
     neck_cm: "Pescoço (cm)",
 };
 
+// Icon keys for solar-icon-set — rendered in components, not emojis
+export type MeasurementIconKey = "scale" | "chart" | "ruler" | "muscle" | "leg";
+
+export const MEASUREMENT_ICON_KEYS: Record<MeasurementField, MeasurementIconKey> = {
+    weight_kg: "scale",
+    body_fat_pct: "chart",
+    waist_cm: "ruler",
+    hip_cm: "ruler",
+    chest_cm: "ruler",
+    arm_left_cm: "muscle",
+    arm_right_cm: "muscle",
+    thigh_left_cm: "leg",
+    thigh_right_cm: "leg",
+    neck_cm: "ruler",
+};
+
+// Keep string icons for backward compat but they are now unused in UI
 export const MEASUREMENT_ICONS: Record<MeasurementField, string> = {
     weight_kg: "⚖️",
     body_fat_pct: "📊",

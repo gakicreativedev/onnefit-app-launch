@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ChefHatBold, AddCircleBold, AltArrowDownBold, AltArrowUpBold, TrashBinTrashBold, MagniferBold } from "solar-icon-set";
+import { ChefHatBold, AddCircleBold, AltArrowDownBold, AltArrowUpBold, TrashBinTrashBold, MagniferBold, WaterdropsBold } from "solar-icon-set";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

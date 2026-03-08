@@ -152,7 +152,9 @@ export default function GamificationPage() {
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 mb-6">
             {dbBadges.map((badge) => (
               <motion.div key={badge.id} whileHover={{ scale: 1.06 }} className="flex flex-col items-center gap-2 rounded-2xl bg-amber-500/10 border border-amber-500/30 p-4 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/10 text-2xl">{badge.badge_icon || "🏅"}</div>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/10">
+                  {badge.badge_icon ? <span className="text-2xl">{badge.badge_icon}</span> : <MedalRibbonBold size={24} color="currentColor" className="text-amber-500" />}
+                </div>
                 <span className="text-xs font-bold text-card-foreground leading-tight">{badge.badge_name}</span>
               </motion.div>
             ))}

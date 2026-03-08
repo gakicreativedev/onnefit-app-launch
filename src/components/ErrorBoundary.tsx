@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { DangerTriangleBold } from "solar-icon-set";
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -41,7 +42,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             return (
                 <div className="flex min-h-[300px] flex-col items-center justify-center gap-4 p-6 text-center">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/15">
-                        <span className="text-3xl">⚠️</span>
+                        <DangerTriangleBold size={32} color="currentColor" className="text-destructive" />
                     </div>
                     <h2 className="text-lg font-bold text-card-foreground">Algo deu errado</h2>
                     <p className="text-sm text-muted-foreground max-w-md">

@@ -2,7 +2,16 @@ import { useState, forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MEASUREMENT_LABELS, MEASUREMENT_ICONS, type MeasurementField, type BodyMeasurement } from "../types";
+import { MEASUREMENT_LABELS, MEASUREMENT_ICON_KEYS, type MeasurementField, type BodyMeasurement, type MeasurementIconKey } from "../types";
+import { RulerBold, GraphUpBold, ChartBold, DumbbellBold, WalkingBold, ClipboardTextBold } from "solar-icon-set";
+
+const ICON_MAP: Record<MeasurementIconKey, typeof RulerBold> = {
+    scale: ChartBold,
+    chart: GraphUpBold,
+    ruler: RulerBold,
+    muscle: DumbbellBold,
+    leg: WalkingBold,
+};
 
 interface MeasurementFormProps {
     onSubmit: (data: Omit<BodyMeasurement, "id" | "user_id" | "created_at">) => Promise<boolean | undefined>;
@@ -29,7 +38,6 @@ export const MeasurementForm = forwardRef<HTMLFormElement, MeasurementFormProps>
             data[field] = values[field] ? parseFloat(values[field]) : null;
         }
 
-        // At least one measurement required
         const hasValue = FIELDS.some((f) => data[f] !== null);
         if (!hasValue) {
             setSaving(false);
@@ -59,27 +67,32 @@ export const MeasurementForm = forwardRef<HTMLFormElement, MeasurementFormProps>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-                {FIELDS.map((field) => (
-                    <div key={field}>
-                        <Label htmlFor={field} className="text-xs font-medium text-muted-foreground">
-                            {MEASUREMENT_ICONS[field]} {MEASUREMENT_LABELS[field]}
-                        </Label>
-                        <Input
-                            id={field}
-                            type="number"
-                            step="0.1"
-                            min="0"
-                            placeholder="—"
-                            value={values[field] || ""}
-                            onChange={(e) => setValues((prev) => ({ ...prev, [field]: e.target.value }))}
-                            className="mt-0.5 h-10 rounded-xl bg-background/50 text-sm"
-                        />
-                    </div>
-                ))}
+                {FIELDS.map((field) => {
+                    const Icon = ICON_MAP[MEASUREMENT_ICON_KEYS[field]];
+                    return (
+                        <div key={field}>
+                            <Label htmlFor={field} className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                                <Icon size={12} color="currentColor" /> {MEASUREMENT_LABELS[field]}
+                            </Label>
+                            <Input
+                                id={field}
+                                type="number"
+                                step="0.1"
+                                min="0"
+                                placeholder="—"
+                                value={values[field] || ""}
+                                onChange={(e) => setValues((prev) => ({ ...prev, [field]: e.target.value }))}
+                                className="mt-0.5 h-10 rounded-xl bg-background/50 text-sm"
+                            />
+                        </div>
+                    );
+                })}
             </div>
 
             <div>
-                <Label htmlFor="notes" className="text-sm font-medium text-muted-foreground">📝 Observações</Label>
+                <Label htmlFor="notes" className="text-sm font-medium text-muted-foreground flex items-center gap-1">
+                    <ClipboardTextBold size={14} color="currentColor" /> Observações
+                </Label>
                 <Input
                     id="notes"
                     placeholder="Como você se sente?"

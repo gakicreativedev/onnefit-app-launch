@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { TrashBinMinimalisticBold } from "solar-icon-set";
+import { TrashBinMinimalisticBold, GalleryBold, CameraBold, RestartBold, ChartBold } from "solar-icon-set";
 import { PHOTO_CATEGORIES, type ProgressPhoto } from "../types";
 
 interface PhotoGalleryProps {
@@ -63,7 +62,9 @@ export function PhotoGallery({ photos, uploading, onUpload, onDelete }: PhotoGal
             {compareMode && selectedPhotos.length === 2 && (
                 <div className="rounded-2xl bg-muted/30 p-3">
                     <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-sm font-bold">📊 Comparação</h3>
+                        <h3 className="text-sm font-bold flex items-center gap-1.5">
+                            <ChartBold size={14} color="currentColor" className="text-primary" /> Comparação
+                        </h3>
                         <Button size="sm" variant="ghost" onClick={() => { setCompareMode(false); setSelectedPhotos([]); }}>
                             Fechar
                         </Button>
@@ -90,7 +91,7 @@ export function PhotoGallery({ photos, uploading, onUpload, onDelete }: PhotoGal
                     className="rounded-xl glow-primary-sm"
                     onClick={() => fileRef.current?.click()}
                 >
-                    🖼️ Galeria
+                    <GalleryBold size={14} color="currentColor" className="mr-1.5" /> Galeria
                 </Button>
                 <Button
                     size="sm"
@@ -98,7 +99,7 @@ export function PhotoGallery({ photos, uploading, onUpload, onDelete }: PhotoGal
                     className="rounded-xl"
                     onClick={() => cameraRef.current?.click()}
                 >
-                    📷 Câmera
+                    <CameraBold size={14} color="currentColor" className="mr-1.5" /> Câmera
                 </Button>
                 <Button
                     size="sm"
@@ -107,7 +108,7 @@ export function PhotoGallery({ photos, uploading, onUpload, onDelete }: PhotoGal
                     onClick={() => { setCompareMode(!compareMode); setSelectedPhotos([]); }}
                     disabled={photos.length < 2}
                 >
-                    🔄 Comparar
+                    <RestartBold size={14} color="currentColor" className="mr-1.5" /> Comparar
                 </Button>
                 <input
                     ref={fileRef}
@@ -186,7 +187,7 @@ export function PhotoGallery({ photos, uploading, onUpload, onDelete }: PhotoGal
             {/* Gallery grid */}
             {filtered.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
-                    <span className="text-4xl mb-3">📷</span>
+                    <CameraBold size={40} color="currentColor" className="mb-3" />
                     <p className="text-sm">Nenhuma foto ainda</p>
                     <p className="text-xs mt-1">Tire fotos regularmente para acompanhar sua evolução</p>
                 </div>
@@ -207,14 +208,12 @@ export function PhotoGallery({ photos, uploading, onUpload, onDelete }: PhotoGal
                                     className="w-full aspect-[3/4] object-cover"
                                     loading="lazy"
                                 />
-                                {/* Date overlay */}
                                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-1.5">
                                     <p className="text-white text-[10px] font-bold">
                                         {new Date(photo.date).toLocaleDateString("pt-BR")}
                                     </p>
                                     <p className="text-white/70 text-[9px] capitalize">{photo.category === "front" ? "Frente" : photo.category === "side" ? "Lateral" : "Costas"}</p>
                                 </div>
-                                {/* Delete button */}
                                 {!compareMode && (
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onDelete(photo); }}
@@ -223,7 +222,6 @@ export function PhotoGallery({ photos, uploading, onUpload, onDelete }: PhotoGal
                                         <TrashBinMinimalisticBold size={14} color="currentColor" />
                                     </button>
                                 )}
-                                {/* Compare check */}
                                 {compareMode && isSelected && (
                                     <div className="absolute top-1.5 left-1.5 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-black">
                                         {selectedPhotos.indexOf(photo) + 1}

@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ImagePickerButton } from "@/components/ui/ImagePickerButton";
-import { HashtagBold, CloseCircleBold, WomenBold } from "solar-icon-set";
+import { HashtagBold, CloseCircleBold, WomenBold, CameraBold } from "solar-icon-set";
 
 interface CreatePostDialogProps {
   open: boolean;
