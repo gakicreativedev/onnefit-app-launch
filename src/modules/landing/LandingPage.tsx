@@ -352,12 +352,15 @@ function FeaturesSection() {
                     {t(`landing.features.f${i}.desc`)}
                   </p>
                 </div>
-                <div className={`relative h-64 md:h-80 overflow-hidden ${isReversed ? "md:order-1" : ""}`}>
+                <div className={`relative h-56 sm:h-64 md:h-80 overflow-hidden ${isReversed ? "md:order-1" : ""}`}>
                   <img
                     src={featureImages[i]}
                     alt={t(`landing.features.f${i}.title`)}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
+                    loading={i < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                    width={800}
+                    height={400}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent md:bg-gradient-to-r md:from-card/60 md:via-transparent md:to-transparent" />
                 </div>
