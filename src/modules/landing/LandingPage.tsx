@@ -474,6 +474,7 @@ function ProductSection() {
             </motion.div>
           ))}
         </motion.div>
+        <InlineCTA />
       </div>
     </section>
   );
