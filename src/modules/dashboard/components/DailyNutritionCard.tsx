@@ -177,7 +177,7 @@ export function DailyNutritionCard({ profile, mealSlots, waterIntakeMl, onAddWat
         <div className="flex items-center gap-2">
           {[250, 500].map((ml) => (
             <button key={ml} onClick={() => onAddWater(ml)} className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-background px-3 py-2 hover:bg-sidebar-accent transition-colors">
-              <span className="text-sm">💧</span>
+              <WaterdropsBold size={14} color="currentColor" className="text-primary" />
               <span className="text-xs font-bold text-card-foreground">+{ml}ml</span>
             </button>
           ))}
