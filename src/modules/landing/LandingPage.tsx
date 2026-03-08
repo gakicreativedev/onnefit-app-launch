@@ -298,6 +298,7 @@ function SolutionSection() {
             {t("landing.solution.pillars")}
           </span>
         </motion.div>
+        <InlineCTA />
       </div>
     </section>
   );
