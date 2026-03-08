@@ -540,6 +540,11 @@
           "desc": "Tudo que você precisa para começar.",
           "cta": "Começar grátis"
         },
+        "essential": {
+          "name": "Essencial",
+          "desc": "IA limitada e tracking completo por um preço acessível.",
+          "cta": "Assinar Essencial"
+        },
         "pro": {
           "name": "Pro",
           "desc": "Desbloqueie coaching com IA e acompanhamento avançado.",
@@ -556,16 +561,18 @@
         "f1": "Gráficos de progresso e medidas",
         "f2": "Sequências diárias e sistema de XP",
         "f3": "Feed social e comunidade",
-        "f4": "Até 3 metas",
+        "f4": "Até 5 metas",
         "f5": "Planos de treino e dieta com IA",
         "f6": "Metas e análises ilimitadas",
         "f7": "Coaching com IA ilimitado",
-        "f8": "Suporte prioritário e acesso antecipado"
+        "f8": "Suporte prioritário e acesso antecipado",
+        "f9": "15 consultas IA por mês"
       },
       "excluded": {
-        "x0": "Coaching com IA ilimitado",
-        "x1": "Planos gerados por IA",
-        "x2": "Análises avançadas"
+        "x0": "Consultas com IA",
+        "x1": "Análises avançadas",
+        "x2": "Suporte prioritário",
+        "x3": "Planos gerados por IA"
       }
     },
     "footer": { "rights": "Todos os direitos reservados." }

@@ -18,6 +18,7 @@ import {
   X,
   Sparkles,
   Crown,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FitSoulLogo } from "@/components/FitSoulLogo";
@@ -657,8 +658,16 @@ function PricingSection() {
       icon: Zap,
       price: { brl: "0", usd: "0" },
       popular: false,
-      features: ["f0", "f1", "f2", "f3", "f4"],
-      excluded: ["x0", "x1", "x2"],
+      features: ["f0", "f1", "f2", "f3"],
+      excluded: ["x0", "x1", "x2", "x3"],
+    },
+    {
+      key: "essential",
+      icon: Heart,
+      price: { brl: "19,90", usd: "3.90" },
+      popular: false,
+      features: ["f0", "f1", "f2", "f3", "f4", "f9"],
+      excluded: ["x1", "x2"],
     },
     {
       key: "pro",
@@ -666,7 +675,7 @@ function PricingSection() {
       price: { brl: "29,90", usd: "9.90" },
       popular: true,
       features: ["f0", "f1", "f2", "f3", "f4", "f5", "f6"],
-      excluded: ["x0"],
+      excluded: ["x2"],
     },
     {
       key: "premium",
@@ -705,7 +714,7 @@ function PricingSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-5 items-start"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-4 items-start"
         >
           {plans.map((plan, idx) => {
             const Icon = plan.icon;
