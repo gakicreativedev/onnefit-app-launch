@@ -78,6 +78,7 @@ function formFromWorkout(w: AdminWorkout): WorkoutForm {
     difficulty: w.difficulty || "beginner",
     is_shared: w.is_shared,
     muscle_groups: (w.muscle_groups || []).join(", "),
+    duration_minutes: w.duration_minutes || 45,
     exercises: w.exercises.length > 0
       ? w.exercises.map((ex) => ({
           exercise_name: ex.exercise_name,
