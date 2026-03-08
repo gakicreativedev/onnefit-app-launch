@@ -532,6 +532,9 @@
       "title": "Precios simples y transparentes",
       "subtitle": "Empieza gratis. Mejora cuando estés listo para desbloquear todo tu potencial.",
       "popular": "Más Popular",
+      "monthly": "Mensual",
+      "annual": "Anual",
+      "billedAnnually": "Cobrado anualmente",
       "month": "mes",
       "note": "Todos los precios en USD. Cancela en cualquier momento. Sin cargos ocultos.",
       "plans": {

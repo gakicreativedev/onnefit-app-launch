@@ -532,6 +532,9 @@
       "title": "Preços simples e transparentes",
       "subtitle": "Comece grátis. Evolua quando estiver pronto para desbloquear todo seu potencial.",
       "popular": "Mais Popular",
+      "monthly": "Mensal",
+      "annual": "Anual",
+      "billedAnnually": "Cobrado anualmente",
       "month": "mês",
       "note": "Todos os preços em BRL. Cancele a qualquer momento. Sem taxas ocultas.",
       "plans": {
