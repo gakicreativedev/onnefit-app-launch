@@ -27,6 +27,29 @@ import screenshotDashboard from "@/assets/screenshot-dashboard.png";
 import screenshotWorkouts from "@/assets/screenshot-workouts.png";
 import screenshotProgress from "@/assets/screenshot-progress.png";
 
+/* ── Inline CTA ── */
+function InlineCTA() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  return (
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="flex justify-center mt-12"
+    >
+      <Button
+        size="lg"
+        onClick={() => navigate("/auth")}
+        className="rounded-full px-8 gap-2 text-sm font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-shadow"
+      >
+        {t("landing.hero.cta")} <ArrowRight className="w-4 h-4" />
+      </Button>
+    </motion.div>
+  );
+}
+
 /* ── Animations ── */
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -89,7 +112,7 @@ function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 border-b border-border/20 bg-background/70 backdrop-blur-2xl"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <FitSoulLogo className="w-8 h-8" color="hsl(var(--primary))" />
+        <FitSoulLogo className="w-10 h-10" color="hsl(var(--primary))" />
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
           <Button
@@ -275,6 +298,7 @@ function SolutionSection() {
             {t("landing.solution.pillars")}
           </span>
         </motion.div>
+        <InlineCTA />
       </div>
     </section>
   );
@@ -341,6 +365,7 @@ function FeaturesSection() {
             );
           })}
         </div>
+        <InlineCTA />
       </div>
     </section>
   );
@@ -398,6 +423,7 @@ function BenefitsSection() {
             );
           })}
         </motion.div>
+        <InlineCTA />
       </div>
     </section>
   );
@@ -448,6 +474,7 @@ function ProductSection() {
             </motion.div>
           ))}
         </motion.div>
+        <InlineCTA />
       </div>
     </section>
   );
@@ -652,7 +679,7 @@ function FinalCTASection() {
           className="mb-12"
         >
           <div className="inline-flex items-center justify-center mb-2">
-            <FitSoulLogo className="w-6 h-6" color="hsl(var(--primary))" />
+            <FitSoulLogo className="w-8 h-8" color="hsl(var(--primary))" />
           </div>
           <p className="text-muted-foreground text-sm">{t("landing.hero.tagline")}</p>
         </motion.div>
@@ -683,7 +710,7 @@ function Footer() {
   return (
     <footer className="border-t border-border/20 py-10 px-5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <FitSoulLogo className="w-4 h-4" color="hsl(var(--primary))" />
+        <FitSoulLogo className="w-6 h-6" color="hsl(var(--primary))" />
         <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} Onne Fit. {t("landing.footer.rights")}
         </p>
