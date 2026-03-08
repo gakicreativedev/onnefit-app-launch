@@ -365,6 +365,7 @@ function FeaturesSection() {
             );
           })}
         </div>
+        <InlineCTA />
       </div>
     </section>
   );
