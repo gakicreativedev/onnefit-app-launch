@@ -2,8 +2,9 @@ import { useState } from "react";
 import {
     LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
 } from "recharts";
-import type { BodyMeasurement, MeasurementField } from "../types";
-import { MEASUREMENT_LABELS, MEASUREMENT_ICONS } from "../types";
+import type { BodyMeasurement, MeasurementField, MeasurementIconKey } from "../types";
+import { MEASUREMENT_LABELS, MEASUREMENT_ICON_KEYS } from "../types";
+import { RulerBold, GraphUpBold, ChartBold, DumbbellBold, WalkingBold } from "solar-icon-set";
 
 const CHART_METRICS: MeasurementField[] = [
     "weight_kg", "body_fat_pct", "waist_cm", "hip_cm", "chest_cm",
@@ -23,6 +24,14 @@ const COLORS = [
     "#6366f1",
 ];
 
+const ICON_MAP: Record<MeasurementIconKey, typeof RulerBold> = {
+    scale: ChartBold,
+    chart: GraphUpBold,
+    ruler: RulerBold,
+    muscle: DumbbellBold,
+    leg: WalkingBold,
+};
+
 interface ProgressChartsProps {
     measurements: BodyMeasurement[];
 }
@@ -30,7 +39,6 @@ interface ProgressChartsProps {
 export function ProgressCharts({ measurements }: ProgressChartsProps) {
     const [activeMetric, setActiveMetric] = useState<MeasurementField>("weight_kg");
 
-    // Filter metrics that have at least 1 data point
     const availableMetrics = CHART_METRICS.filter((metric) =>
         measurements.some((m) => m[metric] !== null && m[metric] !== undefined)
     );
@@ -46,7 +54,7 @@ export function ProgressCharts({ measurements }: ProgressChartsProps) {
     if (availableMetrics.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
-                <span className="text-4xl mb-3">📈</span>
+                <GraphUpBold size={40} color="currentColor" className="mb-3" />
                 <p className="text-sm">Adicione medidas para ver os gráficos</p>
             </div>
         );
@@ -61,18 +69,21 @@ export function ProgressCharts({ measurements }: ProgressChartsProps) {
         <div className="space-y-4">
             {/* Metric selector pills */}
             <div className="flex flex-wrap gap-1.5">
-                {availableMetrics.map((metric, i) => (
-                    <button
-                        key={metric}
-                        onClick={() => setActiveMetric(metric)}
-                        className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${activeMetric === metric
-                                ? "bg-primary text-primary-foreground glow-primary-sm"
-                                : "bg-muted text-muted-foreground hover:bg-muted/80"
-                            }`}
-                    >
-                        {MEASUREMENT_ICONS[metric]} {MEASUREMENT_LABELS[metric]}
-                    </button>
-                ))}
+                {availableMetrics.map((metric) => {
+                    const Icon = ICON_MAP[MEASUREMENT_ICON_KEYS[metric]];
+                    return (
+                        <button
+                            key={metric}
+                            onClick={() => setActiveMetric(metric)}
+                            className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${activeMetric === metric
+                                    ? "bg-primary text-primary-foreground glow-primary-sm"
+                                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                                }`}
+                        >
+                            <Icon size={12} color="currentColor" /> {MEASUREMENT_LABELS[metric]}
+                        </button>
+                    );
+                })}
             </div>
 
             {/* Chart */}

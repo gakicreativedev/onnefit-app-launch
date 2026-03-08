@@ -4,16 +4,36 @@ import { useProgressPhotos } from "../hooks/useProgressPhotos";
 import { MeasurementForm } from "../components/MeasurementForm";
 import { ProgressCharts } from "../components/ProgressCharts";
 import { PhotoGallery } from "../components/PhotoGallery";
-import { MEASUREMENT_LABELS, MEASUREMENT_ICONS, type MeasurementField } from "../types";
+import { MEASUREMENT_LABELS, MEASUREMENT_ICON_KEYS, type MeasurementField, type MeasurementIconKey } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import {
+    RulerBold, GraphUpBold, CameraBold, CalendarMinimalisticBold, ChartBold,
+    DumbbellBold, WalkingBold,
+} from "solar-icon-set";
 
 const HistoryPage = lazy(() => import("@/modules/history/pages/HistoryPage"));
 
 type Tab = "overview" | "charts" | "photos" | "history";
 
-function DeltaBadge({ label, current, previous, invert }: {
+const MEASUREMENT_SOLAR_ICONS: Record<MeasurementIconKey, typeof RulerBold> = {
+    scale: ChartBold,
+    chart: GraphUpBold,
+    ruler: RulerBold,
+    muscle: DumbbellBold,
+    leg: WalkingBold,
+};
+
+const TAB_ICONS: Record<Tab, typeof RulerBold> = {
+    overview: RulerBold,
+    charts: GraphUpBold,
+    photos: CameraBold,
+    history: CalendarMinimalisticBold,
+};
+
+function DeltaBadge({ label, iconKey, current, previous, invert }: {
     label: string;
+    iconKey: MeasurementIconKey;
     current: number | null;
     previous: number | null;
     invert?: boolean;
@@ -21,10 +41,13 @@ function DeltaBadge({ label, current, previous, invert }: {
     if (current === null) return null;
     const diff = previous !== null ? current - previous : null;
     const isGood = diff !== null ? (invert ? diff < 0 : diff > 0) : null;
+    const Icon = MEASUREMENT_SOLAR_ICONS[iconKey];
 
     return (
         <div className="rounded-2xl bg-card border border-border/40 p-3 flex flex-col gap-1">
-            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">{label}</span>
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1">
+                <Icon size={12} color="currentColor" /> {label}
+            </span>
             <span className="text-xl font-black">{current}</span>
             {diff !== null && (
                 <span className={`text-xs font-bold ${isGood ? "text-green-500" : "text-destructive"}`}>
@@ -42,11 +65,11 @@ export default function ProgressPage() {
     const [showForm, setShowForm] = useState(false);
     const { t } = useTranslation();
 
-    const tabs: { id: Tab; label: string; icon: string }[] = [
-        { id: "overview", label: t("progress.measurements"), icon: "📏" },
-        { id: "charts", label: t("progress.charts"), icon: "📈" },
-        { id: "photos", label: t("progress.photos"), icon: "📷" },
-        { id: "history", label: t("progress.history"), icon: "📅" },
+    const tabs: { id: Tab; label: string }[] = [
+        { id: "overview", label: t("progress.measurements") },
+        { id: "charts", label: t("progress.charts") },
+        { id: "photos", label: t("progress.photos") },
+        { id: "history", label: t("progress.history") },
     ];
 
     const overviewFields: { field: MeasurementField; invert?: boolean }[] = [
@@ -64,29 +87,35 @@ export default function ProgressPage() {
 
     return (
         <div className="space-y-6 max-w-2xl mx-auto">
-            <div>
-                <h1 className="text-2xl sm:text-3xl font-black">📊 {t("progress.bodyProgress")}</h1>
-                <p className="text-sm text-muted-foreground mt-1">{t("progress.bodyProgressDesc")}</p>
+            <div className="flex items-center gap-3">
+                <ChartBold size={28} color="currentColor" className="text-primary" />
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-black">{t("progress.bodyProgress")}</h1>
+                    <p className="text-sm text-muted-foreground mt-1">{t("progress.bodyProgressDesc")}</p>
+                </div>
             </div>
 
             <div className="flex gap-1 bg-muted/50 rounded-2xl p-1">
-                {tabs.map((tb) => (
-                    <button
-                        key={tb.id}
-                        onClick={() => setTab(tb.id)}
-                        className={`relative flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-bold transition-all ${tab === tb.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                    >
-                        {tab === tb.id && (
-                            <motion.div
-                                layoutId="progress-tab"
-                                className="absolute inset-0 rounded-xl bg-primary glow-primary-sm"
-                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                            />
-                        )}
-                        <span className="relative z-10">{tb.icon}</span>
-                        <span className="relative z-10 hidden sm:inline">{tb.label}</span>
-                    </button>
-                ))}
+                {tabs.map((tb) => {
+                    const Icon = TAB_ICONS[tb.id];
+                    return (
+                        <button
+                            key={tb.id}
+                            onClick={() => setTab(tb.id)}
+                            className={`relative flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-bold transition-all ${tab === tb.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                        >
+                            {tab === tb.id && (
+                                <motion.div
+                                    layoutId="progress-tab"
+                                    className="absolute inset-0 rounded-xl bg-primary glow-primary-sm"
+                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                />
+                            )}
+                            <span className="relative z-10"><Icon size={14} color="currentColor" /></span>
+                            <span className="relative z-10 hidden sm:inline">{tb.label}</span>
+                        </button>
+                    );
+                })}
             </div>
 
             <AnimatePresence mode="wait">
@@ -130,7 +159,8 @@ export default function ProgressPage() {
                                         {overviewFields.map(({ field, invert }) => (
                                             <DeltaBadge
                                                 key={field}
-                                                label={`${MEASUREMENT_ICONS[field]} ${MEASUREMENT_LABELS[field]}`}
+                                                label={MEASUREMENT_LABELS[field]}
+                                                iconKey={MEASUREMENT_ICON_KEYS[field]}
                                                 current={latest[field]}
                                                 previous={previous?.[field] ?? null}
                                                 invert={invert}
@@ -161,7 +191,7 @@ export default function ProgressPage() {
                                 </>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
-                                    <span className="text-5xl mb-4">📏</span>
+                                    <RulerBold size={48} color="currentColor" className="mb-4" />
                                     <p className="text-sm font-bold">{t("progress.noMeasurementsYet")}</p>
                                     <p className="text-xs mt-1">{t("progress.recordMeasurements")}</p>
                                 </div>

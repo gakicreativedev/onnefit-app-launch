@@ -40,7 +40,7 @@ export default function TrainerDashboard() {
     >
       <motion.div variants={fadeUp}>
         <h1 className="text-2xl md:text-3xl font-black text-foreground">
-          Painel <span className="text-primary">Personal</span> 💪
+          Painel <span className="text-primary">Personal</span>
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
           Gerencie seus alunos, treinos e acompanhe a evolução.

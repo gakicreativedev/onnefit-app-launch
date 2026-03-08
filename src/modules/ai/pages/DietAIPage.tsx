@@ -207,7 +207,7 @@ export default function DietAIPage() {
                   <BoltCircleBold size={40} color="currentColor" className="text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-bold text-card-foreground">Olá! Sou o DietAI 🥗</h2>
+                  <h2 className="text-lg font-bold text-card-foreground">Olá! Sou o DietAI</h2>
                   <p className="text-sm text-muted-foreground mt-1 max-w-md">
                     Já conheço suas alergias, restrições e meta calórica. Me diga o que precisa e eu monto o plano alimentar ideal!
                   </p>

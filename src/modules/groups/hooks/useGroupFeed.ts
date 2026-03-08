@@ -282,7 +282,7 @@ export function useGroupFeed(groupId: string | undefined) {
             }
         }
 
-        toast.success(`+${points.toFixed(1)} pts! Atividade registrada 🎉`);
+        toast.success(`+${points.toFixed(1)} pts! Atividade registrada`);
         fetchActivities();
     };
 

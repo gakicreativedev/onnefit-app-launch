@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,9 +8,13 @@ import {
     MinusCircleBold,
     CupStarBold,
     VideocameraAddBold,
+    AltArrowDownBold,
+    AltArrowUpBold,
 } from "solar-icon-set";
 import type { Workout, ExerciseTracker } from "@/lib/types";
 import { RestTimer } from "@/modules/workouts/components/RestTimer";
+
+const COLLAPSE_KEY = "fitsoul_exercise_collapse";
 
 interface ActiveWorkoutViewProps {
     activeWorkout: Workout;
@@ -99,6 +104,38 @@ export default function ActiveWorkoutView({
     onCancel,
     onFinish,
 }: ActiveWorkoutViewProps) {
+    // Collapsible state — start all collapsed, persist per workout
+    const [expandedExercises, setExpandedExercises] = useState<Set<number>>(() => {
+        try {
+            const stored = localStorage.getItem(COLLAPSE_KEY);
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (parsed.workoutId === activeWorkout.id && Array.isArray(parsed.expanded)) {
+                    return new Set<number>(parsed.expanded);
+                }
+            }
+        } catch { }
+        return new Set<number>();
+    });
+
+    useEffect(() => {
+        try {
+            localStorage.setItem(COLLAPSE_KEY, JSON.stringify({
+                workoutId: activeWorkout.id,
+                expanded: Array.from(expandedExercises),
+            }));
+        } catch { }
+    }, [expandedExercises, activeWorkout.id]);
+
+    const toggleExercise = (idx: number) => {
+        setExpandedExercises((prev) => {
+            const next = new Set(prev);
+            if (next.has(idx)) next.delete(idx);
+            else next.add(idx);
+            return next;
+        });
+    };
+
     return (
         <>
             <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
@@ -129,86 +166,112 @@ export default function ActiveWorkoutView({
                 {trackers.map((tracker, exIdx) => {
                     const allDone = tracker.sets.every((s) => s.completed);
                     const completedCount = tracker.sets.filter((s) => s.completed).length;
+                    const isExpanded = expandedExercises.has(exIdx);
                     return (
                         <section key={exIdx} className={`flex flex-col rounded-[16px] sm:rounded-[24px] transition-colors ${allDone ? "bg-primary/10 ring-2 ring-primary/30" : "bg-card"}`}>
-                            <div className="p-4 sm:p-6">
-                                <div className="flex items-center gap-2 mb-1">
+                            {/* Clickable header */}
+                            <button
+                                className="p-4 sm:p-6 flex items-center justify-between w-full text-left"
+                                onClick={() => toggleExercise(exIdx)}
+                            >
+                                <div className="flex items-center gap-2 min-w-0">
                                     <h3 className="text-base sm:text-lg font-bold text-card-foreground truncate">{tracker.exercise_name}</h3>
                                     {allDone && <CheckCircleBold size={20} color="currentColor" className="text-primary shrink-0" />}
                                 </div>
-                                <p className="text-xs text-muted-foreground">
-                                    {completedCount}/{tracker.target_sets} séries · {tracker.target_reps} reps · {tracker.rest_seconds}s descanso
-                                </p>
-                            </div>
-
-                            <div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col gap-2">
-                                {tracker.media_url && <ExerciseMediaPreview url={tracker.media_url} />}
-
-                                <div className="hidden sm:grid grid-cols-[1fr_80px_100px_48px] gap-2 text-xs font-bold text-muted-foreground px-1">
-                                    <span>Série</span>
-                                    <span className="text-center">Reps</span>
-                                    <span className="text-center">Carga (kg)</span>
-                                    <span className="text-center">✓</span>
+                                <div className="flex items-center gap-2 shrink-0 ml-2">
+                                    <Badge className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold border-0 ${completedCount === tracker.target_sets ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                                        {completedCount}/{tracker.target_sets}
+                                    </Badge>
+                                    {isExpanded
+                                        ? <AltArrowUpBold size={16} color="currentColor" className="text-muted-foreground" />
+                                        : <AltArrowDownBold size={16} color="currentColor" className="text-muted-foreground" />
+                                    }
                                 </div>
+                            </button>
 
-                                {tracker.sets.map((set, setIdx) => (
-                                    <div
-                                        key={setIdx}
-                                        className={`grid grid-cols-[1fr_auto_auto] sm:grid-cols-[1fr_80px_100px_48px] gap-2 items-center rounded-xl px-2 py-2 transition-colors ${set.completed ? "bg-primary/10" : "bg-muted/50"
-                                            }`}
-                                    >
-                                        <span className="text-sm font-bold text-card-foreground pl-1">Série {setIdx + 1}</span>
+                            {/* Subtitle always visible */}
+                            {!isExpanded && (
+                                <div className="px-4 sm:px-6 pb-3">
+                                    <p className="text-xs text-muted-foreground">
+                                        {tracker.target_sets} séries · {tracker.target_reps} reps · {tracker.rest_seconds}s descanso
+                                    </p>
+                                </div>
+                            )}
 
-                                        <div className="flex items-center justify-center gap-1">
-                                            <button
-                                                className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
-                                                onClick={() => onUpdateSet(exIdx, setIdx, "reps", set.reps - 1)}
-                                            >
-                                                <MinusCircleBold size={12} color="currentColor" />
-                                            </button>
-                                            <span className="text-sm font-bold text-card-foreground w-6 text-center tabular-nums">{set.reps}</span>
-                                            <button
-                                                className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
-                                                onClick={() => onUpdateSet(exIdx, setIdx, "reps", set.reps + 1)}
-                                            >
-                                                <AddCircleBold size={12} color="currentColor" />
-                                            </button>
-                                        </div>
+                            {/* Expandable content */}
+                            {isExpanded && (
+                                <div className="px-4 sm:px-6 pb-4 sm:pb-6 flex flex-col gap-2">
+                                    <p className="text-xs text-muted-foreground mb-1">
+                                        {tracker.target_sets} séries · {tracker.target_reps} reps · {tracker.rest_seconds}s descanso
+                                    </p>
 
-                                        <div className="flex items-center justify-center gap-1">
-                                            <button
-                                                className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
-                                                onClick={() => onUpdateSet(exIdx, setIdx, "weight_kg", Math.max(0, +(set.weight_kg - 0.5).toFixed(1)))}
-                                            >
-                                                <MinusCircleBold size={12} color="currentColor" />
-                                            </button>
-                                            <input
-                                                type="number"
-                                                step="0.5"
-                                                value={set.weight_kg}
-                                                onChange={(e) => onUpdateSet(exIdx, setIdx, "weight_kg", Number(e.target.value))}
-                                                className="w-12 text-center text-sm font-bold text-primary bg-background rounded-lg py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                            />
-                                            <button
-                                                className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
-                                                onClick={() => onUpdateSet(exIdx, setIdx, "weight_kg", +(set.weight_kg + 0.5).toFixed(1))}
-                                            >
-                                                <AddCircleBold size={12} color="currentColor" />
-                                            </button>
-                                        </div>
+                                    {tracker.media_url && <ExerciseMediaPreview url={tracker.media_url} />}
 
-                                        <button
-                                            className={`h-9 w-9 rounded-xl flex items-center justify-center mx-auto transition-colors ${set.completed
-                                                    ? "bg-primary text-card"
-                                                    : "bg-background text-muted-foreground hover:text-foreground"
-                                                }`}
-                                            onClick={() => onToggleSetComplete(exIdx, setIdx)}
-                                        >
-                                            <CheckCircleBold size={16} color="currentColor" />
-                                        </button>
+                                    <div className="hidden sm:grid grid-cols-[1fr_80px_100px_48px] gap-2 text-xs font-bold text-muted-foreground px-1">
+                                        <span>Série</span>
+                                        <span className="text-center">Reps</span>
+                                        <span className="text-center">Carga (kg)</span>
+                                        <span className="text-center">✓</span>
                                     </div>
-                                ))}
-                            </div>
+
+                                    {tracker.sets.map((set, setIdx) => (
+                                        <div
+                                            key={setIdx}
+                                            className={`grid grid-cols-[1fr_auto_auto] sm:grid-cols-[1fr_80px_100px_48px] gap-2 items-center rounded-xl px-2 py-2 transition-colors ${set.completed ? "bg-primary/10" : "bg-muted/50"}`}
+                                        >
+                                            <span className="text-sm font-bold text-card-foreground pl-1">Série {setIdx + 1}</span>
+
+                                            <div className="flex items-center justify-center gap-1">
+                                                <button
+                                                    className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
+                                                    onClick={() => onUpdateSet(exIdx, setIdx, "reps", set.reps - 1)}
+                                                >
+                                                    <MinusCircleBold size={12} color="currentColor" />
+                                                </button>
+                                                <span className="text-sm font-bold text-card-foreground w-6 text-center tabular-nums">{set.reps}</span>
+                                                <button
+                                                    className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
+                                                    onClick={() => onUpdateSet(exIdx, setIdx, "reps", set.reps + 1)}
+                                                >
+                                                    <AddCircleBold size={12} color="currentColor" />
+                                                </button>
+                                            </div>
+
+                                            <div className="flex items-center justify-center gap-1">
+                                                <button
+                                                    className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
+                                                    onClick={() => onUpdateSet(exIdx, setIdx, "weight_kg", Math.max(0, +(set.weight_kg - 0.5).toFixed(1)))}
+                                                >
+                                                    <MinusCircleBold size={12} color="currentColor" />
+                                                </button>
+                                                <input
+                                                    type="number"
+                                                    step="0.5"
+                                                    value={set.weight_kg}
+                                                    onChange={(e) => onUpdateSet(exIdx, setIdx, "weight_kg", Number(e.target.value))}
+                                                    className="w-12 text-center text-sm font-bold text-primary bg-background rounded-lg py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                />
+                                                <button
+                                                    className="h-7 w-7 rounded-lg bg-background flex items-center justify-center text-muted-foreground hover:text-foreground"
+                                                    onClick={() => onUpdateSet(exIdx, setIdx, "weight_kg", +(set.weight_kg + 0.5).toFixed(1))}
+                                                >
+                                                    <AddCircleBold size={12} color="currentColor" />
+                                                </button>
+                                            </div>
+
+                                            <button
+                                                className={`h-9 w-9 rounded-xl flex items-center justify-center mx-auto transition-colors ${set.completed
+                                                        ? "bg-primary text-card"
+                                                        : "bg-background text-muted-foreground hover:text-foreground"
+                                                    }`}
+                                                onClick={() => onToggleSetComplete(exIdx, setIdx)}
+                                            >
+                                                <CheckCircleBold size={16} color="currentColor" />
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </section>
                     );
                 })}
