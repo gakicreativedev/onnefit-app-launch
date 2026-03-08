@@ -178,15 +178,27 @@ export default function AdminWorkoutsPage() {
       animate="show"
       variants={{ show: { transition: { staggerChildren: 0.08 } } }}
     >
-      <motion.div variants={fadeUp} className="flex items-center justify-between">
+      <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-black text-foreground">Treinos</h1>
           <p className="text-sm text-muted-foreground">{workouts.length} treino(s) na base de dados</p>
         </div>
-        <Button onClick={openCreate} className="rounded-xl gap-2">
-          <AddCircleBold size={18} color="currentColor" />
-          Novo Treino
-        </Button>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar treino..." className="rounded-2xl bg-muted/50 border-0 h-9 text-sm flex-1 sm:w-40" />
+          <Select value={diffFilter} onValueChange={setDiffFilter}>
+            <SelectTrigger className="w-[130px] h-9 rounded-2xl text-sm"><SelectValue placeholder="Dificuldade" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todas</SelectItem>
+              <SelectItem value="beginner">Iniciante</SelectItem>
+              <SelectItem value="intermediate">Intermediário</SelectItem>
+              <SelectItem value="advanced">Avançado</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button onClick={openCreate} className="rounded-xl gap-2 shrink-0">
+            <AddCircleBold size={18} color="currentColor" />
+            Novo
+          </Button>
+        </div>
       </motion.div>
 
       <motion.div variants={fadeUp} className="flex flex-col gap-2">
@@ -194,10 +206,10 @@ export default function AdminWorkoutsPage() {
           <div className="flex justify-center py-12">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
           </div>
-        ) : workouts.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center gap-4 py-16 text-muted-foreground">
             <DumbbellBold size={48} color="currentColor" />
-            <p className="text-base font-semibold">Nenhum treino cadastrado</p>
+            <p className="text-base font-semibold">Nenhum treino encontrado</p>
           </div>
         ) : (
           workouts.map((w) => (
