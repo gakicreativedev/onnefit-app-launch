@@ -18,6 +18,7 @@ import {
   X,
   Sparkles,
   Crown,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FitSoulLogo } from "@/components/FitSoulLogo";
