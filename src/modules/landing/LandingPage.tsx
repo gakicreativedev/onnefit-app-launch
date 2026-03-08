@@ -423,6 +423,7 @@ function BenefitsSection() {
             );
           })}
         </motion.div>
+        <InlineCTA />
       </div>
     </section>
   );
