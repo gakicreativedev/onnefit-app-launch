@@ -8,13 +8,13 @@ import {
   Flame,
   ArrowRight,
   ChevronDown,
-  Globe,
   Zap,
   BarChart3,
   Calendar,
   Users,
   Star,
   Quote,
+  Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FitSoulLogo } from "@/components/FitSoulLogo";
@@ -22,6 +22,7 @@ import screenshotDashboard from "@/assets/screenshot-dashboard.png";
 import screenshotWorkouts from "@/assets/screenshot-workouts.png";
 import screenshotProgress from "@/assets/screenshot-progress.png";
 
+/* ── Animations ── */
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number = 0) => ({
@@ -35,6 +36,16 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { delay: i * 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  }),
+};
+
+/* ── Language Switcher ── */
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const langs = [
@@ -43,14 +54,14 @@ function LanguageSwitcher() {
     { code: "es", label: "ES" },
   ];
   return (
-    <div className="flex items-center gap-1 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm px-1 py-0.5">
+    <div className="flex items-center gap-0.5 rounded-full border border-border/40 bg-background/60 backdrop-blur-md px-1 py-0.5">
       {langs.map((l) => (
         <button
           key={l.code}
           onClick={() => i18n.changeLanguage(l.code)}
-          className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
+          className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
             i18n.language?.startsWith(l.code)
-              ? "bg-primary text-primary-foreground"
+              ? "bg-primary text-primary-foreground shadow-sm"
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
@@ -61,6 +72,7 @@ function LanguageSwitcher() {
   );
 }
 
+/* ── Navbar ── */
 function Navbar() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -68,22 +80,22 @@ function Navbar() {
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="fixed top-0 left-0 right-0 z-50 border-b border-border/30 bg-background/80 backdrop-blur-xl"
+      transition={{ duration: 0.5 }}
+      className="fixed top-0 left-0 right-0 z-50 border-b border-border/20 bg-background/70 backdrop-blur-2xl"
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 md:py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <div className="flex items-center gap-2.5">
           <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
             <FitSoulLogo className="w-5 h-5" color="hsl(var(--primary))" />
           </div>
-          <span className="text-lg font-bold tracking-tight">Onne Fit</span>
+          <span className="text-lg font-bold tracking-tight text-foreground">Onne Fit</span>
         </div>
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
           <Button
             size="sm"
             onClick={() => navigate("/auth")}
-            className="rounded-full px-5 font-medium"
+            className="rounded-full px-5 font-medium shadow-md"
           >
             {t("landing.nav.login")}
           </Button>
@@ -93,20 +105,30 @@ function Navbar() {
   );
 }
 
+/* ── Hero Section ── */
 function HeroSection() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   return (
-    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20 pb-16 px-5">
-      {/* Background effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-16 pb-16">
+      {/* Background image with overlay */}
+      <div className="absolute inset-0">
+        <img
+          src="/images/hero-gym.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-background/85 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
-      <div className="relative max-w-3xl mx-auto text-center">
+      {/* Glow accent */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-primary/8 blur-[150px] pointer-events-none" />
+
+      <div className="relative max-w-4xl mx-auto text-center px-5">
         <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0}>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 text-xs font-medium text-primary mb-8">
-            <Zap className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary mb-8">
+            <Zap className="w-3.5 h-3.5" />
             {t("landing.hero.tagline")}
           </span>
         </motion.div>
@@ -115,7 +137,7 @@ function HeroSection() {
           initial="hidden"
           animate="visible"
           custom={1}
-          className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] mb-6"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.95] mb-7"
         >
           {t("landing.hero.headline")}
         </motion.h1>
@@ -124,7 +146,7 @@ function HeroSection() {
           initial="hidden"
           animate="visible"
           custom={2}
-          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
         >
           {t("landing.hero.subheadline")}
         </motion.p>
@@ -133,12 +155,11 @@ function HeroSection() {
           initial="hidden"
           animate="visible"
           custom={3}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button
             size="lg"
             onClick={() => navigate("/auth")}
-            className="rounded-full px-8 py-6 text-base font-semibold glow-primary group"
+            className="rounded-full px-10 py-7 text-base font-semibold glow-primary group shadow-2xl"
           >
             {t("landing.hero.cta")}
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -148,28 +169,30 @@ function HeroSection() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          custom={4}
-          className="mt-16 flex justify-center"
+          custom={5}
+          className="mt-20 flex justify-center"
         >
-          <ChevronDown className="w-5 h-5 text-muted-foreground/40 animate-bounce" />
+          <ChevronDown className="w-5 h-5 text-muted-foreground/30 animate-bounce" />
         </motion.div>
       </div>
     </section>
   );
 }
 
+/* ── Problem Section ── */
 function ProblemSection() {
   const { t } = useTranslation();
   return (
-    <section className="py-24 md:py-32 px-5">
+    <section className="py-28 md:py-36 px-5 relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
       <div className="max-w-3xl mx-auto text-center">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           custom={0}
-          className="text-3xl md:text-5xl font-bold tracking-tight mb-8"
+          className="text-3xl md:text-5xl font-bold tracking-tight mb-10"
         >
           {t("landing.problem.title")}
         </motion.h2>
@@ -177,8 +200,8 @@ function ProblemSection() {
           variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed"
+          viewport={{ once: true, margin: "-80px" }}
+          className="space-y-5 text-muted-foreground text-base md:text-lg leading-relaxed"
         >
           {[0, 1, 2].map((i) => (
             <motion.p key={i} variants={fadeUp} custom={i + 1}>
@@ -192,7 +215,7 @@ function ProblemSection() {
           whileInView="visible"
           viewport={{ once: true }}
           custom={4}
-          className="mt-8 text-lg md:text-xl font-semibold text-foreground"
+          className="mt-10 text-lg md:text-2xl font-semibold text-primary"
         >
           {t("landing.problem.conclusion")}
         </motion.p>
@@ -201,21 +224,22 @@ function ProblemSection() {
   );
 }
 
+/* ── Solution Section ── */
 function SolutionSection() {
   const { t } = useTranslation();
   return (
-    <section className="py-24 md:py-32 px-5 relative">
+    <section className="py-28 md:py-36 px-5 relative">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/4 blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/4 blur-[180px]" />
       </div>
       <div className="relative max-w-3xl mx-auto text-center">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           custom={0}
-          className="text-3xl md:text-5xl font-bold tracking-tight mb-6"
+          className="text-3xl md:text-5xl font-bold tracking-tight mb-8"
         >
           {t("landing.solution.title")}
         </motion.h2>
@@ -235,84 +259,101 @@ function SolutionSection() {
           whileInView="visible"
           viewport={{ once: true }}
           custom={2}
-          className="text-muted-foreground text-base md:text-lg leading-relaxed mb-10"
+          className="text-muted-foreground text-base md:text-lg leading-relaxed mb-12"
         >
           {t("landing.solution.p2")}
         </motion.p>
-        <motion.p
+        <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           custom={3}
-          className="text-xl md:text-2xl font-bold tracking-wide text-primary"
+          className="inline-flex items-center gap-3 rounded-2xl bg-card border border-border/50 px-8 py-4"
         >
-          {t("landing.solution.pillars")}
-        </motion.p>
-      </div>
-    </section>
-  );
-}
-
-const featureIcons = [Dumbbell, BarChart3, Flame, Target];
-
-function FeaturesSection() {
-  const { t } = useTranslation();
-  const features = [0, 1, 2, 3];
-  return (
-    <section className="py-24 md:py-32 px-5">
-      <div className="max-w-5xl mx-auto">
-        <motion.h2
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold tracking-tight text-center mb-16"
-        >
-          {t("landing.features.title")}
-        </motion.h2>
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-5"
-        >
-          {features.map((i) => {
-            const Icon = featureIcons[i];
-            return (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                custom={i}
-                className="group relative rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm p-7 md:p-8 hover:border-primary/30 transition-all duration-300"
-              >
-                <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 transition-colors">
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">
-                  {t(`landing.features.f${i}.title`)}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t(`landing.features.f${i}.desc`)}
-                </p>
-              </motion.div>
-            );
-          })}
+          <span className="text-xl md:text-2xl font-bold tracking-wide text-primary">
+            {t("landing.solution.pillars")}
+          </span>
         </motion.div>
       </div>
     </section>
   );
 }
 
+/* ── Features Section (with images) ── */
+const featureImages = [
+  "/images/feature-workout.jpg",
+  "/images/feature-progress.jpg",
+  "/images/feature-habits.jpg",
+  "/images/feature-goals.jpg",
+];
+const featureIcons = [Dumbbell, BarChart3, Flame, Target];
+
+function FeaturesSection() {
+  const { t } = useTranslation();
+  return (
+    <section className="py-28 md:py-36 px-5">
+      <div className="max-w-6xl mx-auto">
+        <motion.h2
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="text-3xl md:text-5xl font-bold tracking-tight text-center mb-20"
+        >
+          {t("landing.features.title")}
+        </motion.h2>
+        <div className="space-y-8 md:space-y-6">
+          {[0, 1, 2, 3].map((i) => {
+            const Icon = featureIcons[i];
+            const isReversed = i % 2 === 1;
+            return (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                custom={0}
+                className={`group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center rounded-3xl border border-border/30 bg-card/40 backdrop-blur-sm overflow-hidden hover:border-primary/20 transition-all duration-500`}
+              >
+                <div className={`p-8 md:p-12 ${isReversed ? "md:order-2" : ""}`}>
+                  <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/15 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-300">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">
+                    {t(`landing.features.f${i}.title`)}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {t(`landing.features.f${i}.desc`)}
+                  </p>
+                </div>
+                <div className={`relative h-64 md:h-80 overflow-hidden ${isReversed ? "md:order-1" : ""}`}>
+                  <img
+                    src={featureImages[i]}
+                    alt={t(`landing.features.f${i}.title`)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent md:bg-gradient-to-r md:from-card/60 md:via-transparent md:to-transparent" />
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Benefits Section ── */
 function BenefitsSection() {
   const { t } = useTranslation();
-  const benefits = [0, 1, 2];
   const icons = [Calendar, TrendingUp, Users];
   return (
-    <section className="py-24 md:py-32 px-5 relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="py-28 md:py-36 px-5 relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
+      <div className="max-w-5xl mx-auto text-center">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
@@ -328,7 +369,7 @@ function BenefitsSection() {
           whileInView="visible"
           viewport={{ once: true }}
           custom={1}
-          className="text-muted-foreground text-base md:text-lg mb-16 max-w-xl mx-auto"
+          className="text-muted-foreground text-base md:text-lg mb-20 max-w-xl mx-auto"
         >
           {t("landing.benefits.subtitle")}
         </motion.p>
@@ -337,16 +378,21 @@ function BenefitsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          {benefits.map((i) => {
+          {[0, 1, 2].map((i) => {
             const Icon = icons[i];
             return (
-              <motion.div key={i} variants={fadeUp} custom={i} className="flex flex-col items-center gap-4">
-                <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-primary" />
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                custom={i}
+                className="group flex flex-col items-center gap-5 p-8 rounded-3xl border border-border/30 bg-card/30 hover:bg-card/60 hover:border-primary/20 transition-all duration-300"
+              >
+                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-300">
+                  <Icon className="w-7 h-7 text-primary" />
                 </div>
-                <h3 className="text-base font-semibold">{t(`landing.benefits.b${i}.title`)}</h3>
+                <h3 className="text-lg font-bold">{t(`landing.benefits.b${i}.title`)}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{t(`landing.benefits.b${i}.desc`)}</p>
               </motion.div>
             );
@@ -357,18 +403,22 @@ function BenefitsSection() {
   );
 }
 
+/* ── Product Section (app screenshots) ── */
 function ProductSection() {
   const { t } = useTranslation();
   const screenshots = [screenshotDashboard, screenshotWorkouts, screenshotProgress];
   return (
-    <section className="py-24 md:py-32 px-5">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-28 md:py-36 px-5 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-primary/5 blur-[180px]" />
+      </div>
+      <div className="relative max-w-6xl mx-auto">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold tracking-tight text-center mb-16"
+          className="text-3xl md:text-5xl font-bold tracking-tight text-center mb-20"
         >
           {t("landing.product.title")}
         </motion.h2>
@@ -377,14 +427,14 @@ function ProductSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 items-end"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-end"
         >
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              variants={fadeUp}
+              variants={scaleIn}
               custom={i}
-              className={`relative rounded-2xl border border-border/30 bg-card/30 overflow-hidden ${i === 1 ? "md:-mt-8" : ""}`}
+              className={`relative rounded-2xl border border-border/30 bg-card/50 overflow-hidden shadow-2xl shadow-background/50 ${i === 1 ? "md:-mt-10" : ""}`}
             >
               <img
                 src={screenshots[i]}
@@ -392,8 +442,8 @@ function ProductSection() {
                 className="w-full h-auto object-cover"
                 loading="lazy"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 to-transparent p-5 pt-12">
-                <p className="text-sm font-medium text-foreground">{t(`landing.product.s${i}`)}</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background via-background/60 to-transparent p-5 pt-14">
+                <p className="text-sm font-semibold text-foreground">{t(`landing.product.s${i}`)}</p>
               </div>
             </motion.div>
           ))}
@@ -403,12 +453,23 @@ function ProductSection() {
   );
 }
 
+/* ── Philosophy Section (with background image) ── */
 function PhilosophySection() {
   const { t } = useTranslation();
   return (
-    <section className="py-24 md:py-40 px-5 relative">
+    <section className="relative py-32 md:py-48 px-5 overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src="/images/philosophy.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+      </div>
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/6 blur-[120px]" />
       </div>
       <div className="relative max-w-2xl mx-auto text-center">
         <motion.h2
@@ -416,7 +477,7 @@ function PhilosophySection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-8"
+          className="text-3xl md:text-6xl font-bold tracking-tighter leading-tight mb-8"
         >
           {t("landing.philosophy.headline1")}
           <br />
@@ -428,7 +489,7 @@ function PhilosophySection() {
           whileInView="visible"
           viewport={{ once: true }}
           custom={1}
-          className="text-muted-foreground text-base md:text-lg leading-relaxed"
+          className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-lg mx-auto"
         >
           {t("landing.philosophy.body")}
         </motion.p>
@@ -437,18 +498,23 @@ function PhilosophySection() {
   );
 }
 
+/* ── Social Proof Section ── */
 function SocialProofSection() {
   const { t } = useTranslation();
-  const testimonials = [0, 1, 2];
+  const avatars = [
+    "/images/testimonial-1.jpg",
+    "/images/testimonial-2.jpg",
+    "/images/testimonial-3.jpg",
+  ];
   return (
-    <section className="py-24 md:py-32 px-5">
+    <section className="py-28 md:py-36 px-5">
       <div className="max-w-5xl mx-auto">
         <motion.h2
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold tracking-tight text-center mb-16"
+          className="text-3xl md:text-5xl font-bold tracking-tight text-center mb-20"
         >
           {t("landing.social.title")}
         </motion.h2>
@@ -457,29 +523,32 @@ function SocialProofSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          {testimonials.map((i) => (
+          {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
               variants={fadeUp}
               custom={i}
-              className="rounded-2xl border border-border/40 bg-card/50 p-6 md:p-7"
+              className="rounded-3xl border border-border/30 bg-card/40 p-7 md:p-8 hover:bg-card/60 hover:border-primary/20 transition-all duration-300"
             >
-              <Quote className="w-5 h-5 text-primary/40 mb-4" />
-              <p className="text-sm text-muted-foreground leading-relaxed mb-5 italic">
+              <Quote className="w-5 h-5 text-primary/30 mb-5" />
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6 italic">
                 "{t(`landing.social.t${i}.quote`)}"
               </p>
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
-                  {t(`landing.social.t${i}.name`).charAt(0)}
-                </div>
+                <img
+                  src={avatars[i]}
+                  alt={t(`landing.social.t${i}.name`)}
+                  className="h-10 w-10 rounded-full object-cover border-2 border-border/50"
+                  loading="lazy"
+                />
                 <div>
-                  <p className="text-sm font-medium">{t(`landing.social.t${i}.name`)}</p>
+                  <p className="text-sm font-semibold">{t(`landing.social.t${i}.name`)}</p>
                   <p className="text-xs text-muted-foreground">{t(`landing.social.t${i}.role`)}</p>
                 </div>
               </div>
-              <div className="flex gap-0.5 mt-4">
+              <div className="flex gap-0.5 mt-5">
                 {[...Array(5)].map((_, s) => (
                   <Star key={s} className="w-3.5 h-3.5 fill-primary text-primary" />
                 ))}
@@ -492,13 +561,23 @@ function SocialProofSection() {
   );
 }
 
+/* ── Final CTA Section ── */
 function FinalCTASection() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   return (
-    <section className="py-24 md:py-40 px-5 relative">
+    <section className="relative py-32 md:py-44 px-5 overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src="/images/cta-bg.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-background/90" />
+      </div>
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-primary/6 blur-[150px]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-primary/8 blur-[160px]" />
       </div>
       <div className="relative max-w-2xl mx-auto text-center">
         <motion.h2
@@ -506,7 +585,7 @@ function FinalCTASection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold tracking-tight mb-6"
+          className="text-3xl md:text-6xl font-bold tracking-tighter mb-8"
         >
           {t("landing.cta.headline")}
         </motion.h2>
@@ -516,9 +595,12 @@ function FinalCTASection() {
           whileInView="visible"
           viewport={{ once: true }}
           custom={1}
-          className="mb-10"
+          className="mb-12"
         >
-          <p className="text-xl font-bold mb-1">Onne Fit</p>
+          <div className="inline-flex items-center gap-2.5 mb-2">
+            <FitSoulLogo className="w-5 h-5" color="hsl(var(--primary))" />
+            <p className="text-xl font-bold">Onne Fit</p>
+          </div>
           <p className="text-muted-foreground text-sm">{t("landing.hero.tagline")}</p>
         </motion.div>
         <motion.div
@@ -531,7 +613,7 @@ function FinalCTASection() {
           <Button
             size="lg"
             onClick={() => navigate("/auth")}
-            className="rounded-full px-10 py-6 text-base font-semibold glow-primary group"
+            className="rounded-full px-12 py-7 text-base font-semibold glow-primary group shadow-2xl"
           >
             {t("landing.cta.button")}
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -542,14 +624,15 @@ function FinalCTASection() {
   );
 }
 
+/* ── Footer ── */
 function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="border-t border-border/30 py-8 px-5">
+    <footer className="border-t border-border/20 py-10 px-5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <FitSoulLogo className="w-4 h-4" color="hsl(var(--primary))" />
-          <span className="text-sm font-semibold">Onne Fit</span>
+          <span className="text-sm font-bold">Onne Fit</span>
         </div>
         <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} Onne Fit. {t("landing.footer.rights")}
@@ -559,6 +642,7 @@ function Footer() {
   );
 }
 
+/* ── Main ── */
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
