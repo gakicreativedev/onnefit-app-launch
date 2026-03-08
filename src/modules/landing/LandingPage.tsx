@@ -593,7 +593,7 @@ function FAQSection() {
         </motion.div>
 
         <motion.div
-          variants={staggerContainer}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
