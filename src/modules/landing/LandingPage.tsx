@@ -657,8 +657,16 @@ function PricingSection() {
       icon: Zap,
       price: { brl: "0", usd: "0" },
       popular: false,
-      features: ["f0", "f1", "f2", "f3", "f4"],
-      excluded: ["x0", "x1", "x2"],
+      features: ["f0", "f1", "f2", "f3"],
+      excluded: ["x0", "x1", "x2", "x3"],
+    },
+    {
+      key: "essential",
+      icon: Heart,
+      price: { brl: "19,90", usd: "3.90" },
+      popular: false,
+      features: ["f0", "f1", "f2", "f3", "f4", "f9"],
+      excluded: ["x1", "x2"],
     },
     {
       key: "pro",
@@ -666,7 +674,7 @@ function PricingSection() {
       price: { brl: "29,90", usd: "9.90" },
       popular: true,
       features: ["f0", "f1", "f2", "f3", "f4", "f5", "f6"],
-      excluded: ["x0"],
+      excluded: ["x2"],
     },
     {
       key: "premium",
