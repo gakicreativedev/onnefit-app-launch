@@ -714,7 +714,7 @@ function PricingSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-5 items-start"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-4 items-start"
         >
           {plans.map((plan, idx) => {
             const Icon = plan.icon;
