@@ -540,6 +540,11 @@
           "desc": "Everything you need to get started.",
           "cta": "Get Started"
         },
+        "essential": {
+          "name": "Essential",
+          "desc": "Limited AI and full tracking at an affordable price.",
+          "cta": "Start Essential"
+        },
         "pro": {
           "name": "Pro",
           "desc": "Unlock AI-powered coaching and advanced tracking.",
@@ -556,16 +561,18 @@
         "f1": "Progress charts & measurements",
         "f2": "Daily streaks & XP system",
         "f3": "Social feed & community",
-        "f4": "Up to 3 goals",
+        "f4": "Up to 5 goals",
         "f5": "AI-powered workout & diet plans",
         "f6": "Unlimited goals & analytics",
         "f7": "Unlimited AI coaching",
-        "f8": "Priority support & early access"
+        "f8": "Priority support & early access",
+        "f9": "15 AI queries per month"
       },
       "excluded": {
-        "x0": "Unlimited AI coaching",
-        "x1": "AI-powered plans",
-        "x2": "Advanced analytics"
+        "x0": "AI queries",
+        "x1": "Advanced analytics",
+        "x2": "Priority support",
+        "x3": "AI-powered plans"
       }
     },
     "footer": { "rights": "All rights reserved." }
