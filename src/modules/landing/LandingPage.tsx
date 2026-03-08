@@ -660,8 +660,8 @@ function PricingSection() {
       icon: Zap,
       price: { brl: 0, usd: 0 },
       popular: false,
-      features: ["f0", "f1", "f2", "f3"],
-      excluded: ["x0", "x1", "x2", "x3"],
+      features: ["f0", "f1", "f2", "f3", "f10", "f11", "f12"],
+      excluded: ["x2"],
     },
     {
       key: "essential",
