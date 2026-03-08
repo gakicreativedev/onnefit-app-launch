@@ -189,6 +189,7 @@ export default function DietAIPage() {
               <h1 className="text-2xl font-black" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>DietAI</h1>
               <p className="text-xs text-muted-foreground">Seu nutricionista inteligente</p>
               <AIUsageBadge />
+            </div>
           </div>
           {messages.length > 0 && (
             <Button variant="ghost" size="sm" onClick={clear} className="text-muted-foreground">

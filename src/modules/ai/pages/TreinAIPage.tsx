@@ -379,6 +379,7 @@ export default function TreinAIPage() {
               <h1 className="text-2xl font-black" style={{ fontFamily: "'Zalando Sans Expanded', sans-serif" }}>TreinAI</h1>
               <p className="text-xs text-muted-foreground">Seu personal trainer inteligente</p>
               <AIUsageBadge />
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={() => setCreateDialog(true)} className="rounded-xl text-primary border-primary/30 hover:bg-primary hover:text-primary-foreground">
