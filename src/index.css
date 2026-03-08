@@ -293,7 +293,25 @@ html {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(8px); transform: scale(0.97); }
+  to { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
 .animate-float { animation: float 4s ease-in-out infinite; }
 .animate-shimmer { animation: shimmer 2s linear infinite; background-size: 200% 100%; }
 .animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+.animate-blur-in { animation: blur-in 0.4s ease-out forwards; }
+.animate-slide-up { animation: slide-up-fade 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.animate-gentle-bounce { animation: gentle-bounce 2s ease-in-out infinite; }
