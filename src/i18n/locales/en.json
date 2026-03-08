@@ -532,6 +532,9 @@
       "title": "Simple, transparent pricing",
       "subtitle": "Start free. Upgrade when you're ready to unlock your full potential.",
       "popular": "Most Popular",
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "billedAnnually": "Billed annually",
       "month": "month",
       "note": "All prices in USD. Cancel anytime. No hidden fees.",
       "plans": {
