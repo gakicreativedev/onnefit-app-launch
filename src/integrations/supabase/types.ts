@@ -1556,6 +1556,21 @@ export type Database = {
         }
         Relationships: []
       }
+      xp_values: {
+        Row: {
+          amount: number
+          source: string
+        }
+        Insert: {
+          amount: number
+          source: string
+        }
+        Update: {
+          amount?: number
+          source?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       public_profiles: {
@@ -1594,8 +1609,13 @@ export type Database = {
         Args: { user_a: string; user_b: string }
         Returns: boolean
       }
+      award_xp: {
+        Args: { p_description?: string; p_source: string }
+        Returns: undefined
+      }
       check_ai_limit: { Args: { _user_id: string }; Returns: Json }
       has_role: { Args: { _role: string; _user_id: string }; Returns: boolean }
+      is_female: { Args: { _user_id: string }; Returns: boolean }
       is_group_member: {
         Args: { _group_id: string; _user_id: string }
         Returns: boolean
