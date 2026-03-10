@@ -56,12 +56,9 @@ export function useXP(userId: string | undefined) {
 
   const awardXP = useCallback(async (source: string, description?: string) => {
     if (!userId) return;
-    const amount = XP_VALUES[source] || 10;
-    await supabase.from("user_xp").insert({
-      user_id: userId,
-      amount,
-      source,
-      description: description || source,
+    await supabase.rpc("award_xp", {
+      p_source: source,
+      p_description: description || source,
     });
     await fetchXP();
   }, [userId, fetchXP]);
